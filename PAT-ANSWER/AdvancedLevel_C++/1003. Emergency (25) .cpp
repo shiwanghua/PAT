@@ -31,11 +31,12 @@ int main() {
         visit[u] = true;
         for(int v = 0; v < n; v++) {
             if(visit[v] == false && e[u][v] != inf) {
-                if(dis[u] + e[u][v] < dis[v]) {
+                if(dis[u] + e[u][v] < dis[v]) {     
                     dis[v] = dis[u] + e[u][v];
                     num[v] = num[u];
                     w[v] = w[u] + weight[v];
-                } else if(dis[u] + e[u][v] == dis[v]) {
+                } 
+                else if(dis[u] + e[u][v] == dis[v]) {
                     num[v] = num[v] + num[u];
                     if(w[u] + weight[v] > w[v])
                         w[v] = w[u] + weight[v];

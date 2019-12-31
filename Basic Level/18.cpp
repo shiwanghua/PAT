@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-int cmp(char a,char b)  //  输出1代表a大于b，输出-1代表a<b
+int cmp(char a,char b)  //  输出1代表a大于b，输出-1代表a<b   C锤子 J剪刀 B布   bcdefghij
 {
     if(a==b) return 0;
     else if(a-b<0&&b-a!=8 || a-b==8) return 1;
@@ -39,7 +39,7 @@ int main()
 
     if(jia_b_win>=jia_c_win && jia_b_win>=jia_j_win )
     cout<<"B ";
-    else if(jia_c_win>jia_b_win && jia_c_win>=jia_j_win)
+    else if(jia_c_win>=jia_b_win && jia_c_win>=jia_j_win)
     cout<<"C ";
     else cout<<"J ";
 

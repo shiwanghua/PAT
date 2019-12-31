@@ -24,7 +24,61 @@
     <ClCompile Include="Basic\14.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="15.cpp">
+    <ClCompile Include="Advanced\1001.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\1002.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\1003.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B1026.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B46.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A42.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A46.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A65.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A09.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B41.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B28.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B32.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A11.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A06.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A36.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B36.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B27.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A31.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B37.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

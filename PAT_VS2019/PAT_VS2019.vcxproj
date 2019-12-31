@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,9 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="15.cpp" />
+    <ClCompile Include="Advanced\1001.cpp" />
+    <ClCompile Include="Advanced\1002.cpp" />
+    <ClCompile Include="Advanced\1003.cpp" />
+    <ClCompile Include="Advanced\A06.cpp" />
+    <ClCompile Include="Advanced\A09.cpp" />
+    <ClCompile Include="Advanced\A11.cpp" />
+    <ClCompile Include="Advanced\A31.cpp" />
+    <ClCompile Include="Advanced\A36.cpp" />
+    <ClCompile Include="Advanced\A42.cpp" />
+    <ClCompile Include="Advanced\A46.cpp" />
+    <ClCompile Include="Advanced\A65.cpp" />
     <ClCompile Include="Basic\13.cpp" />
     <ClCompile Include="Basic\14.cpp" />
+    <ClCompile Include="Basic\B1026.cpp" />
+    <ClCompile Include="Basic\B27.cpp" />
+    <ClCompile Include="Basic\B28.cpp" />
+    <ClCompile Include="Basic\B32.cpp" />
+    <ClCompile Include="Basic\B36.cpp" />
+    <ClCompile Include="Basic\B37.cpp" />
+    <ClCompile Include="Basic\B41.cpp" />
+    <ClCompile Include="Basic\B46.cpp" />
     <ClCompile Include="Basic\test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -94,8 +112,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
