@@ -11,20 +11,20 @@
 //
 //using namespace std;
 //
-//int mainB32()
+//int mainb32()
 //{
-//	int n, s1, s2, maxI = 1, maxS = 0; cin >> n;
+//	int n, s1, s2, maxi = 1, maxs = 0; cin >> n;
 //	int a[100001] = { 0 };   //   本来是100000，导致最后一个用例通不过
 //	while (n--)
 //	{
 //		cin >> s1 >> s2;
 //		a[s1] += s2;
-//		if (maxS < a[s1])
+//		if (maxs < a[s1])
 //		{
-//			maxI = s1;
-//			maxS = a[s1];
+//			maxi = s1;
+//			maxs = a[s1];
 //		}
 //	}
-//	cout << maxI << " " << maxS;
+//	cout << maxi << " " << maxs;
 //	return 0;
 //}

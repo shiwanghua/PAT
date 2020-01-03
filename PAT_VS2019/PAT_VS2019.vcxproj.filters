@@ -81,5 +81,17 @@
     <ClCompile Include="Basic\B37.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Advanced\A19.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A27.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A58.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B31.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

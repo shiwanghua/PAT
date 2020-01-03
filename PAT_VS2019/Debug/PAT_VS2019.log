@@ -1,27 +1,2 @@
-﻿  1001.cpp
-  1002.cpp
-  1003.cpp
-  A06.cpp
-  A09.cpp
-  A11.cpp
-  A31.cpp
-  A36.cpp
-  A42.cpp
-  A46.cpp
-  A65.cpp
-  13.cpp
-  14.cpp
-  B1026.cpp
-  B27.cpp
-D:\codes\c++\PAT\PAT_VS2019\Basic\B27.cpp(10,8): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-  B28.cpp
-  B32.cpp
-  B36.cpp
-  B37.cpp
-  B41.cpp
-  正在生成代码...
-  正在编译...
-  B46.cpp
-  test.cpp
-  正在生成代码...
+﻿  B31.cpp
   PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\Debug\PAT_VS2019.exe
