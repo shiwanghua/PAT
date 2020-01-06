@@ -31,7 +31,7 @@
 //	day = in[0].at(day) - 'A';
 //	if (in[0].at(hour) - '0' < 10)
 //		hour = in[0].at(hour) - '0';
-//	else hour = 10 + in[0].at(hour) - 'A';
+//	else hour = 10 + in[0][hour] - 'A';
 //
 //	while (in[2].at(minute) != in[3].at(minute) ||  in[2].at(minute) - 'A' < 0 || (in[2].at(minute) - 'A'>25 && in[2].at(minute)-'a'<0)|| in[2].at(minute)-'a'>25)
 //	{

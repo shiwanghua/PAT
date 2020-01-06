@@ -14,7 +14,7 @@ int main()
     if(s[0]=='-')cout<<"-";
     bool ep=0;
     int e_symbol=4;
-    for(;e_symbol<s.length();e_symbol++)
+    for(;e_symbol<(int)s.length();e_symbol++)
     if(s[e_symbol]=='+') 
     {
         ep=1;

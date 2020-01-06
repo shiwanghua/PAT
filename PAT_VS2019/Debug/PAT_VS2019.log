@@ -1,2 +1,5 @@
-﻿  B31.cpp
+﻿  A82.cpp
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A82.cpp(175,23): warning C4551: 缺少参数列表的函数调用
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A82.cpp(70): warning C4715: “Three”: 不是所有的控件路径都返回值
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A82.cpp(87): warning C4715: “Four”: 不是所有的控件路径都返回值
   PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\Debug\PAT_VS2019.exe

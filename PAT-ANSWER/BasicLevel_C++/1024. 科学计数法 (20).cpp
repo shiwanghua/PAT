@@ -6,7 +6,7 @@ int main() {
     int i = 0;
     while (s[i] != 'E') i++;
     string t = s.substr(1, i-1);
-    int n = stoi(s.substr(i+1));
+    int n = stoi(s.substr(i+1)); //  可以为负数
     if (s[0] == '-') cout << "-";
     if (n < 0) {
         cout << "0.";
