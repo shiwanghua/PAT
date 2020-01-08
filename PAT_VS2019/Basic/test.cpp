@@ -4,21 +4,24 @@
 //#include <iomanip>
 //#include <vector>
 //#include<sstream>
+//#include<algorithm>
 //
 //#define _for(a,b) for( int i=(a); i<(b); ++i)
 //#define __for(i,a,b) for( int i=(a); i<=(b); ++i)
 //
 //using namespace std;
 //
+//bool com(int a, int b)
+//{
+//	return a >b;
+//}
 //int main()
 //{
-//	char s[10];
-//	gets_s(s);
-//	return 0;
-//}
-
 //
-//    cout << "type: \t\t\t" << "************size**************" << endl;
+//	string s; s.resize(8);
+//	scanf("%s", &s[0]);
+//	cout << s << "123";
+//	/*cout << "type: \t\t\t" << "************size**************" << endl;
 //	cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	cout << "最大值：" << (numeric_limits<short>::max)();
 //	cout << "\t\t最小值：" << (numeric_limits<short>::min)() << endl;
@@ -48,4 +51,9 @@
 //	cout << "\t最小值：" << (numeric_limits<long double>::min)() << endl;
 //	cout << "float: \t\t\t" << "字节数：" << sizeof(float) << endl;
 //	cout << "最大值：" << (numeric_limits<float>::max)();
-//	cout << "\t最小值：" << (numeric_limits<float>::min)() << endl;
+//	cout << "\t最小值：" << (numeric_limits<float>::min)() << endl;*/
+//	return 0;
+//}
+//
+//
+//   

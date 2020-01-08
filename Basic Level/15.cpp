@@ -73,9 +73,9 @@ void MergeSort(vector<int>& v, int l, int r)
 	{
 		int m = (l + r) / 2;
 		MergeSort(v, l, m);
-		cout << "m= " << m << endl;
+		// cout << "m= " << m << endl;
 		MergeSort(v, m + 1, r);
-		cout << "l= " << l << " m= " << m << "  r= " << r << endl;
+		// cout << "l= " << l << " m= " << m << "  r= " << r << endl;
 		Merge(v, l, m, r);
 	}
 	else if (l < r)
@@ -85,7 +85,7 @@ void MergeSort(vector<int>& v, int l, int r)
 		_for(i, l+1, r+1)
 		{
 			t = i;
-			while (compare(v[t], v[t - 1])&&t>l)
+			while (compare(v[t-1], v[t])&&t>l)  // Bus: compare的两个顺序反了
 			{
 				v[t] = v[t - 1] ^ v[t];
 				v[t - 1] = v[t - 1] ^ v[t];

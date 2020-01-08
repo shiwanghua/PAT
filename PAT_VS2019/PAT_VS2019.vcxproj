@@ -25,18 +25,54 @@
     <ClCompile Include="Advanced\A06.cpp" />
     <ClCompile Include="Advanced\A09.cpp" />
     <ClCompile Include="Advanced\A11.cpp" />
+    <ClCompile Include="Advanced\A12.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A16.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A19.cpp" />
+    <ClCompile Include="Advanced\A25.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A27.cpp" />
+    <ClCompile Include="Advanced\A28.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A31.cpp" />
     <ClCompile Include="Advanced\A35.cpp" />
     <ClCompile Include="Advanced\A36.cpp" />
     <ClCompile Include="Advanced\A42.cpp" />
     <ClCompile Include="Advanced\A46.cpp" />
     <ClCompile Include="Advanced\A5.cpp" />
+    <ClCompile Include="Advanced\A55.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A58.cpp" />
     <ClCompile Include="Advanced\A65.cpp" />
+    <ClCompile Include="Advanced\A75.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A77.cpp" />
+    <ClCompile Include="Advanced\A80.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A82.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A83.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A95.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -53,6 +89,10 @@
     <ClCompile Include="Basic\B41.cpp" />
     <ClCompile Include="Basic\B46.cpp" />
     <ClCompile Include="Basic\B48.cpp" />
+    <ClCompile Include="Basic\B95.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Basic\test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

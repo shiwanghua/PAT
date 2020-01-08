@@ -111,5 +111,35 @@
     <ClCompile Include="Advanced\A82.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Advanced\A12.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A25.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A28.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Basic\B95.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A55.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A75.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A83.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A80.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A95.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

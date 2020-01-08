@@ -25,7 +25,7 @@ int main() {
             total--;
         else if (temp.de >= high && temp.cai >= high)
             v[0].push_back(temp);
-        else if (temp.de >= high && temp.cai < high)
+        else if (temp.de >= high && temp.cai < high) // 一定>=low了
             v[1].push_back(temp);
         else if (temp.de < high && temp.cai < high && temp.de >= temp.cai)
             v[2].push_back(temp);
