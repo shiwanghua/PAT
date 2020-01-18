@@ -5,6 +5,8 @@
 //#include<algorithm>
 //
 //#define _for(a,b) for( int i=a; i<b; ++i)
+//#define _for(i,a,b) for( int i=a; i<b; ++i)
+
 //using namespace std;
 //
 //int main()

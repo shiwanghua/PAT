@@ -11,7 +11,7 @@
 //
 //using namespace std;
 //
-//int mainA3()
+//int main()
 //{
 //	const int inf = 999999999;
 //	int n, m,c1,c2;

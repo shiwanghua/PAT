@@ -31,11 +31,11 @@ int main() {
         int flag = 0;
         for(int i = 1; i <= n && sta[i].dis <= maxdis; i++) {
             if(sta[i].dis <= nowdis) continue;
-            if(sta[i].price < nowprice) {
+            if(sta[i].price < nowprice) {    //  目的地的价格是最低的
                 totalPrice += (sta[i].dis - nowdis - leftdis) * nowprice / davg;
                 leftdis = 0.0;
                 nowprice = sta[i].price;
-                nowdis = sta[i].dis;
+                nowdis = sta[i].dis; //  有可能等于d
                 flag = 1;
                 break;
             }
@@ -44,7 +44,7 @@ int main() {
                 minPriceDis = sta[i].dis;
             }
         }
-        if(flag == 0 && minPrice != inf) {
+        if(flag == 0 && minPrice != inf) {  //  for里已经检测了是否可以直接开到目的地
             totalPrice += (nowprice * (cmax - leftdis / davg));
             leftdis = cmax * davg - (minPriceDis - nowdis);
             nowprice = minPrice;

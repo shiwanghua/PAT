@@ -1,2 +1,3 @@
-﻿  test.cpp
+﻿  A101.cpp
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A101.cpp(39,2): warning C4018: “<”: 有符号/无符号不匹配
   PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\Debug\PAT_VS2019.exe
