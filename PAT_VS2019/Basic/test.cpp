@@ -17,10 +17,8 @@
 //}
 //int main()
 //{
-//	int a[7];
-//	_for(0, 7) a[i] = i * 10;
-//	swap(a[1], a[4]);
-//	_for(0, 7) cout << a[i] << " ";
+//	cout << 10 % (-5);
+//	return 0;
 //
 //	/*cout << "type: \t\t\t" << "************size**************" << endl;
 //	cout << "short: \t\t\t" << "×Ö½ÚÊý£º" << sizeof(short) << endl;

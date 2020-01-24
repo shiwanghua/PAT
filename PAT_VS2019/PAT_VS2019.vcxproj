@@ -32,8 +32,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A104.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A11.cpp" />
     <ClCompile Include="Advanced\A12.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A15.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -84,6 +92,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A49.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A5.cpp" />
     <ClCompile Include="Advanced\A50.cpp">
       <SubType>
@@ -99,12 +111,24 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A69.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A75.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Advanced\A77.cpp" />
+    <ClCompile Include="Advanced\A8.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A80.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A81.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -121,6 +145,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Advanced\A85.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A88.cpp">
       <SubType>
       </SubType>
     </ClCompile>

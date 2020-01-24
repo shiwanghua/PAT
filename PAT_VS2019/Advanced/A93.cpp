@@ -36,14 +36,15 @@
 //	}
 //	cout << num% 1000000007;
 //	return 0;
-//}#include<iostream>
+//}
+//#include<iostream>
 //#include<string>
 //#include <iomanip>
 //#include<algorithm>
 //
 //#define _for(a,b) for( int i=a; i<b; ++i)
 //using namespace std;
-//
+
 //int main()
 //{
 //	string s; cin >> s;
