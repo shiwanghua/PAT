@@ -16,7 +16,7 @@ int main() {
         if(n < 0) break;
         scanf("%d", &d);
         if(isprime(n) == false) {
-            printf("No\n");
+            printf("No\n"); 
             continue;
         }
         int len = 0, arr[100];

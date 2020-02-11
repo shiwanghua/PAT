@@ -16,7 +16,10 @@ struct lnode{
     int data;
     string next; 
     void print()
-        {cout<<address<<" "<<data<<" "<<next<<endl;}
+        {
+            //cout<<address<<" "<<data<<" "<<next<<endl;
+            printf("%s %d %s",address,data,next);
+        }
 };
 
 int find(lnode* ln, string f_add,int n)
