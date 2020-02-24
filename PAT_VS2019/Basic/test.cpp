@@ -10,17 +10,11 @@
 //#define __for(i,a,b) for( int i=(a); i<=(b); ++i)
 //
 //using namespace std;
-//
-//bool com(int a, int b)
-//{
-//	return a >b;
-//}
 //int main()
 //{	
-//	char a[100];
-//	scanf("%s", a);
-//	string b = a;
-//	cout << b;
+//	int a = 10;
+//	a -= 4 - 3;
+//	cout << a;
 //	//cout << "type: \t\t\t" << "************size**************" << endl;
 //	//cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	//cout << "最大值：" << (numeric_limits<short>::max)();

@@ -1,4 +1,4 @@
-//#include<iostream>
+// #include<iostream>
 //#include<string>
 //#include<memory.h>
 //#include <iomanip>
@@ -66,7 +66,6 @@
 //			}
 //		}
 //	}
-//	
 //	printf("%d %d", num[c2], w[c2]);
 //	return 0;
 //}
