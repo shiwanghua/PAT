@@ -396,5 +396,95 @@
     <ClCompile Include="Advanced\A34.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SJTU\1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\8.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\10.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\HUAWEI_Test1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\HUAWEI_Test2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\13.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A131.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A72.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A87.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A7.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HUAWEI_Test_3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="A45.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A40.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A57.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A105.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A17.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A14.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A26.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A110.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A128.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A140.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A108.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A136.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A135.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\MEITUAN_Test1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A134.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\MEITUAN_Test2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\MEITUAN_Test3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\MEITUAN_Test4.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\MEITUAN_Test5.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
