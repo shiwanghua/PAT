@@ -68,8 +68,32 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A109.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A11.cpp" />
     <ClCompile Include="Advanced\A110.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A111.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A112.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A114.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A116.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A117.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -81,7 +105,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A120.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A121.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A123.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -89,7 +121,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A126.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A127.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A128.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A129.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -98,6 +142,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Advanced\A131.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A133.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -113,11 +161,27 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A138.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A14.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Advanced\A140.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A141.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A143.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A144.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -551,6 +615,22 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="SJTU\MEITUAN_Test5.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIETest1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test4.cpp">
       <SubType>
       </SubType>
     </ClCompile>

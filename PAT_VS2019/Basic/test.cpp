@@ -13,13 +13,7 @@
 //
 //int main()
 //{	
-//	/*int a = 8, b = 4;
-//	cout << a ^ b;*/
 //
-//	vector<int> v;v.resize(10);
-//	_for(0, 10) v[i] = i;
-//	 v.resize(10);
-//	_for(0, 10)cout << v[i] << " ";
 //	//cout << "type: \t\t\t" << "************size**************" << endl;
 //	//cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	//cout << "最大值：" << (numeric_limits<short>::max)();
@@ -54,39 +48,3 @@
 //	return 0;
 //}
 //
-//
-////#include<iostream>
-////#include<string>
-////#include<algorithm>
-////using namespace std;
-////string t1[127], t2[127];// 假设最多七层
-////void build(string t[],string a,int i) {
-////	if (a == "") return;
-////	t[i] = a;
-////	if (a.length() == 1) return;
-////	int l = a.length() / 2;// 左子树字符个数 
-////	int r = a.length() - l;
-////	build(t, a.substr(0, l), i * 2 + 1);
-////	build(t, a.substr(l, r), i * 2 + 2);
-////}
-////bool is(int root) {
-////	if (t1[root] == t2[root]) return 1;
-////	int l = root * 2 + 1, r = root * 2 + 2;
-////	if (t1[l].length() > 1 && t1[r].length() > 1) {
-////		string s1 = t1[root], s2 = t2[root];
-////		sort(s1.begin(), s1.end());
-////		sort(s2.begin(), s2.end());
-////		if (s1 == s2) return is(l) && is(r);
-////		else return 0;
-////	}
-////	return 0;
-////}
-////int main() {
-////	string a, b;
-////	cin >> a >> b;
-////	if (a.length() != b.length()) { cout << 0; return 0; }
-////	build(t1, a, 0);
-////	build(t2, b, 0);
-////	cout << is(0);
-////	return 0;
-////}

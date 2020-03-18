@@ -1,3 +1,5 @@
 ﻿D:\VSIDE\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1002,5): warning MSB8027: Two or more files with the name of 13.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Basic\13.cpp, SJTU\13.cpp.
-  MEITUAN_Test5.cpp
+  A111.cpp
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A111.cpp(22,24): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\codes\c++\PAT\PAT_VS2019\Advanced\A111.cpp(26,24): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
   PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\x64\Debug\PAT_VS2019.exe

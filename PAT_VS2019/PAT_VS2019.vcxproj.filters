@@ -486,5 +486,65 @@
     <ClCompile Include="SJTU\MEITUAN_Test5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Advanced\A129.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A114.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A143.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A112.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A116.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A138.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A123.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIETest1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test4.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A117.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A141.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A109.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A127.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A126.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A120.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A133.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A144.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Advanced\A111.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
