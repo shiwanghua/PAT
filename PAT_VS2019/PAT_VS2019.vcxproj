@@ -85,7 +85,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A113.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A114.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A115.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -101,6 +109,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A119.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A12.cpp">
       <SubType>
       </SubType>
@@ -113,7 +125,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A122.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A123.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A124.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -141,7 +161,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A130.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A131.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A132.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -161,7 +189,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Advanced\A137.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Advanced\A138.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A139.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -174,6 +210,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Advanced\A141.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Advanced\A142.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -570,6 +610,30 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LeetCode\1248.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\15.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\200.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\445.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\546.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\684.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SJTU\1.cpp">
       <SubType>
       </SubType>
@@ -590,11 +654,23 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SJTU\ALIBB_Test1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\ALIBB_Test2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SJTU\HUAWEI_Test1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="SJTU\HUAWEI_Test2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\KUSISHOU_Test4.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -618,6 +694,31 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SJTU\SHENXF_Test1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\SHENXF_Test2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\SHENXF_Test3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\WANGYI_Test1.cpp" />
+    <ClCompile Include="SJTU\WANGYI_Test2.cpp" />
+    <ClCompile Include="SJTU\WANGYI_Test3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\WANGYI_Test4.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\XIECHEN_Test1.cpp" />
+    <ClCompile Include="SJTU\XIECHEN_Test2.cpp" />
+    <ClCompile Include="SJTU\XIECHEN_Test3.cpp" />
     <ClCompile Include="SJTU\ZIJIETest1.cpp">
       <SubType>
       </SubType>
@@ -634,6 +735,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SJTU\ZIJIE_Test_Mian.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Top\T2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Top\T4.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
