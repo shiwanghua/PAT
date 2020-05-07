@@ -627,6 +627,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LeetCode\202.cpp" />
+    <ClCompile Include="LeetCode\220.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\3.cpp">
       <SubType>
       </SubType>
@@ -640,6 +644,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LeetCode\684.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\线段树.cpp">
       <SubType>
       </SubType>
     </ClCompile>
