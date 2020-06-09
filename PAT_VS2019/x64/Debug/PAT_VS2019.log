@@ -1,4 +1,8 @@
 ﻿D:\VSIDE\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1002,5): warning MSB8027: Two or more files with the name of 13.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Basic\13.cpp, SJTU\13.cpp.
-  220.cpp
+  394.cpp
+D:\codes\c++\PAT\PAT_VS2019\LeetCode\394.cpp(80,6): warning C4101: “n”: 未引用的局部变量
+  4.cpp
+  CodesSave.cpp
+  正在生成代码...
 x64\Debug\13.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
   PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\x64\Debug\PAT_VS2019.exe

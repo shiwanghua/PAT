@@ -14,7 +14,8 @@
 //
 //
 //int main()
-//{	
+//{
+//
 //	/*cout << "type: \t\t\t" << "************size**************" << endl;
 //	cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	cout << "最大值：" << (numeric_limits<short>::max)();
@@ -46,6 +47,7 @@
 //	cout << "float: \t\t\t" << "字节数：" << sizeof(float) << endl;
 //	cout << "最大值：" << (numeric_limits<float>::max)();
 //	cout << "\t最小值：" << (numeric_limits<float>::min)() << endl;*/
+//
 //	return 0;
 //}
 //

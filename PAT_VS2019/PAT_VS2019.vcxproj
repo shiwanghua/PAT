@@ -618,7 +618,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LeetCode\1371.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\15.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\152.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -627,6 +635,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LeetCode\202.cpp" />
+    <ClCompile Include="LeetCode\210.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\220.cpp">
       <SubType>
       </SubType>
@@ -635,7 +647,31 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LeetCode\38.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\39.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\394.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\4.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\445.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\47.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\502.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -644,6 +680,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LeetCode\684.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode\CodesSave.cpp">
       <SubType>
       </SubType>
     </ClCompile>
