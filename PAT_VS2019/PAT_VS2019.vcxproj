@@ -663,6 +663,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LeetCode\41.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\445.cpp">
       <SubType>
       </SubType>
@@ -751,6 +755,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SJTU\p1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\p2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SJTU\p3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SJTU\SHENXF_Test1.cpp">
       <SubType>
       </SubType>
@@ -776,6 +792,10 @@
     <ClCompile Include="SJTU\XIECHEN_Test1.cpp" />
     <ClCompile Include="SJTU\XIECHEN_Test2.cpp" />
     <ClCompile Include="SJTU\XIECHEN_Test3.cpp" />
+    <ClCompile Include="SJTU\ZHUQILI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="SJTU\ZIJIETest1.cpp">
       <SubType>
       </SubType>

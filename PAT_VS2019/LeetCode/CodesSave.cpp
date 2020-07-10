@@ -924,3 +924,348 @@
 //        }
 //    }
 //};
+
+// 9
+// class Solution {
+// public:
+//     bool isPalindrome(int x) {
+//         string s=to_string(x);
+//         int i=0,j=s.length()-1;
+//         while(i<j){
+//             if(s[i]!=s[j]) return 0;
+//             i++;j--;
+//         }
+//         return 1;
+//     }
+// };
+//
+//class Solution {
+//public:
+//    bool isPalindrome(int x) {
+//        // 特殊情况：
+//        // 如上所述，当 x < 0 时，x 不是回文数。
+//        // 同样地，如果数字的最后一位是 0，为了使该数字为回文，
+//        // 则其第一位数字也应该是 0
+//        // 只有 0 满足这一属性
+//        if (x < 0 || (x % 10 == 0 && x != 0)) {
+//            return false;
+//        }
+//
+//        int revertedNumber = 0;
+//        while (x > revertedNumber) {
+//            revertedNumber = revertedNumber * 10 + x % 10;
+//            x /= 10;
+//        }
+//
+//        // 当数字长度为奇数时，我们可以通过 revertedNumber/10 去除处于中位的数字。
+//        // 例如，当输入为 12321 时，在 while 循环的末尾我们可以得到 x = 12，revertedNumber = 123，
+//        // 由于处于中位的数字不影响回文（它总是与自己相等），所以我们可以简单地将其去除。
+//        return x == revertedNumber || x == revertedNumber / 10;
+//    }
+//};
+
+
+// 297
+// class Codec {
+// public:
+//     void s(TreeNode* root,string& str){
+//         if(!root) {
+//             str=str+"null,";
+//             return;
+//         }
+//         str+=to_string(root->val)+",";
+//         s(root->left,str);
+//         s(root->right,str);
+//     }
+//     // Encodes a tree to a single string.
+//     string serialize(TreeNode* root) {
+//         string ans="";
+//         s(root,ans);
+//         return ans;
+//     }
+
+//     // Decodes your encoded data to tree.
+//     TreeNode* deserialize(string data) {
+//         queue<string> q;
+//         for(int i=0;i<data.length();i++){
+//             string str="";
+//             while(i<data.length()&&data[i]!=',') str+=data[i++];
+//             q.push(str);
+//         }
+//         TreeNode* t=de(q);
+//         return t;
+//     }
+
+//     TreeNode* de(queue<string>& q){
+//         if(q.size()==0) return NULL;
+//         string str=q.front();
+//         q.pop();
+//         if(str=="null") return NULL;
+//         TreeNode* h=new TreeNode(stoi(str));
+//         h->left=de(q);
+//         h->right=de(q);
+//         return h;
+//     }
+// };
+
+//class Codec {
+//public:
+//    string serialize(TreeNode* root) {
+//        if (!root) return "X";
+//        auto l = "(" + serialize(root->left) + ")";
+//        auto r = "(" + serialize(root->right) + ")";
+//        return  l + to_string(root->val) + r;
+//    }
+//
+//    inline TreeNode* parseSubtree(const string& data, int& ptr) {
+//        ++ptr; // 跳过左括号
+//        auto subtree = parse(data, ptr);
+//        ++ptr; // 跳过右括号
+//        return subtree;
+//    }
+//
+//    inline int parseInt(const string& data, int& ptr) {
+//        int x = 0, sgn = 1;
+//        if (!isdigit(data[ptr])) {
+//            sgn = -1;
+//            ++ptr;
+//        }
+//        while (isdigit(data[ptr])) {
+//            x = x * 10 + data[ptr++] - '0';
+//        }
+//        return x * sgn;
+//    }
+//
+//    TreeNode* parse(const string& data, int& ptr) {
+//        if (data[ptr] == 'X') {
+//            ++ptr;
+//            return nullptr;
+//        }
+//        auto cur = new TreeNode(0);
+//        cur->left = parseSubtree(data, ptr);
+//        cur->val = parseInt(data, ptr);
+//        cur->right = parseSubtree(data, ptr);
+//        return cur;
+//    }
+//
+//    TreeNode* deserialize(string data) {
+//        int ptr = 0;
+//        return parse(data, ptr);
+//    }
+//};
+
+//1028
+//class Solution {
+//public:
+//    TreeNode* recoverFromPreorder(string S) {
+//        stack<TreeNode*> st;
+//        int p = 0;
+//        while (p < S.length()) {
+//            int l = 0, val = 0;
+//            while (S[p] == '-') {
+//                p++;
+//                l++;
+//            }
+//            while (p < S.length() && isdigit(S[p])) {
+//                val = val * 10 + (S[p] - '0');
+//                p++;
+//            }
+//            TreeNode* t = new TreeNode(val);
+//            if (l == st.size()) {
+//                if (st.size() > 0)
+//                    st.top()->left = t;
+//            }
+//            else {
+//                while (l != st.size()) st.pop();
+//                st.top()->right = t;
+//            }
+//            st.push(t);
+//        }
+//        while (st.size() > 1) st.pop();
+//        return st.top();
+//    }
+//};
+
+//10
+//class Solution {
+//public:
+//    bool isMatch(string s, string p) {
+//        int m = s.size();
+//        int n = p.size();
+//
+//        auto matches = [&](int i, int j) {
+//            if (i == 0) {
+//                return false;
+//            }
+//            if (p[j - 1] == '.') {
+//                return true;
+//            }
+//            return s[i - 1] == p[j - 1];
+//        };
+//
+//        vector<vector<int>> f(m + 1, vector<int>(n + 1));
+//        f[0][0] = true;
+//        for (int i = 0; i <= m; ++i) {
+//            for (int j = 1; j <= n; ++j) {
+//                if (p[j - 1] == '*') {
+//                    f[i][j] |= f[i][j - 2] | f[i][j - 1];
+//                    if (!f[i][j] && matches(i, j - 1)) {
+//                        f[i][j] |= f[i - 1][j - 2] | f[i - 1][j];
+//                    }
+//                }
+//                else {
+//                    if (matches(i, j)) {
+//                        f[i][j] |= f[i - 1][j - 1];
+//                    }
+//                }
+//            }
+//        }
+//        return f[m][n];
+//    }
+//};
+//// 101
+//// 011
+//// 00
+
+
+//面试题16.18
+//class Solution {
+//public:
+//    bool patternMatching(string pattern, string value) {
+//        int ca = 0, cb = 0;
+//        for (char& c : pattern)
+//            if (c == 'a') ca++;
+//            else cb++;
+//        if (ca < cb) {
+//            int c = ca;
+//            ca = cb;
+//            cb = c;
+//            for (char& c : pattern)
+//                c = (c == 'a') ? 'b' : 'a';
+//        }
+//        if (value.length() == 0) return cb == 0;
+//        if (pattern.length() == 0) return false;
+//        for (int la = 0; la * ca <= value.length(); la++) {
+//            int rest = value.length() - la * ca;
+//            if ((rest == 0 && cb == 0) || (cb != 0 && rest % cb == 0)) {
+//                int lb = (cb == 0) ? 0 : rest / cb;
+//                bool good = 1;
+//                int pos = 0;
+//                string a, b;
+//                for (char& c : pattern)
+//                    if (c == 'a') {
+//                        if (a.length() == 0)
+//                            a = value.substr(pos, la);
+//                        else if (a != value.substr(pos, la)) {
+//                            good = 0;
+//                            break;
+//                        }
+//                        pos += la;
+//                    }
+//                    else {
+//                        if (b.length() == 0)
+//                            b = value.substr(pos, lb);
+//                        else if (b != value.substr(pos, lb)) {
+//                            good = 0; break;
+//                        }
+//                        pos += lb;
+//                    }
+//                if (good && a != b) return 1;
+//            }
+//        }
+//        return 0;
+//    }
+//};
+
+
+// 112  法1
+//class Solution {
+//public:
+//    int _sum;
+//    bool is = 0;
+//    void has(TreeNode* r, int v) {
+//        if (is) return;
+//        v += r->val;
+//        if (r->left == NULL && r->right == NULL) {
+//            if (v == _sum) is = 1;
+//            return;
+//        }
+//        if (r->left) has(r->left, v);
+//        if (r->right) has(r->right, v);
+//        return;
+//    }
+//    bool hasPathSum(TreeNode* root, int sum) {
+//        this->_sum = sum;
+//        if (root == NULL) return 0;
+//        has(root, 0);
+//        return is;
+//    }
+//};
+
+// 法2
+// class Solution {
+// public:
+//     bool hasPathSum(TreeNode *root, int sum) {
+//         if (root == nullptr) {
+//             return false;
+//         }
+//         if (root->left == nullptr && root->right == nullptr) {
+//             return sum == root->val;
+//         }
+//         return hasPathSum(root->left, sum - root->val) ||
+//                hasPathSum(root->right, sum - root->val);
+//     }
+// };
+
+// 法3
+// class Solution {
+// public:
+//     bool hasPathSum(TreeNode *root, int sum) {
+//         if (root == nullptr) {
+//             return false;
+//         }
+//         queue<TreeNode *> que_node;
+//         queue<int> que_val;
+//         que_node.push(root);
+//         que_val.push(root->val);
+//         while (!que_node.empty()) {
+//             TreeNode *now = que_node.front();
+//             int temp = que_val.front();
+//             que_node.pop();
+//             que_val.pop();
+//             if (now->left == nullptr && now->right == nullptr) {
+//                 if (temp == sum) return true;
+//                 continue;
+//             }
+//             if (now->left != nullptr) {
+//                 que_node.push(now->left);
+//                 que_val.push(now->left->val + temp);
+//             }
+//             if (now->right != nullptr) {
+//                 que_node.push(now->right);
+//                 que_val.push(now->right->val + temp);
+//             }
+//         }
+//         return false;
+//     }
+// };
+
+// 309
+//class Solution {
+//public:
+//    int maxProfit(vector<int>& prices) {
+//        int n = prices.size();
+//        if (n == 0) return 0;
+//        int f0 = -prices[0], f1 = 0, f2 = 0;
+//        int nf0, nf1, nf2;
+//        for (int i = 0; i < n; i++) {
+//            nf0 = max(f0, f2 - prices[i]);
+//            nf1 = f0 + prices[i];
+//            nf2 = max(f2, f1);
+//            f0 = nf0;
+//            f1 = nf1;
+//            f2 = nf2;
+//        }
+//        return max(f1, f2);
+//    }
+//};
