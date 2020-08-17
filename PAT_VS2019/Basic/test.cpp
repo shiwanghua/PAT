@@ -4,6 +4,7 @@
 //#include <iomanip>
 //#include <vector>
 //#include<cmath>
+//#include<map>
 //#include<algorithm>
 //#include<stdlib.h>
 //
@@ -15,7 +16,14 @@
 //
 //int main()
 //{
-//
+//	map<int, int> m;
+//	m[1] = 4;
+//	for (int i = 0; i < 4; i++)
+//	{
+//		m[1]--;
+//		cout << m.count(1);
+//	}
+//	z
 //	/*cout << "type: \t\t\t" << "************size**************" << endl;
 //	cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	cout << "最大值：" << (numeric_limits<short>::max)();
