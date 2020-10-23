@@ -1318,3 +1318,639 @@
 //        return rec[0][n + 1];
 //    }
 //};
+
+
+ 
+// 647  法1  Manacher 
+//class Solution {
+//public:
+//    int countSubstrings(string s) {
+//        int n = s.size();
+//        string t = "$#";
+//        for (const char& c : s) {
+//            t += c;
+//            t += '#';
+//        }
+//        n = t.size();
+//        t += '!';
+//
+//        auto f = vector <int>(n);
+//        int iMax = 0, rMax = 0, ans = 0;
+//        for (int i = 1; i < n; ++i) {
+//            // 初始化 f[i]
+//            f[i] = (i <= rMax) ? min(rMax - i + 1, f[2 * iMax - i]) : 1;
+//            // 中心拓展
+//            while (t[i + f[i]] == t[i - f[i]]) ++f[i];
+//            // 动态维护 iMax 和 rMax
+//            if (i + f[i] - 1 > rMax) {
+//                iMax = i;
+//                rMax = i + f[i] - 1;
+//            }
+//            // 统计答案, 当前贡献为 (f[i] - 1) / 2 上取整
+//            ans += (f[i] / 2);
+//        }
+//
+//        return ans;
+//    }
+//};
+
+// 法2
+// class Solution {
+// public:
+//     int countSubstrings(string s) {
+//         int n = s.size(), ans = 0;
+//         for (int i = 0; i < 2 * n - 1; ++i) {
+//             int l = i>>1, r = l + i % 2;
+//             while (l >= 0 && r < n && s[l] == s[r]) {
+//                 --l;
+//                 ++r;
+//                 ++ans;
+//             }
+//         }
+//         return ans;
+//     }
+// };
+
+
+// 529
+// class Solution {
+// public:
+//     int dir_x[8] = {0, 1, 0, -1, 1, 1, -1, -1};
+//     int dir_y[8] = {1, 0, -1, 0, 1, -1, 1, -1};
+//     void dfs(vector<vector<char>>& board, int x, int y) {
+//         int cnt = 0;
+//         for (int i = 0; i < 8; ++i) {
+//             int tx = x + dir_x[i];
+//             int ty = y + dir_y[i];
+//             if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size()) {
+//                 continue;
+//             }
+//             // 不用判断 M，因为如果有 M 的话游戏已经结束了
+//             cnt += board[tx][ty] == 'M';
+//         }
+//         if (cnt > 0) {
+//             // 规则 3
+//             board[x][y] = cnt + '0';
+//         } else {
+//             // 规则 2
+//             board[x][y] = 'B';
+//             for (int i = 0; i < 8; ++i) {
+//                 int tx = x + dir_x[i];
+//                 int ty = y + dir_y[i];
+//                 // 这里不需要在存在 B 的时候继续扩展，因为 B 之前被点击的时候已经被扩展过了
+//                 if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size() || board[tx][ty] != 'E') {
+//                     continue;
+//                 }
+//                 dfs(board, tx, ty);
+//             }
+//         }
+//     }
+//     vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
+//         int x = click[0], y = click[1];
+//         if (board[x][y] == 'M') {
+//             // 规则 1
+//             board[x][y] = 'X';
+//         } else {
+//             dfs(board, x, y);
+//         }
+//         return board;
+//     }
+// };
+
+// 529 BFS
+//class Solution {
+//public:
+//    int dir_x[8] = { 0, 1, 0, -1, 1, 1, -1, -1 };
+//    int dir_y[8] = { 1, 0, -1, 0, 1, -1, 1, -1 };
+//
+//    void bfs(vector<vector<char>>& board, int sx, int sy) {
+//        queue<pair<int, int>> Q;
+//        vector<vector<int>> vis(board.size(), vector<int>(board[0].size(), 0));
+//        Q.push({ sx, sy });
+//        vis[sx][sy] = true;
+//        while (!Q.empty()) {
+//            auto pos = Q.front();
+//            Q.pop();
+//            int cnt = 0, x = pos.first, y = pos.second;
+//            for (int i = 0; i < 8; ++i) {
+//                int tx = x + dir_x[i];
+//                int ty = y + dir_y[i];
+//                if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size()) {
+//                    continue;
+//                }
+//                // 不用判断 M，因为如果有 M 的话游戏已经结束了
+//                cnt += board[tx][ty] == 'M';
+//            }
+//            if (cnt > 0) {
+//                // 规则 3
+//                board[x][y] = cnt + '0';
+//            }
+//            else {
+//                // 规则 2
+//                board[x][y] = 'B';
+//                for (int i = 0; i < 8; ++i) {
+//                    int tx = x + dir_x[i];
+//                    int ty = y + dir_y[i];
+//                    // 这里不需要在存在 B 的时候继续扩展，因为 B 之前被点击的时候已经被扩展过了
+//                    if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size() || board[tx][ty] != 'E' || vis[tx][ty]) {
+//                        continue;
+//                    }
+//                    Q.push(make_pair(tx, ty));
+//                    vis[tx][ty] = true;
+//                }
+//            }
+//        }
+//    }
+//    vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
+//        int x = click[0], y = click[1];
+//        if (board[x][y] == 'M') {
+//            // 规则 1
+//            board[x][y] = 'X';
+//        }
+//        else {
+//            bfs(board, x, y);
+//        }
+//        return board;
+//    }
+//};
+
+
+//  111
+// class Solution {
+// public:
+//     int minDepth(TreeNode *root) {
+//         if (root == nullptr) {
+//             return 0;
+//         }
+
+//         if (root->left == nullptr && root->right == nullptr) {
+//             return 1;
+//         }
+
+//         int min_depth = INT_MAX;
+//         if (root->left != nullptr) {
+//             min_depth = min(minDepth(root->left), min_depth);
+//         }
+//         if (root->right != nullptr) {
+//             min_depth = min(minDepth(root->right), min_depth);
+//         }
+
+//         return min_depth + 1;
+//     }
+// };
+
+// class Solution {
+// public:
+//     int minDepth(TreeNode *root) {
+//         if (root == nullptr) {
+//             return 0;
+//         }
+
+//         queue<pair<TreeNode *, int> > que;
+//         que.emplace(root, 1);
+//         while (!que.empty()) {
+//             TreeNode *node = que.front().first;
+//             int depth = que.front().second;
+//             que.pop();
+//             if (node->left == nullptr && node->right == nullptr) {
+//                 return depth;
+//             }
+//             if (node->left != nullptr) {
+//                 que.emplace(node->left, depth + 1);
+//             }
+//             if (node->right != nullptr) {
+//                 que.emplace(node->right, depth + 1);
+//             }
+//         }
+
+//         return 0;
+//     }
+// };
+
+
+// 201
+// class Solution {
+// public:
+//     int rangeBitwiseAnd(int m, int n) {
+//         int shift = 0;
+//         // 找到公共前缀
+//         while (m < n) {
+//             m >>= 1;
+//             n >>= 1;
+//             ++shift;
+//         }
+//         return m << shift;
+//     }
+// };
+
+// class Solution {
+// public:
+//     int rangeBitwiseAnd(int m, int n) {
+//         while (m < n) {
+//             // 抹去最右边的 1
+//             n = n & (n - 1);
+//         }
+//         return n;
+//     }
+// };
+
+
+
+//剑指offer 20
+// class Solution {
+// public:
+//     bool isNumber(string s) {
+//         int n=s.length();
+//         int en=0,dn=0,sn=0,digitn=0;
+//         int i=0,j=0,k=n-1;
+//         while(i<n){
+//             if(s[i]==' ') i++;
+//             else break;
+//         }
+//         if(i==n&&s[i-1]==' ') return 0;
+//         j=i;
+//         while(k>j){
+//             if(s[k]==' ')k--;
+//             else break;
+//         }
+//         for(int i=j+1;i<k;i++)
+//             if(s[i]==' ')  return 0;
+
+//         for(int i=j;i<=k;i++){
+//             if(s[i]=='+'||s[i]=='-'){
+//                 sn++;
+//                 if(i==j) 
+//                     continue;
+//                 return 0;
+//             }
+//             if(s[i]=='e'||s[i]=='E'){
+//                 if(en>0||i==k||i==0) return 0;
+//                 en++;
+//                 if(s[i-1]=='.'&&i>j+1) ;
+//                 else if(!isdigit(s[i-1])) return 0; 
+//                 if(s[i+1]=='+'||s[i+1]=='-') {
+//                     i++;
+//                     if(i==k) return 0;
+//                 }
+
+//                 continue;
+//             }
+//             if(s[i]=='.') {
+//                 if(dn>0||en>0) return 0;
+//                 // if(i==1&&sn>0) return 0;
+//                 if(i<k&&s[i+1]==' ') return 0;
+//                 dn++;
+//                 continue;
+//             }
+//             if(isdigit(s[i])) {
+//                 digitn++;
+//                 continue;
+//             }
+//             return 0;
+//         }
+//         return digitn>0;
+//     }
+// };
+
+//class Solution {
+//public:
+//    enum State {
+//        STATE_INITIAL,
+//        STATE_INT_SIGN,
+//        STATE_INTEGER,
+//        STATE_POINT,
+//        STATE_POINT_WITHOUT_INT,
+//        STATE_FRACTION,
+//        STATE_EXP,
+//        STATE_EXP_SIGN,
+//        STATE_EXP_NUMBER,
+//        STATE_END,
+//    };
+//
+//    enum CharType {
+//        CHAR_NUMBER,
+//        CHAR_EXP,
+//        CHAR_POINT,
+//        CHAR_SIGN,
+//        CHAR_SPACE,
+//        CHAR_ILLEGAL,
+//    };
+//
+//    CharType toCharType(char ch) {
+//        if (ch >= '0' && ch <= '9') {
+//            return CHAR_NUMBER;
+//        }
+//        else if (ch == 'e' || ch == 'E') {
+//            return CHAR_EXP;
+//        }
+//        else if (ch == '.') {
+//            return CHAR_POINT;
+//        }
+//        else if (ch == '+' || ch == '-') {
+//            return CHAR_SIGN;
+//        }
+//        else if (ch == ' ') {
+//            return CHAR_SPACE;
+//        }
+//        else {
+//            return CHAR_ILLEGAL;
+//        }
+//    }
+//
+//    bool isNumber(string s) {
+//        unordered_map<State, unordered_map<CharType, State>> transfer{
+//            {
+//                STATE_INITIAL, {
+//                    {CHAR_SPACE, STATE_INITIAL},
+//                    {CHAR_NUMBER, STATE_INTEGER},
+//                    {CHAR_POINT, STATE_POINT_WITHOUT_INT},
+//                    {CHAR_SIGN, STATE_INT_SIGN},
+//                }
+//            }, {
+//                STATE_INT_SIGN, {
+//                    {CHAR_NUMBER, STATE_INTEGER},
+//                    {CHAR_POINT, STATE_POINT_WITHOUT_INT},
+//                }
+//            }, {
+//                STATE_INTEGER, {
+//                    {CHAR_NUMBER, STATE_INTEGER},
+//                    {CHAR_EXP, STATE_EXP},
+//                    {CHAR_POINT, STATE_POINT},
+//                    {CHAR_SPACE, STATE_END},
+//                }
+//            }, {
+//                STATE_POINT, {
+//                    {CHAR_NUMBER, STATE_FRACTION},
+//                    {CHAR_EXP, STATE_EXP},
+//                    {CHAR_SPACE, STATE_END},
+//                }
+//            }, {
+//                STATE_POINT_WITHOUT_INT, {
+//                    {CHAR_NUMBER, STATE_FRACTION},
+//                }
+//            }, {
+//                STATE_FRACTION,
+//                {
+//                    {CHAR_NUMBER, STATE_FRACTION},
+//                    {CHAR_EXP, STATE_EXP},
+//                    {CHAR_SPACE, STATE_END},
+//                }
+//            }, {
+//                STATE_EXP,
+//                {
+//                    {CHAR_NUMBER, STATE_EXP_NUMBER},
+//                    {CHAR_SIGN, STATE_EXP_SIGN},
+//                }
+//            }, {
+//                STATE_EXP_SIGN, {
+//                    {CHAR_NUMBER, STATE_EXP_NUMBER},
+//                }
+//            }, {
+//                STATE_EXP_NUMBER, {
+//                    {CHAR_NUMBER, STATE_EXP_NUMBER},
+//                    {CHAR_SPACE, STATE_END},
+//                }
+//            }, {
+//                STATE_END, {
+//                    {CHAR_SPACE, STATE_END},
+//                }
+//            }
+//        };
+//
+//        int len = s.length();
+//        State st = STATE_INITIAL;
+//
+//        for (int i = 0; i < len; i++) {
+//            CharType typ = toCharType(s[i]);
+//            if (transfer[st].find(typ) == transfer[st].end()) {
+//                return false;
+//            }
+//            else {
+//                st = transfer[st][typ];
+//            }
+//        }
+//        return st == STATE_INTEGER || st == STATE_POINT || st == STATE_FRACTION || st == STATE_EXP_NUMBER || st == STATE_END;
+//    }
+//};
+
+
+//  257
+// class Solution {
+// public:
+//     void construct_paths(TreeNode* root, string path, vector<string>& paths) {
+//         if (root != nullptr) {
+//             path += to_string(root->val);
+//             if (root->left == nullptr && root->right == nullptr) {  // 当前节点是叶子节点
+//                 paths.push_back(path);                              // 把路径加入到答案中
+//             } else {
+//                 path += "->";  // 当前节点不是叶子节点，继续递归遍历
+//                 construct_paths(root->left, path, paths);
+//                 construct_paths(root->right, path, paths);
+//             }
+//         }
+//     }
+//     vector<string> binaryTreePaths(TreeNode* root) {
+//         vector<string> paths;
+//         construct_paths(root, "", paths);
+//         return paths;
+//     }
+// };
+
+
+//class Solution {
+//public:
+//    vector<string> binaryTreePaths(TreeNode* root) {
+//        vector<string> paths;
+//        if (root == nullptr) {
+//            return paths;
+//        }
+//        queue<TreeNode*> node_queue;
+//        queue<string> path_queue;
+//
+//        node_queue.push(root);
+//        path_queue.push(to_string(root->val));
+//
+//        while (!node_queue.empty()) {
+//            TreeNode* node = node_queue.front();
+//            string path = path_queue.front();
+//            node_queue.pop();
+//            path_queue.pop();
+//
+//            if (node->left == nullptr && node->right == nullptr) {
+//                paths.push_back(path);
+//            }
+//            else {
+//                if (node->left != nullptr) {
+//                    node_queue.push(node->left);
+//                    path_queue.push(path + "->" + to_string(node->left->val));
+//                }
+//
+//                if (node->right != nullptr) {
+//                    node_queue.push(node->right);
+//                    path_queue.push(path + "->" + to_string(node->right->val));
+//                }
+//            }
+//        }
+//        return paths;
+//    }
+//};
+
+
+// 216
+// class Solution {
+// public:
+//     vector<int> path;
+//     vector<vector<int>> ans;
+//     int k,sum;
+//     void dfs(int cur){
+//         if(path.size()>k||path.size()+10-cur<k) return;
+//         if(path.size()==k&&accumulate(path.begin(),path.end(),0)==sum) {
+//             ans.push_back(path);
+//             return ;
+//         }
+//         path.push_back(cur);
+//         dfs(cur+1);
+//         path.pop_back();
+//         dfs(cur+1);
+//     }
+//     vector<vector<int>> combinationSum3(int k, int n) {
+//         this->k=k;
+//         this->sum=n;
+//         dfs(1);
+//         return ans;
+//     }
+// };
+
+// class Solution{
+// public:
+//     vector<int> path;
+//     vector<vector<int>> ans;
+//     int n,k;
+//     bool check(int mask){
+//         path.clear();
+//         for(int i=0;i<9;i++)
+//             if(1<<i&mask) path.push_back(i+1);
+//         return path.size()==k&&accumulate(path.begin(),path.end(),0)==n;
+//     }
+
+//     vector<vector<int>> combinationSum3(int k,int n){
+//         this->n=n;
+//         this->k=k;
+//         for(int i=0;i<1<<9;i++)
+//             if(check(i)) ans.push_back(path);
+//         return ans;
+//     }
+// };
+
+
+// 94
+// class Solution {
+// public:
+//     void inorder(TreeNode* root, vector<int>& res) {
+//         if (!root) {
+//             return;
+//         }
+//         inorder(root->left, res);
+//         res.push_back(root->val);
+//         inorder(root->right, res);
+//     }
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> res;
+//         inorder(root, res);
+//         return res;
+//     }
+// };
+
+
+// class Solution {
+// public:
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> res;
+//         stack<TreeNode*> stk;
+//         while (root != nullptr || !stk.empty()) {
+//             while (root != nullptr) {
+//                 stk.push(root);
+//                 root = root->left;
+//             }
+//             root = stk.top();
+//             stk.pop();
+//             res.push_back(root->val);
+//             root = root->right;
+//         }
+//         return res;
+//     }
+// };
+
+// class Solution{
+//     public:
+//     vector<int> inorderTraversal(TreeNode* root){
+//         vector<int> res;
+//         TreeNode* pre=nullptr;
+//         while(root){
+//             if(root->left){
+//                 pre=root->left;
+//                 while(pre->right!=nullptr&&pre->right!=root){
+//                     pre=pre->right;
+//                 }
+//                 if(pre->right==nullptr){
+//                     pre->right=root;
+//                     root=root->left;
+//                 }
+//                 else{
+//                     res.push_back(root->val);
+//                     pre->right=nullptr;
+//                     root=root->right;
+//                 }
+//             }
+//             else{
+//                 res.push_back(root->val);
+//                 root=root->right;
+//             }
+//         }
+//         return res;
+//     }
+// };
+
+// 1024
+// class Solution {
+// public:
+//     int videoStitching(vector<vector<int>>& clips, int T) {
+//         int n=clips.size();
+//         vector<int> f(T+1,INT_MAX);
+//         f[0]=0;
+//         for(int i=1;i<=T;i++)
+//         {
+//             for(int j=0;j<n;j++)
+//                 if(clips[j][0]<i&&clips[j][1]>=i)
+//                     f[i]=min(f[i],f[clips[j][0]]+1);
+//             if(f[i]==INT_MAX) return -1;
+//         }
+//         return f[T];
+//     }
+// };
+
+//class Solution {
+//public:
+//    int videoStitching(vector<vector<int>>& clips, int T) {
+//        vector<int> maxn(T);
+//        int last = 0, ret = 0, pre = 0;
+//        for (vector<int>& it : clips) {
+//            if (it[0] < T) {
+//                maxn[it[0]] = max(maxn[it[0]], it[1]);
+//            }
+//        }
+//        for (int i = 0; i < T; i++) {
+//            last = max(last, maxn[i]);
+//            if (i == last) {
+//                return -1;
+//            }
+//            if (i == pre) {
+//                ret++;
+//                pre = last;
+//            }
+//        }
+//        return ret;
+//    }
+//};
+//
+
