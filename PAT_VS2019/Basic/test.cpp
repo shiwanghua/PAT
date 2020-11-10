@@ -1,29 +1,97 @@
-//#include<iostream>
-//#include<string>
-//#include<cstdio>
-//#include <iomanip>
-//#include <vector>
-//#include<cmath>
-//#include<map>
-//#include<algorithm>
-//#include<stdlib.h>
+#include<iostream>
+#include<string>
+#include<cstdio>
+#include <iomanip>
+#include <vector>
+#include<cmath>
+#include<map>
+#include<algorithm>
+#include<stdlib.h>
+
+#define _for(a,b) for( int i=(a); i<(b); ++i)
+#define __for(i,a,b) for( int i=(a); i<=(b); ++i)
+
+using namespace std;
+//map<pair<int, int>, vector<string>> mpv;
 //
-//#define _for(a,b) for( int i=(a); i<(b); ++i)
-//#define __for(i,a,b) for( int i=(a); i<=(b); ++i)
-//
-//using namespace std;
-//
-//
-//int main()
-//{
-//	map<int, int> m;
-//	m[1] = 4;
-//	for (int i = 0; i < 4; i++)
+//  从K位里生成含k个1的字符串的集合
+//vector<string> SubsetCodeGeneration(int k, int K) {      
+//	if (k == 0) return { string(K,'0') };
+//	if (mpv.count(make_pair(k, K))) return mpv[make_pair(k, K)];
+//	vector<string> strSet;
+//	for (int i = k; i <= K; i++)  //  只有前 i 位有1且第 i 位必须是1
 //	{
-//		m[1]--;
-//		cout << m.count(1);
+//		string highStr = string(K - i,'0') + "1";
+//		  从前i-1位里生成含k-1个1的字符串的集合
+//		vector<string> lowPart = SubsetCodeGeneration(k - 1, i - 1);    
+//		mpv[make_pair(k - 1, i - 1)] = lowPart;
+//		for (auto& item : lowPart)
+//			strSet.push_back(highStr + item);
 //	}
-//	z
+//	return strSet;
+//}
+//
+//void CodeTransfer(vector<string> subset) {
+//	int K = subset[0].size();
+//	vector <vector<int>> set_subno(K);  // 第二层集合中存有哪些subno
+//	for (int subno = 0; subno < subset.size(); subno++) {
+//		for (int setno = 0; setno < subset[subno].size(); setno++) {
+//			if (subset[subno][setno] == '1')
+//				set_subno[K - 1 - setno].push_back(subno);
+//		}
+//	}  
+//	cout << "\n\n  Machine Set:\n\n";
+//	for (int s = 0; s < set_subno.size();s++) {
+//		cout << "  Machine" << s << ": ";
+//		for (auto& no : set_subno[s])
+//			cout << no << " ";
+//		cout << endl;
+//	}
+//	return;
+//}
+//
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        if (!root) return -1;
+        if (!root->left && !root->right) return root->val;
+        int v = root->val;
+        int l = sumNumbers(root->left);
+        int r = sumNumbers(root->right);
+        if (l != -1) l += v * pow(10.0, double(l / 10 + 1.0));
+        if (r != -1) r += v * pow(10.0, double(r / 10 + 1.0));
+        return l + r;
+    }
+};
+int main()
+{
+//	int k, K;
+//	cout << "\n\n  k = ";
+//	cin >> k;
+//	cout << "  K = ";
+//	cin >> K;
+//	cout << "\n";
+//	vector<string> subsetCode = SubsetCodeGeneration(k, K);
+//	cout << "  subscription coding:\n\n";
+//	for (int i=0;i< subsetCode.size();i++)
+//		cout <<"  "<<i<<": "<< subsetCode[i] << endl;
+//	CodeTransfer(subsetCode);
+//	return 0;
+//	
+    Solution s;
+    TreeNode* root=new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    cout << s.sumNumbers(root);
+    delete root->left;
+    delete root->right;
+    delete root;
 //	/*cout << "type: \t\t\t" << "************size**************" << endl;
 //	cout << "short: \t\t\t" << "字节数：" << sizeof(short) << endl;
 //	cout << "最大值：" << (numeric_limits<short>::max)();
@@ -56,7 +124,7 @@
 //	cout << "最大值：" << (numeric_limits<float>::max)();
 //	cout << "\t最小值：" << (numeric_limits<float>::min)() << endl;*/
 //
-//	return 0;
-//}
-//
-//
+	return 0;
+}
+
+
