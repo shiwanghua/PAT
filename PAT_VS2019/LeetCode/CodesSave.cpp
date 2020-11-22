@@ -2000,3 +2000,81 @@
 //        return ans;
 //    }
 //};
+
+
+// 1122
+// class Solution {
+// public:
+//     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+//         unordered_map<int, int> rank;
+//         for (int i = 0; i < arr2.size(); ++i) {
+//             rank[arr2[i]] = i;
+//         }
+//         sort(arr1.begin(), arr1.end(), [&](int x, int y) {
+//             if (rank.count(x)) {
+//                 return rank.count(y) ? rank[x] < rank[y] : true;
+//             }
+//             else {
+//                 return rank.count(y) ? false : x < y;
+//             }
+//         });
+//         return arr1;
+//     }
+// };
+
+// class Solution {
+// public:
+//     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+//         unordered_map<int, int> rank;
+//         for (int i = 0; i < arr2.size(); ++i) {
+//             rank[arr2[i]] = i;
+//         }
+//         auto mycmp = [&](int x) -> pair<int, int> {  // 数映射到元组
+//             return rank.count(x) ? pair{0, rank[x]} : pair{1, x};
+//         };
+//         sort(arr1.begin(), arr1.end(), [&](int x, int y) {
+//             return mycmp(x) < mycmp(y);
+//         });
+//         return arr1;
+//     }
+// };
+
+// class Solution {
+// public:
+//     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+//         unordered_map<int, int> rank;
+//         int n = arr2.size();
+//         for (int i = 0; i < n; ++i) {
+//             rank[arr2[i]] = i - n;
+//         }
+//         sort(arr1.begin(), arr1.end(), [&](int x, int y) {
+//             return (rank.count(x) ? rank[x] : x) < (rank.count(y) ? rank[y] : y);
+//         });
+//         return arr1;
+//     }
+// };
+
+// class Solution {
+// public:
+//     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+//         int upper = *max_element(arr1.begin(), arr1.end());
+//         vector<int> frequency(upper + 1);
+//         for (int x: arr1) {
+//             ++frequency[x];
+//         }
+//         vector<int> ans;
+//         for (int x: arr2) {
+//             for (int i = 0; i < frequency[x]; ++i) {
+//                 ans.push_back(x);
+//             }
+//             frequency[x] = 0;
+//         }
+//         for (int x = 0; x <= upper; ++x) {
+//             for (int i = 0; i < frequency[x]; ++i) {
+//                 ans.push_back(x);
+//             }
+//         }
+//         return ans;
+//     }
+// };
+
