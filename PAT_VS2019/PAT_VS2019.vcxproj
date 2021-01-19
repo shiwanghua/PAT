@@ -606,6 +606,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Basic\test.cpp" />
+    <ClCompile Include="Basic\test2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="HUAWEI_Test_3.cpp">
       <SubType>
       </SubType>
@@ -700,6 +704,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="LeetCode\线段树.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode周赛\双周赛\41_5612.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LeetCode周赛\双周赛\41_5611.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -829,6 +841,9 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Top\T4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Basic\test2.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

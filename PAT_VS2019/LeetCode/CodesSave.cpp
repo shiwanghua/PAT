@@ -2078,3 +2078,426 @@
 //     }
 // };
 
+
+// 767
+// class Solution {
+// public:
+//     string reorganizeString(string S) {
+//         if (S.length() < 2) {
+//             return S;
+//         }
+//         vector<int> counts(26, 0);
+//         int maxCount = 0;
+//         int length = S.length();
+//         for (int i = 0; i < length; i++) {
+//             char c = S[i];
+//             counts[c - 'a']++;
+//             maxCount = max(maxCount, counts[c - 'a']);
+//         }
+//         if (maxCount > (length + 1) / 2) {
+//             return "";
+//         }
+//         auto cmp = [&](const char& letter1, const char& letter2) {
+//             return counts[letter1 - 'a']  < counts[letter2 - 'a'];
+//         };
+//         priority_queue<char, vector<char>,  decltype(cmp)> queue{cmp};
+//         for (char c = 'a'; c <= 'z'; c++) {
+//             if (counts[c - 'a'] > 0) {
+//                 queue.push(c);
+//             }
+//         }
+//         string sb = "";
+//         while (queue.size() > 1) {
+//             char letter1 = queue.top(); queue.pop();
+//             char letter2 = queue.top(); queue.pop();
+//             sb += letter1;
+//             sb += letter2;
+//             int index1 = letter1 - 'a', index2 = letter2 - 'a';
+//             counts[index1]--;
+//             counts[index2]--;
+//             if (counts[index1] > 0) {
+//                 queue.push(letter1);
+//             }
+//             if (counts[index2] > 0) {
+//                 queue.push(letter2);
+//             }
+//         }
+//         if (queue.size() > 0) {
+//             sb += queue.top();
+//         }
+//         return sb;
+//     }
+// };
+
+// class Solution {
+// public:
+//     string reorganizeString(string S) {
+//         if (S.length() < 2) {
+//             return S;
+//         }
+//         vector<int> counts(26, 0);
+//         int maxCount = 0;
+//         int length = S.length();
+//         for (int i = 0; i < length; i++) {
+//             char c = S[i];
+//             counts[c - 'a']++;
+//             maxCount = max(maxCount, counts[c - 'a']);
+//         }
+//         if (maxCount > (length + 1) / 2) {
+//             return "";
+//         }
+//         string reorganizeArray(length, ' ');
+//         int evenIndex = 0, oddIndex = 1;
+//         int halfLength = length / 2;
+//         for (int i = 0; i < 26; i++) {
+//             char c = 'a' + i;
+//             while (counts[i] > 0 && counts[i] <= halfLength && oddIndex < length) {
+//                 reorganizeArray[oddIndex] = c;
+//                 counts[i]--;
+//                 oddIndex += 2;
+//             }
+//             while (counts[i] > 0) {
+//                 reorganizeArray[evenIndex] = c;
+//                 counts[i]--;
+//                 evenIndex += 2;
+//             }
+//         }
+//         return reorganizeArray;
+//     }
+// };
+
+
+//376
+// class Solution {
+// public:
+//     int wiggleMaxLength(vector<int>& nums) {
+//         int n = nums.size();
+//         if (n < 2) {
+//             return n;
+//         }
+//         vector<int> up(n), down(n);
+//         up[0] = down[0] = 1;
+//         for (int i = 1; i < n; i++) {
+//             if (nums[i] > nums[i - 1]) {
+//                 up[i] = max(up[i - 1], down[i - 1] + 1);
+//                 down[i] = down[i - 1];
+//             } else if (nums[i] < nums[i - 1]) {
+//                 up[i] = up[i - 1];
+//                 down[i] = max(up[i - 1] + 1, down[i - 1]);
+//             } else {
+//                 up[i] = up[i - 1];
+//                 down[i] = down[i - 1];
+//             }
+//         }
+//         return max(up[n - 1], down[n - 1]);
+//     }
+// };
+
+// class Solution {
+// public:
+//     int wiggleMaxLength(vector<int>& nums) {
+//         int n = nums.size();
+//         if (n < 2) {
+//             return n;
+//         }
+//         int up = 1, down = 1;
+//         for (int i = 1; i < n; i++) {
+//             if (nums[i] > nums[i - 1]) {
+//                 up = max(up, down + 1);
+//             } else if (nums[i] < nums[i - 1]) {
+//                 down = max(up + 1, down);
+//             }
+//         }
+//         return max(up, down);
+//     }
+// };
+
+// class Solution {
+// public:
+//     int wiggleMaxLength(vector<int>& nums) {
+//         int n = nums.size();
+//         if (n < 2) {
+//             return n;
+//         }
+//         int up = 1, down = 1;
+//         for (int i = 1; i < n; i++) {
+//             if (nums[i] > nums[i - 1]) {
+//                 up = down + 1;
+//             } else if (nums[i] < nums[i - 1]) {
+//                 down = up + 1;
+//             }
+//         }
+//         return max(up, down);
+//     }
+// };
+
+// class Solution {
+// public:
+//     int wiggleMaxLength(vector<int>& nums) {
+//         int n = nums.size();
+//         if (n < 2) {
+//             return n;
+//         }
+//         int prevdiff = nums[1] - nums[0];
+//         int ret = prevdiff != 0 ? 2 : 1;
+//         for (int i = 2; i < n; i++) {
+//             int diff = nums[i] - nums[i - 1];
+//             if ((diff > 0 && prevdiff <= 0) || (diff < 0 && prevdiff >= 0)) {
+//                 ret++;
+//                 prevdiff = diff;
+//             }
+//         }
+//         return ret;
+//     }
+// };
+
+
+// 5245
+// class Solution {
+// public:
+//     int maxHeight(vector<vector<int>>& cuboids) {
+//         int n = cuboids.size();
+//         for (auto &c : cuboids)
+//             sort(c.begin(), c.end());
+//         sort(cuboids.begin(), cuboids.end());
+//         vector<int> dp(n);
+//         int ans = 0;
+//         for (int i = 0; i < n; ++i) {
+//             for (int j = 0; j < i; ++j)
+//                 if (cuboids[j][1] <= cuboids[i][1] && cuboids[j][2] <= cuboids[i][2])
+//                     dp[i] = max(dp[i], dp[j]);
+//             dp[i] += cuboids[i][2];
+//             ans = max(ans, dp[i]);
+//         }
+//         return ans;
+//     }
+// };
+
+
+// 1584
+// Solution1
+//class DisjointSetUnion {
+//private:
+//    vector<int> f, rank;
+//    int n;
+//
+//public:
+//    DisjointSetUnion(int _n) {
+//        n = _n;
+//        rank.resize(n, 1);
+//        f.resize(n);
+//        for (int i = 0; i < n; i++) {
+//            f[i] = i;
+//        }
+//    }
+//
+//    int find(int x) {
+//        return f[x] == x ? x : f[x] = find(f[x]);
+//    }
+//
+//    int unionSet(int x, int y) {
+//        int fx = find(x), fy = find(y);
+//        if (fx == fy) {
+//            return false;
+//        }
+//        if (rank[fx] < rank[fy]) {
+//            swap(fx, fy);
+//        }
+//        rank[fx] += rank[fy];
+//        f[fy] = fx;
+//        return true;
+//    }
+//};
+//
+//struct Edge {
+//    int len, x, y;
+//    Edge(int len, int x, int y) : len(len), x(x), y(y) {
+//    }
+//};
+//
+//class Solution {
+//public:
+//    int minCostConnectPoints(vector<vector<int>>& points) {
+//        auto dist = [&](int x, int y) -> int {
+//            return abs(points[x][0] - points[y][0]) + abs(points[x][1] - points[y][1]);
+//        };
+//        int n = points.size();
+//        DisjointSetUnion dsu(n);
+//        vector<Edge> edges;
+//        for (int i = 0; i < n; i++) {
+//            for (int j = i + 1; j < n; j++) {
+//                edges.emplace_back(dist(i, j), i, j);
+//            }
+//        }
+//        sort(edges.begin(), edges.end(), [](Edge a, Edge b) -> int { return a.len < b.len; });
+//        int ret = 0, num = 1;
+//        for (auto& [len, x, y] : edges) {
+//            if (dsu.unionSet(x, y)) {
+//                ret += len;
+//                num++;
+//                if (num == n) {
+//                    break;
+//                }
+//            }
+//        }
+//        return ret;
+//    }
+//};
+// Solution2
+//class DisjointSetUnion {
+//private:
+//    vector<int> f, rank;
+//    int n;
+//
+//public:
+//    DisjointSetUnion(int _n) {
+//        n = _n;
+//        rank.resize(n, 1);
+//        f.resize(n);
+//        for (int i = 0; i < n; i++) {
+//            f[i] = i;
+//        }
+//    }
+//
+//    int find(int x) {
+//        return f[x] == x ? x : f[x] = find(f[x]);
+//    }
+//
+//    int unionSet(int x, int y) {
+//        int fx = find(x), fy = find(y);
+//        if (fx == fy) {
+//            return false;
+//        }
+//        if (rank[fx] < rank[fy]) {
+//            swap(fx, fy);
+//        }
+//        rank[fx] += rank[fy];
+//        f[fy] = fx;
+//        return true;
+//    }
+//};
+//
+//class BIT {
+//public:
+//    vector<int> tree, idRec;
+//    int n;
+//
+//    BIT(int _n) {
+//        n = _n;
+//        tree.resize(n, INT_MAX);
+//        idRec.resize(n, -1);
+//    }
+//
+//    int lowbit(int k) {
+//        return k & (-k);
+//    }
+//
+//    void update(int pos, int val, int id) {
+//        while (pos > 0) {
+//            if (tree[pos] > val) {
+//                tree[pos] = val;
+//                idRec[pos] = id;
+//            }
+//            pos -= lowbit(pos);
+//        }
+//    }
+//
+//    int query(int pos) {
+//        int minval = INT_MAX;
+//        int j = -1;
+//        while (pos < n) {
+//            if (minval > tree[pos]) {
+//                minval = tree[pos];
+//                j = idRec[pos];
+//            }
+//            pos += lowbit(pos);
+//        }
+//        return j;
+//    }
+//};
+//
+//struct Edge {
+//    int len, x, y;
+//    Edge(int len, int x, int y) : len(len), x(x), y(y) {
+//    }
+//    bool operator<(const Edge& a) const {
+//        return len < a.len;
+//    }
+//};
+//
+//struct Pos {
+//    int id, x, y;
+//    bool operator<(const Pos& a) const {
+//        return x == a.x ? y < a.y : x < a.x;
+//    }
+//};
+//
+//class Solution {
+//public:
+//    vector<Edge> edges;
+//    vector<Pos> pos;
+//
+//    void build(int n) {
+//        sort(pos.begin(), pos.end());
+//        vector<int> a(n), b(n);
+//        for (int i = 0; i < n; i++) {
+//            a[i] = pos[i].y - pos[i].x;
+//            b[i] = pos[i].y - pos[i].x;
+//        }
+//        sort(b.begin(), b.end());
+//        b.erase(unique(b.begin(), b.end()), b.end());
+//        int num = b.size();
+//        BIT bit(num + 1);
+//        for (int i = n - 1; i >= 0; i--) {
+//            int poss = lower_bound(b.begin(), b.end(), a[i]) - b.begin() + 1;
+//            int j = bit.query(poss);
+//            if (j != -1) {
+//                int dis = abs(pos[i].x - pos[j].x) + abs(pos[i].y - pos[j].y);
+//                edges.emplace_back(dis, pos[i].id, pos[j].id);
+//            }
+//            bit.update(poss, pos[i].x + pos[i].y, i);
+//        }
+//    }
+//
+//    void solve(vector<vector<int>>& points, int n) {
+//        pos.resize(n);
+//        for (int i = 0; i < n; i++) {
+//            pos[i].x = points[i][0];
+//            pos[i].y = points[i][1];
+//            pos[i].id = i;
+//        }
+//        build(n);
+//        for (int i = 0; i < n; i++) {
+//            swap(pos[i].x, pos[i].y);
+//        }
+//        build(n);
+//        for (int i = 0; i < n; i++) {
+//            pos[i].x = -pos[i].x;
+//        }
+//        build(n);
+//        for (int i = 0; i < n; i++) {
+//            swap(pos[i].x, pos[i].y);
+//        }
+//        build(n);
+//    }
+//
+//    int minCostConnectPoints(vector<vector<int>>& points) {
+//        int n = points.size();
+//        solve(points, n);
+//
+//        DisjointSetUnion dsu(n);
+//        sort(edges.begin(), edges.end());
+//        int ret = 0, num = 1;
+//        for (auto& [len, x, y] : edges) {
+//            if (dsu.unionSet(x, y)) {
+//                ret += len;
+//                num++;
+//                if (num == n) {
+//                    break;
+//                }
+//            }
+//        }
+//        return ret;
+//    }
+//};
+
