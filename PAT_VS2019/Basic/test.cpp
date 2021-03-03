@@ -113,10 +113,10 @@ using namespace std;
 //	return 0;
 //}
 
-int main()
+/*int main()
 {
     char* c, s[20];
     strcpy(c, "123");
 
     return 0;
-}
+}*/

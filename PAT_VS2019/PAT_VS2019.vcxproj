@@ -695,6 +695,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LeetCode\5691.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LeetCode\684.cpp">
       <SubType>
       </SubType>

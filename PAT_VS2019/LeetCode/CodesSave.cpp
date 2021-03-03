@@ -2501,3 +2501,228 @@
 //    }
 //};
 
+
+// 5691
+// 超时
+// class Solution {
+// public:
+//     bool fadd(vector<int>& v,int sum,const int& t,int& i){
+//         if(t==sum)
+//             return 1;
+//         if(i==v.size()||6==v[i])
+//             return 0;
+//         if(6-v[i]+sum<=t)
+//         {
+//             i++;
+//             return fadd(v,sum+6-v[i-1],t,i);
+//         }
+//         else{
+//             i++;
+//             return 1;
+//         }
+//     }
+//     bool fsub(vector<int>& v,int sum,const int& t,int& i){
+//         if(t==sum)
+//             return 1;
+//         if(i==-1||1==v[i])
+//             return 0;
+//         if(sum-v[i]+1>=t)
+//         {
+//             i--;
+//             return fsub(v,sum+1-v[i+1],t,i);
+//         }
+//         else{
+//             i--;
+//             return 1;
+//         }
+//     }
+
+//     int minOperations(vector<int>& nums1, vector<int>& nums2) {
+//         int n=nums1.size(),m=nums2.size();
+//         sort(nums1.begin(),nums1.end());
+//         sort(nums2.begin(),nums2.end());
+//         int s1=0;
+//         int s2=0;
+//         // fsub(nums1,21,10,s1);
+//         // cout<<s1;
+//         for(auto s:nums1)
+//             s1+=s;
+//         for(auto s:nums2)
+//             s2+=s;
+//         if(s1>s2)
+//         {
+//             vector<int> t=nums2;
+//             nums2=nums1;
+//             nums1=t;
+//             int te=s1;
+//             s1=s2;
+//             s2=te;
+//             swap(n,m);
+//         }
+//         else if(s1==s2)return 0;
+
+//         int best=100000000;
+//         int bestS=-1;
+//         int bestq1=-1,bestq2=-1;
+//         for(int sum=s1;sum<=s2;sum++)
+//         {
+//             int q1=0,q2=m-1;
+//             if(fadd(nums1,s1,sum,q1)&&fsub(nums2,s2,sum,q2)){
+//                 if(best>q1+m-q2-1){
+//                     best=q1+m-q2-1;
+//                     bestS=sum;
+//                     bestq1=q1;
+//                     bestq2=m-1-q2;
+//                 }
+//             }
+//         }
+//         cout<<bestS<<endl<<bestq1<<endl<<bestq2<<endl;
+//         return best==100000000?-1:best;
+
+//     }
+// };
+
+// Solution1
+// class Solution {
+// public:
+//     int minOperations(vector<int>& a, vector<int>& b) {
+//         sort(a.begin(), a.end());
+//         sort(b.begin(), b.end());
+//         int sa = accumulate(a.begin(), a.end(), 0);
+//         int sb = accumulate(b.begin(), b.end(), 0);
+//         if (sa > sb) swap(sa, sb), swap(a, b);
+//         int i = 0, j = b.size() - 1;
+//         int cnt = 0;
+//         while (i < a.size() && 0 <= j && sa < sb) {
+//             if (6 - a[i] > b[j] - 1) { // 选择变化差值最大的一边
+//                 sa += 6 - a[i++];
+//             } else sb -= b[j--] - 1;
+//             ++cnt;
+//         }
+//         while (i < a.size() && sa < sb) {
+//             sa += 6 - a[i++];
+//             ++cnt;
+//         }
+//         while (0 <= j && sa < sb) {
+//             sb -= b[j--] - 1;
+//             ++cnt;
+//         }
+//         return sa >= sb ? cnt : -1;
+//     }
+// };
+// Solution2
+//class Solution {
+//public:
+//    int minOperations(vector<int>& nums1, vector<int>& nums2) {
+//        int n = nums1.size(), m = nums2.size();
+//        if (n > m * 6 || m > n * 6)
+//            return -1;
+//        int s1 = 0, s2 = 0;
+//        vector<int> inc(6), dec(6);
+//        for (int num : nums1) {
+//            s1 += num;
+//            if (num < 6)
+//                inc[6 - num]++;
+//            if (num > 1)
+//                dec[num - 1]++;
+//        }
+//        for (int num : nums2) {
+//            s2 += num;
+//            if (num < 6)
+//                dec[6 - num]++;
+//            if (num > 1)
+//                inc[num - 1]++;
+//        }
+//        if (s1 == s2)
+//            return 0;
+//
+//        int cnt = 0;
+//        if (s1 > s2) {
+//            for (int i = 5; i >= 1; --i) {
+//                while (dec[i]) {
+//                    s1 -= i;
+//                    dec[i]--;
+//                    cnt++;
+//                    if (s1 <= s2)
+//                        return cnt;
+//                }
+//            }
+//        }
+//        else {
+//            for (int i = 5; i >= 1; --i) {
+//                while (inc[i]) {
+//                    s1 += i;
+//                    inc[i]--;
+//                    cnt++;
+//                    if (s1 >= s2)
+//                        return cnt;
+//                }
+//            }
+//        }
+//
+//        return -1;
+//    }
+//};
+
+
+//338
+// 法1
+// class Solution {
+// public:
+//     int countOnes(int x) {
+//         int ones = 0;
+//         while (x > 0) {
+//             x &= (x - 1);
+//             ones++;
+//         }
+//         return ones;
+//     }
+
+//     vector<int> countBits(int num) {
+//         vector<int> bits(num + 1);
+//         for (int i = 0; i <= num; i++) {
+//             bits[i] = countOnes(i);
+//         }
+//         return bits;
+//     }
+// };
+
+// 法2
+// class Solution {
+// public:
+//     vector<int> countBits(int num) {
+//         vector<int> bits(num + 1);
+//         int highBit = 0;
+//         for (int i = 1; i <= num; i++) {
+//             if ((i & (i - 1)) == 0) {
+//                 highBit = i;
+//             }
+//             bits[i] = bits[i - highBit] + 1;
+//         }
+//         return bits;
+//     }
+// };
+
+// 法3
+// class Solution {
+// public:
+//     vector<int> countBits(int num) {
+//         vector<int> bits(num + 1);
+//         for (int i = 1; i <= num; i++) {
+//             bits[i] = bits[i >> 1] + (i & 1);
+//         }
+//         return bits;
+//     }
+// };
+
+// 法4
+// class Solution {
+// public:
+//     vector<int> countBits(int num) {
+//         vector<int> bits(num + 1);
+//         for (int i = 1; i <= num; i++) {
+//             bits[i] = bits[i & (i - 1)] + 1;
+//         }
+//         return bits;
+//     }
+// };

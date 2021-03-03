@@ -1,4 +1,5 @@
 ﻿D:\VSIDE\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1002,5): warning MSB8027: Two or more files with the name of 13.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Basic\13.cpp, SJTU\13.cpp.
-  test.cpp
-D:\codes\c++\PAT\PAT_VS2019\Basic\test.cpp(118,14): warning C4101: “s”: 未引用的局部变量
-D:\codes\c++\PAT\PAT_VS2019\Basic\test.cpp(119): error C4700: 使用了未初始化的局部变量“c”
+  5691.cpp
+D:\codes\c++\PAT\PAT_VS2019\LeetCode\5691.cpp(49,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\codes\c++\PAT\PAT_VS2019\LeetCode\5691.cpp(95,6): warning C4101: “n”: 未引用的局部变量
+  PAT_VS2019.vcxproj -> D:\codes\c++\PAT\PAT_VS2019\x64\Debug\PAT_VS2019.exe
