@@ -1,0 +1,96 @@
+// 两题面试官都给我找出了几个bug，找出一个就纠正一个...主要是小错误，有的是变量写错了没全改过来
+// 第二题开始没想到要存起来用上一次多读的数据，面试官提醒后纠正了
+
+
+#include <iostream>
+using namespace std;
+
+struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+};
+
+// 左节点的index是父节点的index-1, 右节点的index是父节点的index+1
+// 找出index最小值，以及index为最小index的所有节点的val列表
+
+pair<int,vector<int>> getLefttmostNodes(TreeNode* root){
+    queue<pair<TreeNodes*,int>> q;
+    q.push(root,0);
+    int minIndex=0;
+    vector<int> listv;
+    while(!q.empty()){
+        auto t=q.front();
+        q.pop();
+        int nowIndex=t->second;
+        
+        // 处理到最左节点路径上的所有右子节点
+        if(t->first->right){
+            q.push(t->first->right,nowIndex+1);
+        }
+        while(t->first->left){
+            t->first=t->first->left;
+            nowIndex--;
+            if(t->first->right){
+                t.push(t->first->right,nowIndex+1);
+            }
+        }
+        
+        if(minIndex>nowIndex){
+            minIndex=nowIndex;
+            listv.resize(0);
+            listv.emplace(t->first->val);
+        }
+        else if(minIndex==nowIndex){
+            listv.emplace(t->first->val);
+        }
+    }
+    return make_pair(minIndex,listv);
+}
+
+int main()
+{
+  cout << "Hello, World!" << endl;
+  return 0;
+}
+
+
+// 第二题 
+// BlockReader 提供一个一次可以读4KB数据的接口，如果没有4KB数据了就返回真正读到的字节数
+// 实现Reader里的read函数，每次读size个字节写到buffer上，返回实际写到buffer上的数据字节数
+// 如果size小于4KB，BlockReader 会多读些数据需要存起来，下一次调用read时要先判断是否还有之前读的数据没有用完
+
+class BlockReader {
+public:
+  // Read next 4K block into buffer, return # of bytes read
+  size_t read4k(char *buffer);
+private:
+   ...
+  // Some block device or file managed by BlockReader
+};
+
+
+class Reader {
+public:
+  Reader(BlockReader &reader) : reader_(reader) {
+    // TODO: Implement constructor
+      lastReadBuffer=new char[4096];
+  }
+  // Read next N bytes into buffer, return # of bytes read
+  size_t read(size_t size, char *buffer) {
+    // TODO: Implement this function
+    char* buffer_=buffer;
+    int trySize; 
+    int needReadSize=size;
+    if(lastReadSize){
+        if(lastReadSize>=needReadSize){
+            memcpy(buffer_,lastReadBuffer,needReadSize);
+            memcpy(lastReadBuffer,lastReadBuffer+needReadSize, \
+                   lastReadSize-needReadSize);
+            lastReadSize-=needReadSize;
+            return size;
+        }else{
+            memcpy(buffer_,lastReadBuffer,lastReadSize);
+            buffer_+=lastReadSize;
+。。。没保存下来了
+            

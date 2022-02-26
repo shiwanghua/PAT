@@ -1,0 +1,12 @@
+Problem IV
+
+1. 
+One mutex: used to modify the queue safely.
+
+Two condition variable: 
+	Producer condition variable: block a producer if the queue is full and awaken a producer if the queue is not full.
+	Consumer condition variable: block a consumer if the queue is empty and awaken a consumer if the queue is not empty.
+
+2. If the task of consumer is to calculate the sum of produced data, the "channel" is not the best choice because multiple consumer can not output the right answer without an extra merge operation.
+
+Reference: https://www.cnblogs.com/yangang92/p/5485868.html

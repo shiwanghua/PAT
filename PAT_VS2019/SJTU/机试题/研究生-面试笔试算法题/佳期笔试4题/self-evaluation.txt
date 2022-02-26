@@ -1,0 +1,17 @@
+self-evaluation
+
+I did these problems slowly and did something not related to this exam.
+
+The four problems are of high quality, interesting and not too hard.
+
+I organize a computer program for the four problems. I think it is a good job.
+
+For I.B, I am not familiar with deeper reason.
+
+For II，I feel there is more excellent solution with lower time complexity. It is a pity I did not design it.
+
+For III, I solve it with DP method. The time complexity is O(2*n^3). There may exist optimization space. For expressing the formula, I submit ".md" file not ".txt" file.
+
+For IV, I seldom write parallel programs so my solution is very simple.
+
+Thanks for your problems testing and exercising my ability.

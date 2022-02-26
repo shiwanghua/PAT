@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++2a -pthread    CMakeFiles/ForExam.dir/ProblemI.cpp.o CMakeFiles/ForExam.dir/ProblemII.cpp.o CMakeFiles/ForExam.dir/ProblemIII.cpp.o CMakeFiles/ForExam.dir/ProblemIV.cpp.o CMakeFiles/ForExam.dir/main.cpp.o CMakeFiles/ForExam.dir/tool.cpp.o  -o ForExam 

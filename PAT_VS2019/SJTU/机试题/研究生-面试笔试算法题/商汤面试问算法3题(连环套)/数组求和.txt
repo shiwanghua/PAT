@@ -1,0 +1,13 @@
+面试官觉得很简单，问我是不是很简单，
+不要求我写main做测试了，
+前两题连代码都没写，直接说了个思路，
+第三题写了个dfs然后讲了下思路
+
+1. 大概就是两数之和，问我是不是很简单，我说以前可能做过但是是很久以前了，后来看了看https://leetcode-cn.com/problems/two-sum/，2018/9和2020/10做的。
+一开始没想到hash表，说如果有序的话用滑动窗口
+
+2. 和第一题相似，忘了，可能是滑动窗口求连续子数组的和为k，反正也只说了下思路
+
+3. 从一个数组里取数，每个数可以重复取多次，使得取的数的和为k，有多少种取法，怎么求复杂度，如果不能重复取相同数字呢。
+https://leetcode-cn.com/problems/combination-sum/
+https://leetcode-cn.com/problems/combination-sum-ii/

@@ -1,0 +1,3 @@
+/home/swh/桌面/我的文件/简历/佳期考试/ForExam/CMakeFiles/rebuild_cache.dir
+/home/swh/桌面/我的文件/简历/佳期考试/ForExam/CMakeFiles/edit_cache.dir
+/home/swh/桌面/我的文件/简历/佳期考试/ForExam/CMakeFiles/ForExam.dir

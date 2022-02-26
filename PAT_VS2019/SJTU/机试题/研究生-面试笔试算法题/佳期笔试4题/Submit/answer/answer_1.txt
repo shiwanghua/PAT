@@ -1,0 +1,18 @@
+# answer_1
+
+### Part A
+
+* I think loop B is faster, because a[0] and a[1] can increase in parallel.
+* For loop A, the second operation depends on the first operation.
+* By running the test program, loop A use 997231437 instructions while loop B use 1118833676 without O3 optimization.
+* In conclusion, loop A is faster.
+
+### Part B
+
+* I think Situation 2 is faster, because the addresses have a difference of 64 B which is more friend to 64 bit operating system.
+* In situation 2, one thread may occupy 0～3 position in the cache so that the concurrency is invalid.
+* Besides, according to the experiment result, situation 1 use 5166.6 ms while situation 2 use 101.9 ms on my computer.
+
+
+
+

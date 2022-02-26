@@ -2726,3 +2726,169 @@
 //         return bits;
 //     }
 // };
+
+
+// 1771
+// class Solution {
+// public:
+//     int longestPalindrome(string w1, string w2) {
+//         int l1 = w1.size(), l2 = w2.size(), len = l1 + l2;
+//         // 拼接w1 w2得到一个完整的字符串w
+//         string w = w1 + w2;
+//         vector<vector<int>> dp(len, vector<int>(len, 0));
+//         // 特殊判断word1的最后一个字符是否与word2第一个字符相等，若相等则res初始化为2.
+//         int res = (w[l1-1] == w[l1]) ? 2: 0;
+//         // 以下与计算最长回文子串解法一致
+//         for(int i = 0 ; i < len ; i ++) {
+//             dp[i][i] = 1;
+//         }
+//         for(int i = 0 ; i < len - 1 ; i ++) {
+//             dp[i][i+1] = (w[i] == w[i+1])? 2: 1;
+//         }
+
+//         for(int l = 2 ; l < len ; l ++) {
+//             for(int i = 0 ; i + l < len ; i ++) {
+//                 int j = i + l;
+//                 if(w[i] == w[j]) {
+//                     dp[i][j] = dp[i+1][j-1] + 2;
+//                     // 唯一的区别就在于当两端字符相等更新最长回文子串时
+//                     // 若 i j 分别属于两个字符串，才更新最终结果值
+//                     if(i < l1 && j >= l1){
+//                         res = max(res, dp[i][j]);
+//                     }
+//                 }
+//                 else {
+//                     dp[i][j] = max(dp[i][j-1], dp[i+1][j]);
+//                 }
+//             }
+//         }
+//         return res;
+//     }
+// };
+
+// class Solution {
+// public:
+//     static const int N = 2e3 + 5;
+//     // dp[i][j]表示区间 i ~ j最长回文串的长度
+//     int dp[N][N];
+
+//     int dfs(int i, int j, const string &s) {
+//         if (i == j) return 1;
+//         if (i > j) return 0;
+//         if (dp[i][j] != -1) return dp[i][j];
+
+//         int ret = 0;
+//         if (s[i] == s[j]) {
+//             ret = std::max(ret, dfs(i + 1, j - 1, s) + 2);
+//         } else {
+//             ret = std::max(ret, dfs(i + 1, j, s));
+//             ret = std::max(ret, dfs(i, j - 1, s));
+//         }
+//         return dp[i][j] = ret;
+//     }
+//     int longestPalindrome(string word1, string word2) {
+//         std::memset(dp, -1, sizeof dp);
+
+//         string s = word1 + word2;
+//         int ans = 0;
+//         int n1 = word1.size(), n2 = word2.size();
+//         for (int i = 0; i < n1; ++i) {
+//             for (int j = 0; j < n2; ++j) {
+//                 // 保证word1, word2选出的是非空的子序列
+//                 if (s[i] == s[n1 + j])
+//                     ans = std::max(ans, dfs(i, n1 + j, s));
+//             }
+//         }
+//         return ans;
+//     }
+// };
+
+//1770
+//class Solution {
+//public:
+//    int maximumScore(vector<int>& nums, vector<int>& multipliers) {
+//        vector<vector<long long>> dp(1005, vector<long long>(1005, 0));
+//        long long m = multipliers.size(), res = INT_MIN, n = nums.size();
+//        for (int k = 1; k <= m; ++k) {
+//            for (int i = 0; i <= k; i++) {
+//                if (i == 0) dp[i][k - i] = dp[i][k - i - 1] + nums[n - k + i] * multipliers[k - 1];
+//                else if (i == k) dp[i][k - i] = dp[i - 1][k - i] + nums[i - 1] * multipliers[k - 1];
+//                else dp[i][k - i] = max(dp[i][k - i - 1] + nums[n - k + i] * multipliers[k - 1], dp[i - 1][k - i] + nums[i - 1] * multipliers[k - 1]);
+//                if (k == m) res = max(res, dp[i][k - i]);
+//            }
+//        }
+//        return res;
+//    }
+//};
+
+// 1654
+// class Solution {
+// public:
+//     int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+//         int g = __gcd(a,b);
+//         if((x % g) != 0) {
+//             return -1;
+//         }
+
+//         int vis[6001], ban[2001];
+//         memset(vis, 0, sizeof(vis));
+//         memset(ban, 0, sizeof(ban));
+//         for(int v : forbidden) {
+//             vis[v] = 1;
+//             ban[v] = 1;
+//         }
+
+//         priority_queue<pair<int,int>, vector<pair<int, int>>, greater<pair<int,int>>> q;
+//         q.emplace(0, 0);
+
+//         while(q.size()) {
+//             auto [steps, node] = q.top();
+//             q.pop();
+//             if(a >= b && node > x) {
+//                 continue;
+//             }
+//             if(node == x) {
+//                 return steps;
+//             }
+//             if(!vis[node]) {
+//                 vis[node] = 1;
+//                 if(node + a <= 6000 && !vis[node + a]) {
+//                     q.emplace(steps + 1, node + a);
+//                 }
+//                 if( node + a - b >= 0 && !vis[node + a - b] && !(node + a <= 2000 && ban[node + a])) {
+//                     q.emplace(steps + 2, node + a - b);
+//                 }
+//             }
+//         }
+//         return -1;
+//     }
+// };
+// 法2
+// class Solution {
+// public:
+//     vector<int> visited;
+// 	int cnt = 1000000;
+// 	void dfs(int x, int a, int b, int count, int t){ //t用来记录向后走的次数
+// 		if(x == 0){
+// 			cnt = min(cnt, count); //得到最小步数
+// 			return ;
+// 		} 
+// 		if(x - a >= 0 && visited[x - a] != 1){ //从终点往后退
+// 			visited[x - a] = 1;
+// 			dfs(x - a, a, b, count + 1, 0);
+//             // visited[x - a] = 0; // 这里不能重置！！！
+// 		}
+// 		if(x + b < 6001 && visited[x + b] != 1 && t == 0){ //从终点往前走，注意条件t，t为0才能执行
+// 			visited[x + b] = 1;
+// 			dfs(x + b, a, b, count + 1, 1);//此处给t打标记，以防往后退两次
+//             visited[x + b] = 0; //重置
+// 		}
+// 	}
+//     int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+// 		visited.resize(6001, 0);
+// 		for(int i = 0; i < forbidden.size(); i++) visited[forbidden[i]] = 1;
+// 		dfs(x, a, b, 0, 0); //从终点往回走
+// 		if(cnt < 1000000) return cnt;
+// 		else return -1;
+//     }
+// };

@@ -1,0 +1,48 @@
+
+https://www.acwing.com/problem/content/description/308/
+
+
+#include<algorithm>
+#include<iostream>
+#include<vector>
+#include<map>
+using namespace std;
+typedef long long ll;
+int main(){
+    int n,m,q,a,b;
+    cin>>n>>m>>q;
+    vector<vector<ll>> nmmap(2,vector<ll>(m+1,0));
+    map<int,vector<int>> ba;
+    for(int i=0;i<q;i++){
+        cin>>a>>b;
+        ba[a].push_back(b);
+    }
+    for(auto c:ba[1]) 
+        nmmap[0][c]=-1;
+    nmmap[0][1]=1;
+    for(int i=2;i<=m;i++)
+        if(nmmap[0][i-1]>0&&nmmap[0][i]!=-1) 
+            nmmap[0][i]=1;
+    else break;
+
+    for(int i=2;i<=n;i++){
+        for(int i=1;i<=m;i++){    
+            nmmap[1][i]=0;
+        }
+        for(auto c:ba[i])
+            nmmap[1][c]=-1;
+        for(int j=1;j<=m;j++){
+            if(nmmap[1][j]==-1) continue;
+            if(i>1) nmmap[1][j]=max((ll)0,nmmap[0][j]);
+            if(j>1) nmmap[1][j]+=max((ll)0,nmmap[1][j-1]);
+            nmmap[1][j]%=(ll)(1e9+7);
+        }
+        for(int i=1;i<=m;i++){
+            nmmap[0][i]=nmmap[1][i];
+            //cout<<nmmap[0][i]<<" ";
+        }
+        //cout<<endl;
+    }
+    cout<<nmmap[1][m];
+    return 0;
+}
