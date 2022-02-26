@@ -1,5 +1,5 @@
 //
-//// 40 ×éºÏ×ÜºÍII 5-12
+//// 40 ç»„åˆæ€»å’ŒII 5-12
 //class Solution {
 //    vector<vector<int>> ans;
 //    int n, t;
@@ -41,7 +41,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */ 
- // // 102  ²ãÐò±éÀú
+ // // 102  å±‚åºéåŽ†
  // class Solution {
  // public:
  //     vector<vector<int>> levelOrder(TreeNode* root) {
@@ -98,7 +98,7 @@
 
 
 //  5
-// ·¨1
+// æ³?
 // class Solution {
 // public:
 //     string longestPalindrome(string s) {
@@ -146,7 +146,7 @@
 //         t += '#';
 //         s = t;
 
-// ·¨2
+// æ³?
 //class Solution {
 //public:
 //    pair<int, int> expandAroundCenter(const string& s, int left, int right) {
@@ -175,7 +175,7 @@
 //    }
 //};
 
-//  ·¨3
+//  æ³?
 //         vector<int> arm_len;
 //         int right = -1, j = -1;
 //         for (int i = 0; i < s.size(); ++i) {
@@ -212,7 +212,7 @@
 // 25 
 //class Solution {
 //public:
-//    // ·­×ªÒ»¸ö×ÓÁ´±í£¬²¢ÇÒ·µ»ØÐÂµÄÍ·ÓëÎ²
+//    // ç¿»è½¬ä¸€ä¸ªå­é“¾è¡¨ï¼Œå¹¶ä¸”è¿”å›žæ–°çš„å¤´ä¸Žå°¾
 //    pair<ListNode*, ListNode*> myReverse(ListNode* head, ListNode* tail) {
 //        ListNode* prev = tail->next;
 //        ListNode* p = head;
@@ -232,7 +232,7 @@
 //
 //        while (head) {
 //            ListNode* tail = pre;
-//            // ²é¿´Ê£Óà²¿·Ö³¤¶ÈÊÇ·ñ´óÓÚµÈÓÚ k
+//            // æŸ¥çœ‹å‰©ä½™éƒ¨åˆ†é•¿åº¦æ˜¯å¦å¤§äºŽç­‰äºŽ k
 //            for (int i = 0; i < k; ++i) {
 //                tail = tail->next;
 //                if (!tail) {
@@ -240,12 +240,12 @@
 //                }
 //            }
 //            ListNode* nex = tail->next;
-//            // ÕâÀïÊÇ C++17 µÄÐ´·¨£¬Ò²¿ÉÒÔÐ´³É
+//            // è¿™é‡Œæ˜?C++17 çš„å†™æ³•ï¼Œä¹Ÿå¯ä»¥å†™æˆ?
 //            // pair<ListNode*, ListNode*> result = myReverse(head, tail);
 //            // head = result.first;
 //            // tail = result.second;
 //            tie(head, tail) = myReverse(head, tail);
-//            // °Ñ×ÓÁ´±íÖØÐÂ½Ó»ØÔ­Á´±í
+//            // æŠŠå­é“¾è¡¨é‡æ–°æŽ¥å›žåŽŸé“¾è¡?
 //            pre->next = head;
 //            tail->next = nex;
 //            pre = tail;
@@ -280,7 +280,7 @@
 //    }
 //};
 
-//// ·¨2
+//// æ³?
 //class Solution {
 //public:
 //    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
@@ -351,7 +351,7 @@
 
 
 // 146
-// ·¨Ò»
+// æ³•ä¸€
 //  struct Node {
 //     int time, key, value;
 
@@ -363,7 +363,7 @@
 // };
 
 // class LRUCache {
-//     // »º´æÈÝÁ¿£¬Ê±¼ä´Á
+//     // ç¼“å­˜å®¹é‡ï¼Œæ—¶é—´æˆ³
 //     int capacity, time;
 //     unordered_map<int, Node> key_table;
 //     set<Node> S;
@@ -378,15 +378,15 @@
 //     int get(int key) {
 //         if (capacity == 0) return -1;
 //         auto it = key_table.find(key);
-//         // Èç¹û¹þÏ£±íÖÐÃ»ÓÐ¼ü key£¬·µ»Ø -1
+//         // å¦‚æžœå“ˆå¸Œè¡¨ä¸­æ²¡æœ‰é”?keyï¼Œè¿”å›?-1
 //         if (it == key_table.end()) return -1;
-//         // ´Ó¹þÏ£±íÖÐµÃµ½¾ÉµÄ»º´æ
+//         // ä»Žå“ˆå¸Œè¡¨ä¸­å¾—åˆ°æ—§çš„ç¼“å­?
 //         Node cache = it -> second;
-//         // ´ÓÆ½ºâ¶þ²æÊ÷ÖÐÉ¾³ý¾ÉµÄ»º´æ
+//         // ä»Žå¹³è¡¡äºŒå‰æ ‘ä¸­åˆ é™¤æ—§çš„ç¼“å­?
 //         S.erase(cache);
-//         // ½«¾É»º´æ¸üÐÂ
+//         // å°†æ—§ç¼“å­˜æ›´æ–°
 //         cache.time = ++time;
-//         // ½«ÐÂ»º´æÖØÐÂ·ÅÈë¹þÏ£±íºÍÆ½ºâ¶þ²æÊ÷ÖÐ
+//         // å°†æ–°ç¼“å­˜é‡æ–°æ”¾å…¥å“ˆå¸Œè¡¨å’Œå¹³è¡¡äºŒå‰æ ‘ä¸­
 //         S.insert(cache);
 //         it -> second = cache;
 //         return cache.value;
@@ -396,20 +396,20 @@
 //         if (capacity == 0) return;
 //         auto it = key_table.find(key);
 //         if (it == key_table.end()) {
-//             // Èç¹ûµ½´ï»º´æÈÝÁ¿ÉÏÏÞ
+//             // å¦‚æžœåˆ°è¾¾ç¼“å­˜å®¹é‡ä¸Šé™
 //             if (key_table.size() == capacity) {
-//                 // ´Ó¹þÏ£±íºÍÆ½ºâ¶þ²æÊ÷ÖÐÉ¾³ý×î½ü×îÉÙÊ¹ÓÃµÄ»º´æ
+//                 // ä»Žå“ˆå¸Œè¡¨å’Œå¹³è¡¡äºŒå‰æ ‘ä¸­åˆ é™¤æœ€è¿‘æœ€å°‘ä½¿ç”¨çš„ç¼“å­˜
 //                 key_table.erase(S.begin() -> key);
 //                 S.erase(S.begin());
 //             }
-//             // ´´½¨ÐÂµÄ»º´æ
+//             // åˆ›å»ºæ–°çš„ç¼“å­˜
 //             Node cache = Node(++time, key, value);
-//             // ½«ÐÂ»º´æ·ÅÈë¹þÏ£±íºÍÆ½ºâ¶þ²æÊ÷ÖÐ
+//             // å°†æ–°ç¼“å­˜æ”¾å…¥å“ˆå¸Œè¡¨å’Œå¹³è¡¡äºŒå‰æ ‘ä¸­
 //             key_table.insert(make_pair(key, cache));
 //             S.insert(cache);
 //         }
 //         else {
-//             // ÕâÀïºÍ get() º¯ÊýÀàËÆ
+//             // è¿™é‡Œå’?get() å‡½æ•°ç±»ä¼¼
 //             Node cache = it -> second;
 //             S.erase(cache);
 //             cache.time = ++time;
@@ -420,8 +420,8 @@
 //     }
 // };
 
-//  ·¨3
-// »º´æµÄ½ÚµãÐÅÏ¢
+//  æ³?
+// ç¼“å­˜çš„èŠ‚ç‚¹ä¿¡æ?
 // struct Node {
 //     int key, val;
 //     Node(int _key,int _val): key(_key), val(_val){}
@@ -445,7 +445,7 @@
 //         list<Node>::iterator node = it -> second;
 //         int val = node -> val;
 //         freq_table.erase(node);
-//         // ²åÈëµ½ freq + 1 ÖÐ
+//         // æ’å…¥åˆ?freq + 1 ä¸?
 //         freq_table.push_front(Node(key, val));
 //         key_table[key] = freq_table.begin();
 //         return val;
@@ -455,9 +455,9 @@
 //         if (capacity == 0) return;
 //         auto it = key_table.find(key);
 //         if (it == key_table.end()) {
-//             // »º´æÒÑÂú£¬ÐèÒª½øÐÐÉ¾³ý²Ù×÷
+//             // ç¼“å­˜å·²æ»¡ï¼Œéœ€è¦è¿›è¡Œåˆ é™¤æ“ä½?
 //             if (key_table.size() == capacity) {
-//                 // Í¨¹ý minFreq ÄÃµ½ freq_table[minFreq] Á´±íµÄÄ©Î²½Úµã
+//                 // é€šè¿‡ minFreq æ‹¿åˆ° freq_table[minFreq] é“¾è¡¨çš„æœ«å°¾èŠ‚ç‚?
 //                 auto it2 = freq_table.back();
 //                 key_table.erase(it2.key);
 //                 freq_table.pop_back();
@@ -466,7 +466,7 @@
 //             key_table[key] = freq_table.begin();
 //         } 
 //         else {
-//             // Óë get ²Ù×÷»ù±¾Ò»ÖÂ£¬³ýÁËÐèÒª¸üÐÂ»º´æµÄÖµ
+//             // ä¸?get æ“ä½œåŸºæœ¬ä¸€è‡´ï¼Œé™¤äº†éœ€è¦æ›´æ–°ç¼“å­˜çš„å€?
 //             list<Node>::iterator node = it -> second;
 //             freq_table.erase(node);
 //             freq_table.push_front(Node(key, value));
@@ -475,7 +475,7 @@
 //     }
 // };
 
-// ·¨4
+// æ³?
 // struct DLinkedNode {
 //     int key, value;
 //     DLinkedNode* prev;
@@ -494,7 +494,7 @@
 
 // public:
 //     LRUCache(int _capacity): capacity(_capacity), size(0) {
-//         // Ê¹ÓÃÎ±Í·²¿ºÍÎ±Î²²¿½Úµã
+//         // ä½¿ç”¨ä¼ªå¤´éƒ¨å’Œä¼ªå°¾éƒ¨èŠ‚ç‚?
 //         head = new DLinkedNode();
 //         tail = new DLinkedNode();
 //         head->next = tail;
@@ -505,7 +505,7 @@
 //         if (!cache.count(key)) {
 //             return -1;
 //         }
-//         // Èç¹û key ´æÔÚ£¬ÏÈÍ¨¹ý¹þÏ£±í¶¨Î»£¬ÔÙÒÆµ½Í·²¿
+//         // å¦‚æžœ key å­˜åœ¨ï¼Œå…ˆé€šè¿‡å“ˆå¸Œè¡¨å®šä½ï¼Œå†ç§»åˆ°å¤´éƒ?
 //         DLinkedNode* node = cache[key];
 //         moveToHead(node);
 //         return node->value;
@@ -513,23 +513,23 @@
 
 //     void put(int key, int value) {
 //         if (!cache.count(key)) {
-//             // Èç¹û key ²»´æÔÚ£¬´´½¨Ò»¸öÐÂµÄ½Úµã
+//             // å¦‚æžœ key ä¸å­˜åœ¨ï¼Œåˆ›å»ºä¸€ä¸ªæ–°çš„èŠ‚ç‚?
 //             DLinkedNode* node = new DLinkedNode(key, value);
-//             // Ìí¼Ó½ø¹þÏ£±í
+//             // æ·»åŠ è¿›å“ˆå¸Œè¡¨
 //             cache[key] = node;
-//             // Ìí¼ÓÖÁË«ÏòÁ´±íµÄÍ·²¿
+//             // æ·»åŠ è‡³åŒå‘é“¾è¡¨çš„å¤´éƒ¨
 //             addToHead(node);
 //             ++size;
 //             if (size > capacity) {
-//                 // Èç¹û³¬³öÈÝÁ¿£¬É¾³ýË«ÏòÁ´±íµÄÎ²²¿½Úµã
+//                 // å¦‚æžœè¶…å‡ºå®¹é‡ï¼Œåˆ é™¤åŒå‘é“¾è¡¨çš„å°¾éƒ¨èŠ‚ç‚¹
 //                 DLinkedNode* removed = removeTail();
-//                 // É¾³ý¹þÏ£±íÖÐ¶ÔÓ¦µÄÏî
+//                 // åˆ é™¤å“ˆå¸Œè¡¨ä¸­å¯¹åº”çš„é¡¹
 //                 cache.erase(removed->key);
 //                 --size;
 //             }
 //         }
 //         else {
-//             // Èç¹û key ´æÔÚ£¬ÏÈÍ¨¹ý¹þÏ£±í¶¨Î»£¬ÔÙÐÞ¸Ä value£¬²¢ÒÆµ½Í·²¿
+//             // å¦‚æžœ key å­˜åœ¨ï¼Œå…ˆé€šè¿‡å“ˆå¸Œè¡¨å®šä½ï¼Œå†ä¿®æ”?valueï¼Œå¹¶ç§»åˆ°å¤´éƒ¨
 //             DLinkedNode* node = cache[key];
 //             node->value = value;
 //             moveToHead(node);
@@ -563,7 +563,7 @@
 // 287
 //class Solution {
 //public:
-//    // ·¨1
+//    // æ³?
 //    // int findDuplicate(vector<int>& nums) {
 //    //     int n = nums.size();
 //    //     int l = 1, r = n - 1, ans = -1;
@@ -583,7 +583,7 @@
 //    //     return ans;
 //    // }
 //
-//    // ·¨2
+//    // æ³?
 //    // int findDuplicate(vector<int>& nums) {
 //    //     int n=nums.size(), bitmax=31, ans=0;
 //    //     while((n-1)&(1<<bitmax)==0)
@@ -601,7 +601,7 @@
 //    //     return ans;
 //    // }
 //
-//    // ·¨3 O(n);O(1)
+//    // æ³? O(n);O(1)
 //    int findDuplicate(vector<int>& nums) {
 //        int slow = 0, fast = 0;
 //        do {
@@ -619,7 +619,7 @@
 
 
 // 974
-// ·¨1
+// æ³?
 // class Solution {
 // public:
 //     int subarraysDivByK(vector<int>& A, int K) {
@@ -638,7 +638,7 @@
 //     }
 // };
 
-// ·¨2
+// æ³?
 // class Solution {
 // public:
 //     int subarraysDivByK(vector<int>& A, int K) {
@@ -646,7 +646,7 @@
 //         int sum = 0;
 //         for (int elem: A) {
 //             sum += elem;
-//             // ×¢Òâ C++ È¡Ä£µÄÌØÊâÐÔ£¬µ±±»³ýÊýÎª¸ºÊýÊ±È¡Ä£½á¹ûÎª¸ºÊý£¬ÐèÒª¾ÀÕý
+//             // æ³¨æ„ C++ å–æ¨¡çš„ç‰¹æ®Šæ€§ï¼Œå½“è¢«é™¤æ•°ä¸ºè´Ÿæ•°æ—¶å–æ¨¡ç»“æžœä¸ºè´Ÿæ•°ï¼Œéœ€è¦çº æ­?
 //             int modulus = (sum % K + K) % K;
 //             ++record[modulus];
 //         }
@@ -693,7 +693,7 @@
 //        for (int i = K; i < K + W && i <= N; i++) {
 //            dp[i] = 1;
 //        }
-//        dp[K - 1] = 1.0 * min(N - K + 1, W) / W;  // ²»³ËÒÔ0.1Ö»ÄÜµÃµ½ÕûÊý£¡
+//        dp[K - 1] = 1.0 * min(N - K + 1, W) / W;  // ä¸ä¹˜ä»?.1åªèƒ½å¾—åˆ°æ•´æ•°ï¼?
 //        for (int i = K - 2; i >= 0; i--)
 //            dp[i] = dp[i + 1] + (dp[i + 1] - dp[i + W + 1]) / W;
 //        return dp[0];
@@ -706,11 +706,11 @@
 //    vector<int> productExceptSelf(vector<int>& nums) {
 //        int length = nums.size();
 //
-//        // L ºÍ R ·Ö±ð±íÊ¾×óÓÒÁ½²àµÄ³Ë»ýÁÐ±í
+//        // L å’?R åˆ†åˆ«è¡¨ç¤ºå·¦å³ä¸¤ä¾§çš„ä¹˜ç§¯åˆ—è¡?
 //        vector<int> L(length, 0);
 //
-//        // L[i] ÎªË÷Òý i ×ó²àËùÓÐÔªËØµÄ³Ë»ý
-//        // ¶ÔÓÚË÷ÒýÎª '0' µÄÔªËØ£¬ÒòÎª×ó²àÃ»ÓÐÔªËØ£¬ËùÒÔ L[0] = 1
+//        // L[i] ä¸ºç´¢å¼?i å·¦ä¾§æ‰€æœ‰å…ƒç´ çš„ä¹˜ç§¯
+//        // å¯¹äºŽç´¢å¼•ä¸?'0' çš„å…ƒç´ ï¼Œå› ä¸ºå·¦ä¾§æ²¡æœ‰å…ƒç´ ï¼Œæ‰€ä»?L[0] = 1
 //        L[0] = 1;
 //        for (int i = 1; i < length; i++)
 //            L[i] = nums[i - 1] * L[i - 1];
@@ -725,7 +725,7 @@
 //};
 
 
-// ÃæÊÔÌâ29
+// é¢è¯•é¢?9
 // class Solution {
 //     int m,n;
 //     int x[4]={0,1,0,-1};
@@ -757,7 +757,7 @@
 //     }
 // };
 
-// // ·¨2
+// // æ³?
 // class Solution {
 // public:
 //     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -812,7 +812,7 @@
 //                cnt += 1;
 //                qq += 1;
 //            }
-//            // ma=max(ma,qq-q);  //  ×öÈý´Î¼Ó·¨¾ÓÈ»±È×öÒ»´Î¼õ·¨»¹¿ì
+//            // ma=max(ma,qq-q);  //  åšä¸‰æ¬¡åŠ æ³•å±…ç„¶æ¯”åšä¸€æ¬¡å‡æ³•è¿˜å¿?
 //            ma = max(ma, cnt);
 //        }
 //        return ma;
@@ -883,7 +883,7 @@
 //    }
 //};
 
-// ÃæÊÔÌâ46
+// é¢è¯•é¢?6
 // class Solution {
 // public:
 //     int translateNum(int num) {
@@ -942,11 +942,11 @@
 //class Solution {
 //public:
 //    bool isPalindrome(int x) {
-//        // ÌØÊâÇé¿ö£º
-//        // ÈçÉÏËùÊö£¬µ± x < 0 Ê±£¬x ²»ÊÇ»ØÎÄÊý¡£
-//        // Í¬ÑùµØ£¬Èç¹ûÊý×ÖµÄ×îºóÒ»Î»ÊÇ 0£¬ÎªÁËÊ¹¸ÃÊý×ÖÎª»ØÎÄ£¬
-//        // ÔòÆäµÚÒ»Î»Êý×ÖÒ²Ó¦¸ÃÊÇ 0
-//        // Ö»ÓÐ 0 Âú×ãÕâÒ»ÊôÐÔ
+//        // ç‰¹æ®Šæƒ…å†µï¼?
+//        // å¦‚ä¸Šæ‰€è¿°ï¼Œå½?x < 0 æ—¶ï¼Œx ä¸æ˜¯å›žæ–‡æ•°ã€?
+//        // åŒæ ·åœ°ï¼Œå¦‚æžœæ•°å­—çš„æœ€åŽä¸€ä½æ˜¯ 0ï¼Œä¸ºäº†ä½¿è¯¥æ•°å­—ä¸ºå›žæ–‡ï¼?
+//        // åˆ™å…¶ç¬¬ä¸€ä½æ•°å­—ä¹Ÿåº”è¯¥æ˜?0
+//        // åªæœ‰ 0 æ»¡è¶³è¿™ä¸€å±žæ€?
 //        if (x < 0 || (x % 10 == 0 && x != 0)) {
 //            return false;
 //        }
@@ -957,9 +957,9 @@
 //            x /= 10;
 //        }
 //
-//        // µ±Êý×Ö³¤¶ÈÎªÆæÊýÊ±£¬ÎÒÃÇ¿ÉÒÔÍ¨¹ý revertedNumber/10 È¥³ý´¦ÓÚÖÐÎ»µÄÊý×Ö¡£
-//        // ÀýÈç£¬µ±ÊäÈëÎª 12321 Ê±£¬ÔÚ while Ñ­»·µÄÄ©Î²ÎÒÃÇ¿ÉÒÔµÃµ½ x = 12£¬revertedNumber = 123£¬
-//        // ÓÉÓÚ´¦ÓÚÖÐÎ»µÄÊý×Ö²»Ó°Ïì»ØÎÄ£¨Ëü×ÜÊÇÓë×Ô¼ºÏàµÈ£©£¬ËùÒÔÎÒÃÇ¿ÉÒÔ¼òµ¥µØ½«ÆäÈ¥³ý¡£
+//        // å½“æ•°å­—é•¿åº¦ä¸ºå¥‡æ•°æ—¶ï¼Œæˆ‘ä»¬å¯ä»¥é€šè¿‡ revertedNumber/10 åŽ»é™¤å¤„äºŽä¸­ä½çš„æ•°å­—ã€?
+//        // ä¾‹å¦‚ï¼Œå½“è¾“å…¥ä¸?12321 æ—¶ï¼Œåœ?while å¾ªçŽ¯çš„æœ«å°¾æˆ‘ä»¬å¯ä»¥å¾—åˆ?x = 12ï¼ŒrevertedNumber = 123ï¼?
+//        // ç”±äºŽå¤„äºŽä¸­ä½çš„æ•°å­—ä¸å½±å“å›žæ–‡ï¼ˆå®ƒæ€»æ˜¯ä¸Žè‡ªå·±ç›¸ç­‰ï¼‰ï¼Œæ‰€ä»¥æˆ‘ä»¬å¯ä»¥ç®€å•åœ°å°†å…¶åŽ»é™¤ã€?
 //        return x == revertedNumber || x == revertedNumber / 10;
 //    }
 //};
@@ -1018,9 +1018,9 @@
 //    }
 //
 //    inline TreeNode* parseSubtree(const string& data, int& ptr) {
-//        ++ptr; // Ìø¹ý×óÀ¨ºÅ
+//        ++ptr; // è·³è¿‡å·¦æ‹¬å?
 //        auto subtree = parse(data, ptr);
-//        ++ptr; // Ìø¹ýÓÒÀ¨ºÅ
+//        ++ptr; // è·³è¿‡å³æ‹¬å?
 //        return subtree;
 //    }
 //
@@ -1128,7 +1128,7 @@
 //// 00
 
 
-//ÃæÊÔÌâ16.18
+//é¢è¯•é¢?6.18
 //class Solution {
 //public:
 //    bool patternMatching(string pattern, string value) {
@@ -1178,7 +1178,7 @@
 //};
 
 
-// 112  ·¨1
+// 112  æ³?
 //class Solution {
 //public:
 //    int _sum;
@@ -1202,7 +1202,7 @@
 //    }
 //};
 
-// ·¨2
+// æ³?
 // class Solution {
 // public:
 //     bool hasPathSum(TreeNode *root, int sum) {
@@ -1217,7 +1217,7 @@
 //     }
 // };
 
-// ·¨3
+// æ³?
 // class Solution {
 // public:
 //     bool hasPathSum(TreeNode *root, int sum) {
@@ -1321,7 +1321,7 @@
 
 
  
-// 647  ·¨1  Manacher 
+// 647  æ³?  Manacher 
 //class Solution {
 //public:
 //    int countSubstrings(string s) {
@@ -1337,16 +1337,16 @@
 //        auto f = vector <int>(n);
 //        int iMax = 0, rMax = 0, ans = 0;
 //        for (int i = 1; i < n; ++i) {
-//            // ³õÊ¼»¯ f[i]
+//            // åˆå§‹åŒ?f[i]
 //            f[i] = (i <= rMax) ? min(rMax - i + 1, f[2 * iMax - i]) : 1;
-//            // ÖÐÐÄÍØÕ¹
+//            // ä¸­å¿ƒæ‹“å±•
 //            while (t[i + f[i]] == t[i - f[i]]) ++f[i];
-//            // ¶¯Ì¬Î¬»¤ iMax ºÍ rMax
+//            // åŠ¨æ€ç»´æŠ?iMax å’?rMax
 //            if (i + f[i] - 1 > rMax) {
 //                iMax = i;
 //                rMax = i + f[i] - 1;
 //            }
-//            // Í³¼Æ´ð°¸, µ±Ç°¹±Ï×Îª (f[i] - 1) / 2 ÉÏÈ¡Õû
+//            // ç»Ÿè®¡ç­”æ¡ˆ, å½“å‰è´¡çŒ®ä¸?(f[i] - 1) / 2 ä¸Šå–æ•?
 //            ans += (f[i] / 2);
 //        }
 //
@@ -1354,7 +1354,7 @@
 //    }
 //};
 
-// ·¨2
+// æ³?
 // class Solution {
 // public:
 //     int countSubstrings(string s) {
@@ -1385,19 +1385,19 @@
 //             if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size()) {
 //                 continue;
 //             }
-//             // ²»ÓÃÅÐ¶Ï M£¬ÒòÎªÈç¹ûÓÐ M µÄ»°ÓÎÏ·ÒÑ¾­½áÊøÁË
+//             // ä¸ç”¨åˆ¤æ–­ Mï¼Œå› ä¸ºå¦‚æžœæœ‰ M çš„è¯æ¸¸æˆå·²ç»ç»“æŸäº?
 //             cnt += board[tx][ty] == 'M';
 //         }
 //         if (cnt > 0) {
-//             // ¹æÔò 3
+//             // è§„åˆ™ 3
 //             board[x][y] = cnt + '0';
 //         } else {
-//             // ¹æÔò 2
+//             // è§„åˆ™ 2
 //             board[x][y] = 'B';
 //             for (int i = 0; i < 8; ++i) {
 //                 int tx = x + dir_x[i];
 //                 int ty = y + dir_y[i];
-//                 // ÕâÀï²»ÐèÒªÔÚ´æÔÚ B µÄÊ±ºò¼ÌÐøÀ©Õ¹£¬ÒòÎª B Ö®Ç°±»µã»÷µÄÊ±ºòÒÑ¾­±»À©Õ¹¹ýÁË
+//                 // è¿™é‡Œä¸éœ€è¦åœ¨å­˜åœ¨ B çš„æ—¶å€™ç»§ç»­æ‰©å±•ï¼Œå› ä¸º B ä¹‹å‰è¢«ç‚¹å‡»çš„æ—¶å€™å·²ç»è¢«æ‰©å±•è¿‡äº†
 //                 if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size() || board[tx][ty] != 'E') {
 //                     continue;
 //                 }
@@ -1408,7 +1408,7 @@
 //     vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
 //         int x = click[0], y = click[1];
 //         if (board[x][y] == 'M') {
-//             // ¹æÔò 1
+//             // è§„åˆ™ 1
 //             board[x][y] = 'X';
 //         } else {
 //             dfs(board, x, y);
@@ -1438,20 +1438,20 @@
 //                if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size()) {
 //                    continue;
 //                }
-//                // ²»ÓÃÅÐ¶Ï M£¬ÒòÎªÈç¹ûÓÐ M µÄ»°ÓÎÏ·ÒÑ¾­½áÊøÁË
+//                // ä¸ç”¨åˆ¤æ–­ Mï¼Œå› ä¸ºå¦‚æžœæœ‰ M çš„è¯æ¸¸æˆå·²ç»ç»“æŸäº?
 //                cnt += board[tx][ty] == 'M';
 //            }
 //            if (cnt > 0) {
-//                // ¹æÔò 3
+//                // è§„åˆ™ 3
 //                board[x][y] = cnt + '0';
 //            }
 //            else {
-//                // ¹æÔò 2
+//                // è§„åˆ™ 2
 //                board[x][y] = 'B';
 //                for (int i = 0; i < 8; ++i) {
 //                    int tx = x + dir_x[i];
 //                    int ty = y + dir_y[i];
-//                    // ÕâÀï²»ÐèÒªÔÚ´æÔÚ B µÄÊ±ºò¼ÌÐøÀ©Õ¹£¬ÒòÎª B Ö®Ç°±»µã»÷µÄÊ±ºòÒÑ¾­±»À©Õ¹¹ýÁË
+//                    // è¿™é‡Œä¸éœ€è¦åœ¨å­˜åœ¨ B çš„æ—¶å€™ç»§ç»­æ‰©å±•ï¼Œå› ä¸º B ä¹‹å‰è¢«ç‚¹å‡»çš„æ—¶å€™å·²ç»è¢«æ‰©å±•è¿‡äº†
 //                    if (tx < 0 || tx >= board.size() || ty < 0 || ty >= board[0].size() || board[tx][ty] != 'E' || vis[tx][ty]) {
 //                        continue;
 //                    }
@@ -1464,7 +1464,7 @@
 //    vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
 //        int x = click[0], y = click[1];
 //        if (board[x][y] == 'M') {
-//            // ¹æÔò 1
+//            // è§„åˆ™ 1
 //            board[x][y] = 'X';
 //        }
 //        else {
@@ -1533,7 +1533,7 @@
 // public:
 //     int rangeBitwiseAnd(int m, int n) {
 //         int shift = 0;
-//         // ÕÒµ½¹«¹²Ç°×º
+//         // æ‰¾åˆ°å…¬å…±å‰ç¼€
 //         while (m < n) {
 //             m >>= 1;
 //             n >>= 1;
@@ -1547,7 +1547,7 @@
 // public:
 //     int rangeBitwiseAnd(int m, int n) {
 //         while (m < n) {
-//             // Ä¨È¥×îÓÒ±ßµÄ 1
+//             // æŠ¹åŽ»æœ€å³è¾¹çš?1
 //             n = n & (n - 1);
 //         }
 //         return n;
@@ -1556,7 +1556,7 @@
 
 
 
-//½£Ö¸offer 20
+//å‰‘æŒ‡offer 20
 // class Solution {
 // public:
 //     bool isNumber(string s) {
@@ -1740,10 +1740,10 @@
 //     void construct_paths(TreeNode* root, string path, vector<string>& paths) {
 //         if (root != nullptr) {
 //             path += to_string(root->val);
-//             if (root->left == nullptr && root->right == nullptr) {  // µ±Ç°½ÚµãÊÇÒ¶×Ó½Úµã
-//                 paths.push_back(path);                              // °ÑÂ·¾¶¼ÓÈëµ½´ð°¸ÖÐ
+//             if (root->left == nullptr && root->right == nullptr) {  // å½“å‰èŠ‚ç‚¹æ˜¯å¶å­èŠ‚ç‚?
+//                 paths.push_back(path);                              // æŠŠè·¯å¾„åŠ å…¥åˆ°ç­”æ¡ˆä¸?
 //             } else {
-//                 path += "->";  // µ±Ç°½Úµã²»ÊÇÒ¶×Ó½Úµã£¬¼ÌÐøµÝ¹é±éÀú
+//                 path += "->";  // å½“å‰èŠ‚ç‚¹ä¸æ˜¯å¶å­èŠ‚ç‚¹ï¼Œç»§ç»­é€’å½’éåŽ†
 //                 construct_paths(root->left, path, paths);
 //                 construct_paths(root->right, path, paths);
 //             }
@@ -2029,7 +2029,7 @@
 //         for (int i = 0; i < arr2.size(); ++i) {
 //             rank[arr2[i]] = i;
 //         }
-//         auto mycmp = [&](int x) -> pair<int, int> {  // ÊýÓ³Éäµ½Ôª×é
+//         auto mycmp = [&](int x) -> pair<int, int> {  // æ•°æ˜ å°„åˆ°å…ƒç»„
 //             return rank.count(x) ? pair{0, rank[x]} : pair{1, x};
 //         };
 //         sort(arr1.begin(), arr1.end(), [&](int x, int y) {
@@ -2503,7 +2503,7 @@
 
 
 // 5691
-// ³¬Ê±
+// è¶…æ—¶
 // class Solution {
 // public:
 //     bool fadd(vector<int>& v,int sum,const int& t,int& i){
@@ -2594,7 +2594,7 @@
 //         int i = 0, j = b.size() - 1;
 //         int cnt = 0;
 //         while (i < a.size() && 0 <= j && sa < sb) {
-//             if (6 - a[i] > b[j] - 1) { // Ñ¡Ôñ±ä»¯²îÖµ×î´óµÄÒ»±ß
+//             if (6 - a[i] > b[j] - 1) { // é€‰æ‹©å˜åŒ–å·®å€¼æœ€å¤§çš„ä¸€è¾?
 //                 sa += 6 - a[i++];
 //             } else sb -= b[j--] - 1;
 //             ++cnt;
@@ -2666,7 +2666,7 @@
 
 
 //338
-// ·¨1
+// æ³?
 // class Solution {
 // public:
 //     int countOnes(int x) {
@@ -2687,7 +2687,7 @@
 //     }
 // };
 
-// ·¨2
+// æ³?
 // class Solution {
 // public:
 //     vector<int> countBits(int num) {
@@ -2703,7 +2703,7 @@
 //     }
 // };
 
-// ·¨3
+// æ³?
 // class Solution {
 // public:
 //     vector<int> countBits(int num) {
@@ -2715,7 +2715,7 @@
 //     }
 // };
 
-// ·¨4
+// æ³?
 // class Solution {
 // public:
 //     vector<int> countBits(int num) {
@@ -2727,6 +2727,7 @@
 //     }
 // };
 
+<<<<<<< HEAD
 
 // 1771
 // class Solution {
@@ -2890,5 +2891,45 @@
 // 		dfs(x, a, b, 0, 0); //´ÓÖÕµãÍù»Ø×ß
 // 		if(cnt < 1000000) return cnt;
 // 		else return -1;
+//     }
+// };
+// 
+// 282. ç»™è¡¨è¾¾å¼æ·»åŠ è¿ç®—ç¬?
+// class Solution {
+// public:
+//     vector<string> addOperators(string num, int target) {
+//         int n = num.length();
+//         vector<string> ans;
+
+//         function<void(string&, int, long, long)> backtrack = [&](string &expr, int i, long res, long mul) {
+//             if (i == n) {
+//                 if (res == target) {
+//                     ans.emplace_back(expr);
+//                 }
+//                 return;
+//             }
+//             int signIndex = expr.size();
+//             if (i > 0) {
+//                 expr.push_back(0); // å ä½ï¼Œä¸‹é¢å¡«å……ç¬¦å?
+//             }
+//             long val = 0;
+//             // æžšä¸¾æˆªå–çš„æ•°å­—é•¿åº¦ï¼ˆå–å¤šå°‘ä½ï¼‰ï¼Œæ³¨æ„æ•°å­—å¯ä»¥æ˜¯å•ä¸?0 ä½†ä¸èƒ½æœ‰å‰å¯¼é›?
+//             for (int j = i; j < n && (j == i || num[i] != '0'); ++j) {
+//                 val = val * 10 + num[j] - '0';
+//                 expr.push_back(num[j]);
+//                 if (i == 0) { // è¡¨è¾¾å¼å¼€å¤´ä¸èƒ½æ·»åŠ ç¬¦å?
+//                     backtrack(expr, j + 1, val, val);
+//                 } else { // æžšä¸¾ç¬¦å·
+//                     expr[signIndex] = '+'; backtrack(expr, j + 1, res + val, val);
+//                     expr[signIndex] = '-'; backtrack(expr, j + 1, res - val, -val);
+//                     expr[signIndex] = '*'; backtrack(expr, j + 1, res - mul + mul * val, mul * val);
+//                 }
+//             }
+//             expr.resize(signIndex);
+//         };
+
+//         string expr;
+//         backtrack(expr, 0, 0, 0);
+//         return ans;
 //     }
 // };
