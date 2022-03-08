@@ -1,0 +1,87 @@
+2. 求正n边形中等腰三角形的个数，等腰三角形的三个点在正n边形的顶点上
+
+3. 给定4*4棋盘，进行扫雷推导，推出可能的雷的位置，更新每个位置周围8个位置肯定有雷的个数，以及不确定几个雷的位置
+
+//#include<iostream>
+//
+//using namespace std;
+//
+//int main() {
+//	int n, a, b;
+//	cin >> n;
+//	long sum = 0;
+//	//int p[101] = { 0 };
+//	//for (int i = 1; i <= 100; i++)
+//	//	p[i] = p[i - 1] + i * i;
+//	while (n--) {
+//		cin >> a >> b;
+//		//sum += b + (a * b * (b + 1)) / 4 + (a - 2) * p[b] / 2;
+//		//cout << ((a - 2) * b * b + a  * b)/2 + 1 << "\n";
+//		sum += ((a - 2) * b * b + a * b) / 2 + 1;
+//	}
+//	cout << sum;
+//	return 0;
+//}
+
+//#include<iostream>
+//
+//using namespace std;
+//
+//int main() {
+//	int n;
+//	cin >> n;
+//	int ans[7] = { 0,0,0,1,0,5,2 };
+//	if (n < 7) cout << ans[n];
+//	else cout << n;
+//	return 0;
+//}
+
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+vector<vector<int>> d = { {-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1} };
+
+bool isvalid(string a[]) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (!isdigit(a[i][j]))continue;
+			int c = a[i][j] - '0';
+			for (int k = 0; k < 8; k++) {
+
+			}
+		}
+	}
+	return 1;
+}
+
+void dfs(string a[], string b[], vector<bool> v) {
+
+}
+
+int main() {
+	string a[4], b[4];
+	vector<bool> v[4];
+	for (int i = 0; i < 4; i++)
+	{
+		cin >> a[i];
+		b[i] = a[i];
+	}
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (a[i][j] == '8' || (a[i][j] == '3' && (i == 0 && j == 0 || i == 0 && j == 3 || i == 3 && j == 0 || i == 3 && j == 3)) || (a[i][j] == '5' && (i == 0 || i == 3 || j == 0 || j == 3))) {
+				for (int k = 0; k < 8; k++) {
+					int id = i + d[k][0], jd = j + d[k][1];
+					if (0 <= id && id < 4 && jd >= 0 && jd < 4)
+						b[id][jd] = a[id][jd] = 'X';
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+		cout << b[i] << "\n";
+	return 0;
+}

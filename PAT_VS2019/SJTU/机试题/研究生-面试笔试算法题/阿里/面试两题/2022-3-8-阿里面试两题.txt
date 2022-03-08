@@ -1,0 +1,51 @@
+// 给定一个链表(node中只有一个value)和一个值x，将链表做partition，小于x的的node放在前面，
+// 大于等于x的node放在后面，并保持原来的节点相对顺序。
+// 举例:
+// 给定链表： 1->4->3->2->5->2 和 x = 3,
+// 返回 1->2->2->3->4->5.
+
+struct ListNode {
+  ListNode *next; 
+  int value;
+};
+
+// 
+struct ListNode* partition(struct ListNode* head, int x) {
+    ListNode* smallTail=new ListNode; // smallTail: 小于x的最后一个元素(最接近x)； 
+    ListNode* smallRoot=smallTail; // 记录答案的起点（头节点不存储真实数据）
+
+    ListNode* bigTail=new ListNode;//bigTail: 大于x的最后一个元素； 
+    ListNode* bigRoot=bigTail;//root2: 大于x的第一个元素； 
+
+    ListNode* eqTail = new ListNode; //eqTail: 等于x的节点列表
+    ListNode* eqRoot=eqTail;
+
+    ListNode*t=head;
+    while(!t){
+        if(t->value<x){
+            smallTail->next=t;
+            smallTail=smallTail->next;
+        }
+        else if(t->value==x){
+            eqTail->next=t;
+            eqTail=eqTail->next;
+        }
+        else{
+            bigTail->next=t;
+            bigTail=bigTail->next;
+        }
+        t=t->next;
+    }
+    smallTail=eqTail->next;
+    eqRoot
+
+    root=root->next;
+    return root;
+}
+
+
+// 第二题
+// 字符存s里没有重复字符的连续子字符的最大长度
+// 滑动窗口
+https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+连测试用例都是一样的
