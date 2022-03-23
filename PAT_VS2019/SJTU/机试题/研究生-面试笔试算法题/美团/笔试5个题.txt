@@ -1,0 +1,363 @@
+//题目描述：
+//小美现在相信一些数字能给他带来好运。
+//
+//这些数字至少满足以下两个特征中的一种：
+//
+//1. 数字是11的整数倍。
+//
+//2. 数字中至少包含两个1。
+//
+//小美现在给你若干数字，希望你回答这个数字是不是幸运数。
+//
+//
+//
+//例如：132是11的12倍，满足条件1，101有两个1，满足条件2。
+//
+//
+//
+//输入描述
+//第一行一个数字n，表示小美有n组询问
+//
+//接下来每一行一个正整数表示小美询问的数字。
+//
+//数据保证1 <= n <= 500, 每个询问的数字在[1, 1e9]范围内
+//
+//输出描述
+//对于每组询问，如果是幸运数，输出yes，不是，输出no。
+//
+//
+//样例输入
+//6
+//22
+//101
+//1234
+//555
+//10001
+//132
+//样例输出
+//yes
+//yes
+//no
+//no
+//yes
+//yes
+//#include <iostream>
+//#include <vector>
+//#include <cstring>
+//#include <unordered_map>
+//using namespace std;
+//
+//int main() {
+//	int q,n; cin >> q;
+//	while (q--) {
+//		cin >> n;
+//		bool is = 0;
+//		if (n % 11 == 0) {
+//			cout << "yes\n";
+//			continue;
+//		}
+//		int c = 0;
+//		while (n) {
+//			if (n % 10 == 1)c++;
+//			n /= 10;
+//		}
+//		if (c >= 2) {
+//			cout << "yes\n";
+//		}
+//		else cout << "no\n";
+//	}
+//	return 0;
+//}
+
+
+//乘积为正
+//时间限制： 1000MS
+//内存限制： 65536KB
+//题目描述：
+//小美现在有一个序列，序列中仅包含1和 - 1两种数字。
+//
+//小美现在想要知道，有多少个连续的子序列，序列中的数字乘积为正。
+//
+//
+//
+//输入描述
+//第一行一个正整数n，表示小美手中的序列长度。
+//
+//第二行n个空格隔开的数字，每个数字只能是1和 - 1中的一种。
+//
+//对于80 % 的数据保证1 <= n <= 500
+//
+//对于剩余20 % 的数据保证1 <= n <= 5000
+//
+//输出描述
+//一行一个正整数表示有多少连续的子序列满足题目要求。
+//
+//
+//样例输入
+//4
+//1 1 - 1 - 1
+//样例输出
+//6
+//
+//提示
+//共有6个连续子序列满足要求。
+//
+//[1], [1], [1, 1], [-1, -1], [1, -1, -1], [1, 1, -1, -1]
+//#include <iostream>
+//#include <vector>
+//#include <cstring>
+//#include <unordered_map>
+//using namespace std;
+//
+//int main() {
+//	int n;
+//	cin >> n;
+//	vector<int> a(n);
+//	vector<long> f(n);
+//	for (int i = 0; i < n; i++)
+//		cin >> a[i];
+//	for (int i = 0; i < n; i++) {
+//		if (i == 0) {
+//			if (a[i] == 1) f[i] = 1;
+//			else f[i] = 0;
+//		}
+//		else {
+//			if (a[i] == 1) f[i] = f[i - 1] + 1;
+//			else if (a[i - 1] == -1 && i > 1) {
+//				f[i] = f[i - 2] + 1;
+//			}
+//		}
+//	}
+//	long ans = 0;
+//	for (auto i : f)
+//		ans += i;
+//	cout << ans;
+//	//system("pause");
+//	return 0;
+//}
+
+
+//小美现在在厨房做饭。小美发现食材现在只够每种菜做一份。
+//现在同一时刻（即不分先后顺序）来了n个顾客。每个顾客都有想两份要点的菜。只有当顾客吃到全部自己想要的菜的时候，顾客才会满意。
+//现在你的任务是，合理地接取顾客的订单要求，尽可能让更多的顾客满意，并输出最多有多少顾客可以满意。
+//
+//输入描述
+//第一行两个正整数n, m
+//n表明有多少顾客前来点菜，m表示小美现在能做的菜的编号范围在[1, m]。
+//接下来n行，每行两个数字，表明一名顾客的所点的两道菜的编号。
+//
+//其中80% 的数据保证2 <= n <= 10, 2 <= m <= 20
+//另外20 % 的数据保证2 <= n <= 20, 2 <= m <= 40
+//输出描述
+//一行一个正整数表示最多有多少顾客可以满意。
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main() {
+//	int n, m;
+//	cin >> n >> m;
+//	vector<vector<int>> count(m);
+//	vector<bool> has(m,0);
+//	vector<vector<int>> a(n,vector<int>(2));
+//	int ans = 0, t;
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> a[i][0] >> a[i][1];
+//		a[i][0]--; a[i][1]--;
+//		count[a[i][0]].push_back(i);
+//		count[a[i][1]].push_back(i);
+//	}
+//	while (true) {
+//		int minC = n,minIndex=-1;
+//		for(int i=0;i<m;i++)
+//			if (has[i] == 0&& count[i].size()>0) {
+//				minIndex = i;
+//				minC = count[i].size();
+//				break;
+//			}
+//		if (minIndex == -1)break;
+//		for(int j= minIndex +1;j<m;j++)
+//			if (has[j] == 0 && count[j].size()>0&& count[j].size() < count[minIndex].size()) {
+//				minIndex = j;
+//				minC = count[j].size();
+//			}
+//		// 选择minIndex号菜
+//		int second = -1, minSecondCount = n;
+//		for (int i = 0; i < count[minIndex].size(); i++) {
+//			int k = count[minIndex][i];
+//			int s = a[k][0] == minIndex ? a[k][1] : a[k][0];
+//			if (has[s] == 0) {
+//				if (count[s].size()>0&&count[s].size() < minSecondCount) {
+//					minSecondCount = count[s].size();
+//					second = s;
+//				}
+//			}
+//		}
+//		has[minIndex] = 1;
+//		if (second != -1) {
+//			has[second] = 1;
+//			ans++;
+//		}
+//	}
+//	cout << ans;
+//	system("pause");
+//	return 0;
+//}
+
+
+//时间限制： 3000MS
+//内存限制： 589824KB
+//题目描述：
+//小美现在打音游。这个音游的玩法是这样的：
+//—— 共有n个房间。小美初始拥有一个指针，指在一号房间。
+//—— 游戏共持续m秒，每秒会有一个房间产生炸弹，小美的指针不能在这个房间中。
+//—— 每秒结束的瞬间，小美可以使用一次魔法，把指针切换到另一个房间中，该过程会消耗一个能量。
+//你的任务是计算小美无伤通过音游所需要消耗的最小能量。
+//保证第一秒的炸弹不发生在一号房间中。
+//
+//输入描述
+//第一行两个正整数 n 和 m，表示房间有 n 个，游戏持续 m 秒。
+//第二行 m 个正整数，每个正整数在1~n 的范围内，第 i 个正整数表示第 i 秒时炸弹在哪个房间生成。
+//数字间有空格隔开
+//
+//数据保证 n ＜ = 10, 1 <= m <= 10000
+//
+//输出描述
+//一行一个正整数，表示小美无伤通过音游所需要消耗的最少能量。
+//
+//样例输入
+//2 4
+//2 1 1 2
+//样例输出
+//2
+//
+//提示
+//样例解释1
+//第一秒结束后花费1能量切换到房间2，第三秒结束后花费1能量切换到房间1，共消耗能量2。
+//
+//
+//输入样例2
+//3 10
+//2 3 1 3 2 1 1 2 3 1
+//
+//输出样例2
+//3
+//
+//样例解释2
+//第二秒结束后切换到房间2，第四秒结束后切换到房间3，第八秒结束后切换到房间2，共消耗能量3
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main() {
+//	int n, m, c = 0, energy = 0, now = 1,b;
+//	cin >> n >> m;
+//	vector<bool> v(n+1,0);
+//	while (m--) {
+//		cin >> b;
+//		if (b == now&& now==1) {
+//			now = -1;
+//			c=1;
+//			for (int i = 0; i <= n; i++)
+//				v[i] = false;
+//			v[b] = true;
+//			energy++;
+//		}
+//		else {
+//			if(!v[b])c++;
+//			if (c == n) {
+//				energy++;
+//				for (int i = 0; i <= n; i++)
+//					v[i] = false;
+//				c = 1;
+//			}
+//			v[b] = true;
+//		}
+//	}
+//	cout << energy;
+//	system("pause");
+//	return 0;
+//}
+
+
+
+//黑白树涂色
+//时间限制： 1000MS
+//内存限制： 65536KB
+//题目描述：
+//现在给你一颗树，每个树上的节点会被涂成黑色或白色。
+//
+// 现在定义好节点：
+//
+//对于白色的节点：若该节点没有子节点，或该节点子节点中至少有一个为黑色节点，则该节点是好节点
+//
+//对于黑色的节点：若该节点没有子节点，或该节点的所有子节点均为白色节点，则该节点是好节点
+//
+//你的任务是找出这棵树上黑色的好节点和白色的好节点各有几个。
+//
+//
+//
+//输入描述
+//第一行一个正整数n，表示这棵树共有n个节点，编号1到n。
+//第二行n个空格隔开的正整数，代表每个节点的颜色。0是白色，1是黑色。
+//接下来n个空格隔开的正整数，第 i 个正整数v表示节点 i 的父节点是v。其中，数字0表示这个节点是根。
+//1 <= n <= 10000
+//
+//输出描述
+//一行两个正整数，以空格分开，第一个正整数表示白色的好节点有几个，第二个正整数表示黑色的好节点有几个。
+//
+//样例输入
+//6
+//1 0 1 1 0 0
+//0 1 2 1 4 4
+//样例输出
+//3 2
+//
+//提示
+//样例解释
+//
+//样例见下图，白色节点中均为好节点，黑色节点中3和4是好节点。因此输出 3 2。
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+	int n, goodB = 0, goodW = 0, t;
+	cin >> n;
+	vector<vector<int>> child(n + 1);
+	vector<int> color(n + 1);
+	for (int i = 1; i <= n; i++) cin >> color[i];
+	for (int i = 1; i <= n; i++) {
+		cin >> t;
+		child[t].push_back(i);
+	}
+	for (int i = 1; i <= n; i++) {
+		if (color[i] == 1) {
+			if (child[i].size() == 0) goodB++;
+			else {
+				bool is = 1;
+				for (int j = 0; j < child[i].size(); j++)
+					if (color[child[i][j]] == 1)
+						is = 0;
+				if (is) goodB++;
+			}
+		}
+		else {
+			if (child[i].size() == 0) goodW++;
+			else {
+				for (int j = 0; j < child[i].size(); j++)
+					if (color[child[i][j]] == 1) {
+						goodW++;
+						break;
+					}
+			}
+		}
+	}
+	cout << goodW << " " << goodB;
+	system("pause");
+	return 0;
+}

@@ -1,0 +1,27 @@
+扔鸡蛋
+
+https://leetcode-cn.com/problems/super-egg-drop/solution/ji-dan-diao-luo-by-leetcode-solution-2/
+
+#include <cstdint>
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    // i个鸡蛋j层楼需要尝试的最小次数
+    // dp[i][j]=1+min_k(max(dp[i][k-1],dp[i-1][j-k])), 选择第k层楼摔，1<=k<=j
+    int m,n;cin>>m>>n;
+    vector<vector<int>> dp(m+1,vector<int>(n+1,INT32_MAX));
+    for(int i=1;i<=n;i++)
+        dp[1][i]=i-1;// dp[1][1]?
+    for(int i=2;i<=m;i++){
+        for(int j=1;j<=n;j++){
+            int t=INT32_MAX;
+            for(int k=1;k<=j;k++){
+                t=min(t,max(dp[i][k-1],dp[i-1][j-k]));
+            }
+            dp[i][j]=t+1;
+        }
+    }
+    cout<<dp[m][n];
+    return 0;
+}

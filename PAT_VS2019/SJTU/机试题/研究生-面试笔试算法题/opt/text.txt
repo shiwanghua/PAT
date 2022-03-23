@@ -1,0 +1,184 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+int dfs(const string& s, const int& k, const int i) {
+	if (i + k > s.length()) {
+		return 0;
+	}
+	int i1Num = dfs(s, k, i + 1);
+	int j = i + k - 1, ii, jj;
+	bool noFurther = 0;
+	int trik = s.length() + k - i1Num * k-1;
+	while (j < s.length()) {
+		if (j>=trik) {
+			noFurther = 1;
+			break;
+		}
+		bool is = 1;
+		jj = j;
+		ii = i;
+		while (ii < jj) {
+			if (s[ii] == s[jj]) {
+				ii++; jj--;
+			}
+			else {
+				is = 0;
+				break;
+			}
+		}
+		if (is)break;
+		else j++;
+	}
+	if (j < s.length()) {
+		if (j>=trik)
+			return i1Num;
+		else return max(1 + dfs(s, k, j + 1), i1Num);
+	}
+	return i1Num;
+}
+//int dfs(const string& s, const int& k, const int i) {
+//	if (i + k > s.length()) {
+//		return 0;
+//	}
+//	int i1Num = dfs(s, k, i + 1);
+//	int j = i + k - 1, ii, jj;
+//	bool noFurther = 0;
+//	while (j < s.length()) {
+//		if (1 + (s.length() - j - 1) / k <= i1Num) {
+//			noFurther = 1;
+//			break;
+//		}
+//		bool is = 1;
+//		jj = j;
+//		ii = i;
+//		while (ii < jj) {
+//			if (s[ii] == s[jj]) {
+//				ii++; jj--;
+//			}
+//			else {
+//				is = 0;
+//				break;
+//			}
+//		}
+//		if (is)break;
+//		else j++;
+//	}
+//	if (j < s.length()) {
+//		if (noFurther)
+//			return i1Num;
+//		else return max(1 + dfs(s, k, j + 1), i1Num);
+//	}
+//	return i1Num;
+//}
+int getMaxSubstrings(string s, int k) {
+	return dfs(s, k, 0);
+}
+
+int main() {
+	string s; int k;
+	cin >> s >> k;
+	cout << getMaxSubstrings(s, k);
+	system("pause");
+	return 0;
+}
+
+// aababaabce 3 2
+// ababaeocco 4 2
+// aaaaabb 2 3
+
+//#include <bits/stdc++.h>
+//
+//using namespace std;
+//
+//string ltrim(const string&);
+//string rtrim(const string&);
+//
+//
+//
+///*
+// * Complete the 'getMaxSubstrings' function below.
+// *
+// * The function is expected to return an INTEGER.
+// * The function accepts following parameters:
+// *  1. STRING s
+// *  2. INTEGER k
+// */
+//int dfs(const string& s, const int& k, const int i) {
+//    if (i + k > s.length()) {
+//        return 0;
+//    }
+//    int i1Num = dfs(s, k, i + 1);
+//    int j = i + k - 1, ii, jj;
+//    while (j < s.length()) {
+//        bool is = 1;
+//        jj = j;
+//        ii = i;
+//        while (ii < jj) {
+//            if (s[ii] == s[jj]) {
+//                ii++; jj--;
+//            }
+//            else {
+//                is = 0;
+//                break;
+//            }
+//        }
+//        if (is)break;
+//        else j++;
+//    }
+//    if (j < s.length()) {
+//        int iNum = 1 + dfs(s, k, j + 1);
+//        return max(iNum, i1Num);
+//    }
+//    return i1Num;
+//}
+//int getMaxSubstrings(string s, int k) {
+//    static int i = 0;
+//    i++;
+//    if (i == 10)std::cout << s << " " << k;
+//    return dfs(s, k, 0);
+//}
+//
+//int main()
+//{
+//    ofstream fout(getenv("OUTPUT_PATH"));
+//
+//    string s;
+//    getline(cin, s);
+//
+//    string k_temp;
+//    getline(cin, k_temp);
+//
+//    int k = stoi(ltrim(rtrim(k_temp)));
+//
+//    int result = getMaxSubstrings(s, k);
+//
+//    fout << result << "\n";
+//
+//    fout.close();
+//
+//    return 0;
+//}
+//
+//string ltrim(const string& str) {
+//    string s(str);
+//
+//    s.erase(
+//        s.begin(),
+//        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+//    );
+//
+//    return s;
+//}
+//
+//string rtrim(const string& str) {
+//    string s(str);
+//
+//    s.erase(
+//        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+//        s.end()
+//    );
+//
+//    return s;
+//}

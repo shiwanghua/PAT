@@ -1,0 +1,119 @@
+设计一个数据结构，实现数组里套数组
+比如存储这样的内容：[1, 2, [3, [[4]], 5], 6]
+然后写个展开函数得到一维vector数组： [1, 2, 3, 4, 5, 6]
+开始写了个递归display()，然后要我迭代实现display2，最后说刚开始设计的数据结构和他想的不太一样，就修改了数据结构又用迭代实现一遍display3
+问了我for循环输出时，加&和加&&有什么区别，我说&&右值引用，不能对他赋值，然后他说他也不知道能不能赋值，要我尝试一下，结果可以赋值，现场打脸。
+
+#include<vector>
+#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
+
+class Vector {
+public:
+	bool isInt;
+	int value;
+	vector<Vector> v;
+};
+
+class container {
+	vector<Vector> c;
+};
+
+void display(const Vector& V, vector<int>& ans) {
+	ans.emplace_back(V.value);
+	for (auto& a : V.v) {
+		display(a, ans);
+	}
+}
+
+void display2(Vector& V) {
+	vector<int> ans;
+	stack<Vector> q;
+	q.push(V);
+	Vector top;
+	while (!q.empty()) {
+		top = q.top();
+		ans.push_back(top.value);
+		q.pop();
+		for (int i = top.v.size() - 1; i >= 0; i--)
+			q.push(top.v[i]);
+	}
+	for (auto&& a : ans)
+		cout << a << ", ";
+}
+
+void display3(vector<Vector>& V) {
+	vector<int> ans;
+	stack<Vector> q;
+	for(int i=V.size()-1;i>=0;i--)
+		q.push(V[i]);
+	Vector top;
+	while (!q.empty()) {
+		top = q.top();
+		q.pop();
+		if(top.isInt)
+			ans.push_back(top.value);
+		else
+			for (int i = top.v.size() - 1; i >= 0; i--)
+				q.push(top.v[i]);
+	}
+	for (auto& a : ans) {
+		a = 1;
+		cout << a << ", ";
+	}
+}
+
+//[1, 2, [3, [[4]], 5], 6]
+//[1, 2, 3, 4, 5, 6]
+
+int main() {
+	//Vector V;
+	//V.value = 1;
+	//V.v.resize(3);
+	//V.v[0].value = 2;
+
+	//V.v[1].value = 3;
+	//V.v[1].v.resize(2);
+	//V.v[1].v[0].value = 4;
+	//V.v[1].v[1].value = 5;
+
+	//V.v[2].value = 6;
+
+	//vector<int> ans;
+	///*display(V, ans);
+	//for (auto&& a : ans)
+	//	cout << a << " ";*/
+	////cout << "\n\n";
+	//display2(V);
+
+	vector<Vector> c;
+	c.resize(4);
+	c[0].isInt = 1;
+	c[1].isInt = 1;
+	c[2].isInt = 0;
+	c[3].isInt = 1;
+
+	c[0].value = 1;
+	c[1].value = 2;
+	c[3].value = 6;
+
+	c[2].v.resize(3);
+	c[2].v[0].isInt = 1;
+	c[2].v[1].isInt = 0;
+	c[2].v[2].isInt = 1;
+
+	c[2].v[0].value = 3;
+	c[2].v[2].value = 5;
+
+	c[2].v[1].v.resize(1);
+	c[2].v[1].v[0].isInt = 1;
+	c[2].v[1].v[0].value = 4;
+
+	display3(c);
+	system("pause");
+	return 0;
+}
+//[1, 2, [3, [[4]], 5], 6]
+//[1, 2, 3, 4, 5, 6]
