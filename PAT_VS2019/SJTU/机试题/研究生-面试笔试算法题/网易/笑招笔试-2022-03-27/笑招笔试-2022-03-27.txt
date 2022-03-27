@@ -1,0 +1,168 @@
+
+// P1 100%
+//#include<vector>
+//#include<iostream>
+//#include<queue>
+//#include<stack>
+//using namespace std;
+//
+//int main() {
+//	int a, b, x, y;
+//	cin >> a >> b >> x >> y;
+//	int n1 = 0, n2 = 0;
+//	int maxn = min((a + x - 1) / x + (b + x - 1) / x, (max(a, b) + y - 1) / y);
+//	int minn = min((a + x - 1) / x, (max(a, b) + y - 1) / y);
+//	while (minn < maxn) {
+//		int mid = (minn + maxn) / 2;
+//		bool can = 0;
+//		for (n1 = 0; n1 <= mid; n1++) {
+//			n2 = mid - n1;
+//			int sk1_b = n1 - (a - n2 * y + x - 1) / x;
+//			if (sk1_b * x + n2 * y >= b)
+//				can = 1;
+//		}
+//		if (can) maxn = mid;
+//		else minn = mid + 1;
+//	}
+//	cout << minn;
+//	system("pause");
+//	return 0;
+//}
+
+
+// P2 100%
+//#include<vector>
+//#include<iostream>
+//#include<string>
+//#include<stack>
+//using namespace std;
+//
+//inline bool isnei(char a, char b) {
+//	return abs(a - b) <= 1;
+//}
+//
+//inline int gets(char a, char b) {
+//	return 2 + a - 'a' + b - 'a';
+//}
+//int main() {
+//	string s;
+//	cin >> s;
+//	int i1_u = 0, i1_n = 0, i2_u = 0, i2_n = 0, t = 0, n = s.length();
+//	if (n < 2) {
+//		cout << 0;
+//		return 0;
+//	}
+//	for (int i = 1; i < n; i++) {
+//		int i_n = max(i1_u, i1_n); // i不考虑标记
+//		int i_u = i_n; // i考虑标记
+//		if (isnei(s[i], s[i - 1])) 
+//			i_u = max(i_u, max(i2_u, i2_n) + gets(s[i], s[i - 1]));
+//		i2_n = i1_n;
+//		i2_u = i1_u;
+//		i1_n = i_n;
+//		i1_u = i_u;
+//	}
+//	cout << max(i1_n, i1_u);
+//	system("pause");
+//	return 0;
+//}
+
+// P3 40% 75% 
+//#include<vector>
+//#include<iostream>
+//#include<string>
+//#include<stack>
+//#include<cmath>
+//using namespace std;
+//
+//int main() {
+//	int n;
+//	cin >> n;
+//	int h = 0, t = 1;
+//	while (t <= n) {
+//		h++; t *= 2;
+//	}
+//	bool even_layer = !(h % 2);
+//	int e = 2, o = 1;
+//	int i = 0;
+//	int ln = 1;
+//	int li = 1;
+//	while (i < n) {
+//		if (even_layer) {
+//			if (e <= n) {
+//				printf("%d ", e);
+//				e += 2;
+//			}
+//			else {
+//				printf("%d ", o);
+//				o += 2;
+//			}
+//		}
+//		else {
+//			if (o <= n) {
+//				printf("%d ", o);
+//				o += 2;
+//			}
+//			else {
+//				printf("%d ", e);
+//				e += 2;
+//			}
+//		}
+//		i++;
+//		if (i == ln) {
+//			even_layer = !even_layer;
+//			li *= 2;
+//			ln += li;
+//		}
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+// P4 100%
+#include<vector>
+#include<iostream>
+#include<string>
+#include<stack>
+#include<cmath>
+using namespace std;
+
+int main() {
+	int n, m;
+	cin >> n >> m;
+	vector< vector<int>> a(n, vector<int>(m));
+	vector< vector<int>> f(n, vector<int>(m, 10000));
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++)
+			cin >> a[i][j];
+	}
+	f[0][0] = 0;
+	for (int i = 1; i < m; i++) {
+		if (a[0][i] == a[0][i - 1]) f[0][i] = f[0][i - 1] + 1;
+		else f[0][i] = f[0][i - 1] + 2;
+	}
+	for (int i = 1; i < n; i++) {
+		if (a[i][0] == a[i - 1][0]) f[i][0] = f[i - 1][0] + 1;
+		else f[i][0] = f[i - 1][0] + 2;
+	}
+	for (int i = 1; i < n; i++) {
+		for (int j = 1; j < m; j++) {
+			if (a[i][j] == a[i][j - 1])
+				f[i][j] = f[i][j - 1] + 1;
+			else f[i][j] = f[i][j - 1] + 2;
+			if (a[i][j] == a[i - 1][j])
+				f[i][j] = min(f[i][j], f[i - 1][j] + 1);
+			else f[i][j] = min(f[i][j], f[i - 1][j] + 2);
+		}
+		for (int j = 0; j < m - 1; j++) {
+			if (a[i][j] == a[i][j + 1])
+				f[i][j] = min(f[i][j], f[i][j + 1] + 1);
+			else f[i][j] = min(f[i][j], f[i][j + 1] + 2);
+		}
+	}
+	cout << f[n - 1][m - 1];
+	system("pause");
+	return 0;
+}
+
+// 最后问答题，写两个设计模式，解释原理和自己的理解
