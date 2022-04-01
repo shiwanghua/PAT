@@ -1,0 +1,132 @@
+
+// baidu P1 10'
+//#include<vector>
+//#include<iostream>
+//#include<string>
+//#include<stack>
+//#include<cmath>
+//using namespace std;
+//
+//int rev(int s) {
+//	int a = 0;
+//	while (s) {
+//		a = a * 10 + s % 10;
+//		s /= 10;
+//	}
+//	return a;
+//}
+//int main() {
+//
+//	int a, b; cin >> a >> b;
+//	int maxV = 0, sum = 0;
+//	for (int i = 0; i < b; i++) {
+//		sum += a;
+//		maxV = max(maxV,rev(sum));
+//	}
+//	cout << maxV;
+//	system("pause");
+//	return 0;
+//}
+
+// P2 100% 暴力居然全部通过... 15'
+//#include<vector>
+//#include<iostream>
+//#include<string>
+//#include<stack>
+//#include<cmath>
+//#include<unordered_map>
+//using namespace std;
+//
+//inline int gcd(int a, int b) {
+//	return b == 0 ? a : gcd(b, a % b);
+//}
+//
+//int main() {
+//
+//	int n; cin >> n;
+//	int a, b, ans, s;
+//	unordered_map<int, int> m;
+//	while (n--) {
+//		int p; cin >> p;
+//		if (m.count(p)) {
+//			cout << m[p] << "\n";
+//			continue;
+//		}
+//		ans = 0;
+//		for (a = 1; a <= sqrt(p); a++) {
+//			b = p / a;
+//			if (a * b != p) continue;
+//			if (gcd(a, b) != 1) continue;
+//			bool w = 1;
+//			s = b;
+//			while (s < p) {
+//				if (s % a == 0) {
+//					w = 0;
+//					break;
+//				}
+//				s += b;
+//			}
+//			if (w) ans++;
+//		}
+//		cout << ans << "\n";
+//		m[p] = ans;
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+// P3 41.82% 15'
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<unordered_map>
+using namespace std;
+
+void rev(string& s, int k) {
+	for (int i = 0, j = k - 1; i < j; i++, j--) {
+		swap(s[i], s[j]);
+	}
+}
+
+int main() {
+	string s;
+	unordered_map<string, int> m;
+	int n, q;
+	cin >> n >> q;
+	while (q--) {
+		cin >> s;
+		if (m.count(s)) {
+			cout << m[s] << "\n";
+			continue;
+		}
+		n = s.length();
+		int ans = 0, maxI = 0;
+		while (n > 1) {
+			maxI = 0;
+			for (int i = 1; i < n; i++)
+				if (s[maxI] < s[i])
+					maxI = i;
+				else if (s[maxI] == 'C')
+					break;
+			if (s[maxI] == s[n - 1]) {
+				n--; continue;
+			}
+			if (s[0] == s[maxI]) {
+				rev(s, n);
+				ans++;
+			}
+			else {
+				int maxJ = maxI;
+				while (maxJ < n && s[maxJ] == s[maxI])maxJ++;
+				rev(s, maxJ);
+				rev(s, n);
+				ans += 2;
+			}
+			while (n > 1 && s[n - 1] == s[n - 2])n--;
+		}
+		m[s] = ans;
+		cout << ans << "\n";
+	}
+	system("pause");
+	return 0;
+}

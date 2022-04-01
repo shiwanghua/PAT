@@ -1,0 +1,159 @@
+12个选择60分，3个编程，后两题都是滑动窗口，不过做了我好久，一直是0%，debug。
+
+第三题卡了个 long long，不然只有70%。
+
+选择第12题是求一个 候选人表 里 得票数 大于 所在党内的候选人的平均得票数 的候选人，用sql写出来，有avg，left join， on/where 啥的，不会。
+
+第11题是前序中序转后序，简单 DCBAFGH，BCADGFH
+
+访问网站使用了ARP、DNS、TCP、IP协议，没用应用层协议SMTP电子邮件传输协议。
+
+第10题多态，B类继承A类，用vector<A*> 可以存储指向A、B类的指针？
+
+第9题看了好一会，{19,20,21,15,16,17,31,12,13} 是第二轮排序结果，问这是什么排序，希尔、快排、选择、插入、冒泡。
+
+第6题第二次遇到了，10亿次循环，每次循环定义一个char * p =null; 调用函数f(p); 然后free(p)。
+
+#include<iostream>
+using namespace std;
+void f(char* p) {
+	p = (char*)malloc(sizeof(char) * 10);
+}
+
+int main() {
+	for (int i = 0; i < 1000000000; i++) {
+		char* p = nullptr;
+		f(p);
+		free(p);
+	}
+	return 0;
+}
+
+果然卡死了，不过运行了几秒，然后黑屏了，过了一会又白屏了，又过了一会，恢复正常了，只是程序都关闭了。这题是内存泄露，不是栈溢出或者别的什么。上次做这题时选了正常运行，只是要运行很久。。。
+
+第三题 类 A* p=nullptr;
+p->func();
+空指针不能直接调用方法，这应该是编译时报错吧不是运行时。
+
+第2题TCP第2次握手客户端收到SYN+ACK后进入ESTABLISHED状态
+
+第1题感觉有错误，按ABCDEF顺序入栈，不能连续出栈3次，出栈顺序不可能是CDBAFE 和 CFEDBA。不过后者是连续出栈5次。。。
+
+// lilisi P1
+//
+//struct ListNode {
+//	int val;
+//	struct ListNode* next;
+//	ListNode(int x) : val(x), next(nullptr) {}
+//};
+//
+//class Solution {
+//public:
+//	/**
+//	 * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+//	 *
+//	 *
+//	 * @param head ListNode类
+//	 * @return ListNode类
+//	 */
+//	ListNode* formatList(ListNode* head) {
+//		ListNode* root = head;
+//		ListNode* p = root,*temp;
+//		head = head->next;
+//		bool toTail = true;
+//		while (head) {
+//			if (toTail) {
+//				p->next = head;
+//				p = p->next;
+//				head = head->next;
+//			}
+//			else {
+//				temp = head;
+//				head = head->next;
+//				temp->next = root;
+//				root = temp;
+//			}
+//			toTail = !toTail;
+//		}
+//		p->next = nullptr;
+//		return root;
+//	}
+//};
+
+// P2
+//#include<vector>
+//#include<algorithm>
+//#include<iostream>
+//using namespace std;
+//class Solution {
+//public:
+//	long long ans(vector<int>& a, int k) {
+//		long long ans = 0;
+//		int n = a.size();
+//		sort(a.begin(), a.end());
+//		int i = 0, j = n - 1;
+//		while (i < j) {
+//			while (i < j && a[i] + a[j] <= k)++i;
+//			ans += i;
+//			j--;
+//		}
+//		if (j > 0 && a[j] + a[j - 1] <= k)
+//			ans += j * (j + 1) / 2;
+//		return ans;
+//	}
+//};
+//
+//int main() {
+//	Solution s;
+//	vector<int> v = { 3,1,2 };
+//	cout << s.ans(v, 5);
+//}
+
+// P3
+#include<vector>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+class Solution {
+public:
+	long long minimum(vector<int>& a) {
+		int n = a.size();
+		if (n == 2)
+			return abs(a[1] - a[0]);
+
+		vector<long long> f(n + 1, 0);
+		for (int i = 1; i <= n; i++)
+			f[i] = f[i - 1] + a[i - 1];
+		long long c = 1 + (f[n] >> 1), sum = f[n];
+		int i = 0;
+		while (f[i] * 2 < sum) {
+			i++;
+		}
+		c = abs(2 * f[i] - sum);
+		if (i > 1)
+			c = min(c, abs(2 * f[i - 1] - sum));
+
+		int l = 0, r = 1;// [l,r)
+		long long bsum = sum / 2;
+		while (r <= n) {
+			c = min(c, abs(2 * (f[r] - f[l]) - sum));
+			while (l < r) {
+				if (2 * (f[r] - f[l]) >= sum) {
+					l++;
+					c = min(c, abs(2 * (f[r] - f[l]) - sum));
+				}
+				else break;
+			}
+			r++;
+			if (c == 0)return 0;
+		}
+		return c;
+	}
+};
+
+int main() {
+	Solution s;
+	vector<int> v = { 1,2,3,4,5 };
+	cout << s.minimum(v);
+	return 0;
+}
