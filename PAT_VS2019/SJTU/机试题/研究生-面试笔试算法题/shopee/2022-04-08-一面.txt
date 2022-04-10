@@ -1,0 +1,63 @@
+#include<vector>
+#include<iostream>
+#include<map>
+
+// struct Node{
+//     int value;
+//     Node* next;
+// }
+
+typedef int KEYTYPE
+typedef int DATATYPE
+#define -1 MISS
+class LRU{
+    static vector<unsigned long long> cache;
+    //vector<KEYTYPE> keys;
+    static vector<DATATYPE> values;
+    static map<KEYTYPE, int> h_key_index;
+    static int capacity;
+    static bool is;
+    const unsigned long long mask_one=0x8000000000000000;
+    const unsigned long long mask_init=0xffffffffffffffff;
+
+    static LRU* unique;
+
+    LRU(int c):capacity(c),cache.resize(c),values.resize(c){
+
+    }
+
+public:
+    
+    static LRU* getUnique(int c){
+        if(LRU::unique){
+            return LRU::unique;
+        }
+        else {
+            LRU::unique=new LRU(c);
+            return unique;
+        }
+    }
+    static int get(KEYTYPE key){
+        if(h_key_index.count(key)){
+            int index=h_key_index[key];
+            cache[index]=cache[index]>>1;
+            cache[index]=cache[index]|mask_one;
+            return values[index];
+        }
+        return MISS;
+    }
+
+    static void put(KEYTYPE key, DATATYPE value){
+        if(h_key_index.count(key)){
+            int index=h_key_index[key];
+            cache[index]=mask_init;
+            values[index]=value;
+        }
+        else{
+            int index=*(min_element(cache.begin(),cache.end(),cache[0])-cache.begin());
+            cache[index]=mask_init;
+            values[index]=value;
+            h_key_index[key]=index;
+        }
+    }
+};

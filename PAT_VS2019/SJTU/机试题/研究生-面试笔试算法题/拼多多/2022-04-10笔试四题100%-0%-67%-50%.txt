@@ -1,0 +1,243 @@
+
+// PDD P1 25' 100%
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//int main() {
+//	int n; cin >> n;
+//	vector<int> a(n);
+//	for (int i = 0; i < n; i++)
+//		cin >> a[i];
+//	vector<pair<int, int>> ans;
+//	const int c = 100001;
+//	vector<int> p[c];
+//	for (int i = 0; i < n; i++)
+//		p[a[i]].push_back(i);
+//	for (int i = 1; i < c; i++)
+//		if (p[i].size() > 0) {
+//			if (p[i].size() == 1)
+//				ans.emplace_back(i, 0);
+//			else {
+//				int d = p[i][1] - p[i][0];
+//				bool is = 1;
+//				for (int j = 2; j < p[i].size(); j++)
+//					if (p[i][j] - p[i][j - 1] != d) {
+//						is = 0;
+//						break;
+//					}
+//				if (is) {
+//					ans.emplace_back(i, d);
+//				}
+//			}
+//		}
+//	cout << ans.size() << "\n";
+//	for (auto&& [a, b] : ans) {
+//		cout << a << " " << b << "\n";
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+
+// P2 25' 0%
+//#include<iostream>
+//#include<vector>
+//#include<queue>
+//using namespace std;
+//
+//int main() {
+//	int T = 0;
+//	int n, m, bx, by, ex, ey, tx, ty;
+//	cin >> T;
+//	while (T--) {
+//		cin >> n >> m;
+//		vector<string> e(n);
+//		for (int i = 0; i < n; i++) {
+//			cin >> e[i];
+//			for (int j = 0; j < m; j++) {
+//				if (e[i][j] == 'K') {
+//					bx = i, by = j;
+//				}
+//				else if (e[i][j] == 'T')
+//					ex = i, ey = j;
+//			}
+//		}
+//		queue<pair<int, int>> q;
+//		q.emplace(bx, by);
+//		e[bx][by] = '0';
+//		int d = 0,s;
+//		bool arr = 0;
+//		while (q.empty() == 0) {
+//			s = q.size();
+//			for (int i = 0; i < s; i++) {
+//				tx = q.front().first, ty = q.front().second;
+//				q.pop();
+//				if (tx == ex && ty == ey) {
+//					cout << d << "\n";
+//					arr = 1;
+//					break;
+//				}
+//				if (tx > 1 && e[tx - 1][ty] != '0') {
+//					if (ty > 0 && e[tx - 2][ty - 1] != '0') {
+//						q.emplace(tx - 2, ty - 1);
+//						e[tx - 2][ty - 1] = '0';
+//					}
+//					if (ty < m - 1 && e[tx - 2][ty + 1] != '0') {
+//						q.emplace(tx - 2, ty + 1);
+//						e[tx - 2][ty + 1] = '0';
+//					}
+//				}
+//				if (ty < m - 2 && e[tx][ty + 1] != '0') {
+//					if (tx > 0 && e[tx - 1][ty + 2] != '0') {
+//						q.emplace(tx - 1, ty + 2);
+//						e[tx - 1][ty + 2] = '0';
+//					}
+//					if (tx < n - 1 && e[tx + 1][ty + 2] != '0') {
+//						q.emplace(tx + 1, ty + 2);
+//						e[tx + 1][ty + 2] = '0';
+//					}
+//				}
+//				if (tx < n - 2 && e[tx + 1][ty] != '0') {
+//					if (ty > 0 && e[tx + 2][ty - 1] != '0') {
+//						q.emplace(tx + 2, ty - 1);
+//						e[tx + 2][ty - 1] = '0';
+//					}
+//					if (ty < m - 1 && e[tx + 2][ty + 1] != '0') {
+//						q.emplace(tx + 2, ty + 1);
+//						e[tx + 2][ty + 1] = '0';
+//					}
+//				}
+//				if (ty > 1 && e[tx][ty - 1] != '0') {
+//					if (tx > 0 && e[tx - 1][ty - 2] != '0') {
+//						q.emplace(tx - 1, ty - 2);
+//						e[tx - 1][ty - 2] = '0';
+//					}
+//					if (tx < n - 1 && e[tx + 1][ty - 2] != '0') {
+//						q.emplace(tx + 1, ty - 2);
+//						e[tx + 1][ty - 2] = '0';
+//					}
+//				}
+//			}
+//			if (arr)break;
+//			d++;
+//		}
+//		if (!arr)cout << "-1\n";
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+// P3 66.67%
+//#include<iostream>
+//#include<vector>
+//#include<queue>
+//#include<bitset>
+//#include<unordered_map>
+//using namespace std;
+//
+//int main() {
+//	int n, m, t, q, l, r;
+//	unordered_map<int, unordered_map<int, int>> re;
+//	cin >> n >> m;
+//	const long long cst = 1000000001LL;
+//	bitset<cst> p;
+//	for (int i = 0; i < n; i++) {
+//		cin >> t;
+//		p[t] = 1;
+//	}
+//	cin >> q;
+//	while (q--) {
+//		cin >> l >> r;
+//		t = re[l][r];
+//		// 		if (t) {
+//		// 			cout << t << "\n";
+//		//             continue;
+//		// 		}
+//		while (p[l] && l <= r)
+//			l++;
+//		if (l > r) {
+//			//re[l][r] = -1;
+//			cout << -1 << "\n";
+//		}
+//		else {
+//			//re[l][r] = l;
+//			cout << l << "\n";
+//		}
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+// P3  66.67%
+//#include<iostream>
+//#include<vector>
+//#include<queue>
+//#include<algorithm>
+//#include<bitset>
+//#include<unordered_map>
+//using namespace std;
+//
+//int main() {
+//	int n, m, t, q, l, r;
+//	cin >> n >> m;
+//	vector<int> p(n);
+//	for (int i = 0; i < n; i++)
+//		cin >> p[i];
+//	sort(p.begin(), p.end());
+//	cin >> q;
+//	while (q--) {
+//		cin >> l >> r;
+//		if (p[n - 1] < l) {
+//			cout << l << "\n";
+//			continue;
+//		}
+//		else if (p[0] > r) {
+//			cout << r << "\n";
+//			continue;
+//		}
+//		int lb = lower_bound(p.begin(), p.end(), l) - p.begin();
+//		//int rb = lower_bound(p.begin(), p.end(), r) - p.begin();
+//		while (l <= r && lb < n) {
+//			if (p[lb] == l) {
+//				lb++, l++;
+//			}
+//			else break;
+//		}
+//		if (l <= r) {
+//			cout << l << "\n";
+//		}
+//		else cout << "-1\n";
+//	}
+//	system("pause");
+//	return 0;
+//}
+
+// P4 25' 50%
+#include<iostream>
+#include<vector>
+#include<queue>
+#include<algorithm>
+#include<bitset>
+#include<unordered_map>
+using namespace std;
+
+int main() {
+	int m, n, x;
+	cin >> m >> n >> x;
+	vector<int> a(m);
+	for (int i = 0; i < m; i++)cin >> a[i];
+	sort(a.begin(), a.end());
+	int t = 0;
+	for (int i = 0; i < m - 1;) {
+		i = min(i + n - 1, m - 1);
+		t = max(t, a[i]);
+		t += 2 * x;
+		i++;
+	}
+	t = t - x;
+
+	cout << t;
+	system("pause");
+	return 0;
+}

@@ -1,0 +1,32 @@
+//#include<vector>
+//#include<iostream>
+//#include<algorithm>
+//using namespace std;
+//class LRU {
+//private:
+//	int numPage;
+//	const unsigned long mask = 0x8fffffffffffffff;
+//	vector<unsigned long> state;
+//public:
+//	LRU(int pageNumber):numPage(pageNumber) {
+//		state.resize(pageNumber, 0l);
+//	}
+//
+//	int get() { // 返回最近最久未使用的页号, 可用堆优化
+//		return min_element(state.begin(), state.end()) - state.begin();
+//		/*int minPageIndex=0, minPageState=state[0];
+//		for (int i = 1; i < numPage; i++) {
+//			if (minPageState < state[i]) {
+//				minPageState = state[i];
+//				minPageIndex = i;
+//			}
+//		}
+//		return minPageIndex;*/
+//	}
+//
+//	void access(int pageNo) { // 访问pageNo号页面，这里省略了返回页面内容的步骤
+//		for (auto&& s : state)
+//			s = s >> 1;
+//		state[pageNo] |= mask;
+//	}
+//};
