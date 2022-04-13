@@ -1,0 +1,93 @@
+//题目：
+//给定一个字符串 s 和一些 长度相同 的单词 words 。找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+//输入：s = "hello,worldhellworldhellowordhiworld", words = ["hello","world"]，输出：[16,21,26]。
+//注意子串要与 words 中的单词完全匹配，中间不能有其他字符 ，但不需要考虑 words 中单词串联的顺序。
+
+//wordgoodgoodgoodbestword
+//word
+//good
+//best
+//word
+
+// O(n*n)
+
+#include<iostream>
+#include<string>
+#include<vector>
+
+using namespace std;
+
+typedef struct node{
+    int count=0;
+    node* children[26];
+};
+
+int wordNum=0;
+int lenWord=0;
+
+void insert(node* root, string s){
+    node* p=root;
+    for(const auto& c:s){
+        if(p->children[c-'a']==nullptr){
+            p->children[c-'a']=new node;
+        }
+        p=p->children[c-'a'];
+    }
+    p->count++;
+}
+
+void dfs_query(vector<int>& ans, node* root,const string s,int findCount,int fromI,int nowI){
+    if(findCount==wordNum){
+        ans.push_back(fromI);
+        return;
+    }
+    else if(nowI==s.length()){
+        return;
+    }
+
+    int si=nowI;
+    
+    node* p=root;
+    bool goLenWord=true;
+    for(int i=0;i<lenWord;i++){
+        if(si<s.length() && p->children[s[si]-'a']!=nullptr){
+            p=p->children[s[si]-'a'];
+            si++;
+        }else{
+            goLenWord=false;
+            break;
+        }
+    }
+    if(goLenWord&&p->count){
+        p->count--;
+        //cout<<p->count<<"\n";
+        dfs_query(ans,root,s,findCount+1,fromI,si);
+        p->count++;
+    }
+}
+
+int main(){
+   
+    node* root=new node;
+    vector<int> ans;
+
+    string s,t;
+    cin>>s;
+    vector<string> words;
+    while(cin>>t)words.emplace_back(t);
+
+    wordNum=words.size();
+    lenWord=words[0].size();
+
+    for(const auto& w:words)
+        insert(root,w);
+
+    for(int i=0;i<s.length()-words.size()*lenWord;i++)
+        dfs_query(ans,root,s,0,i,i);
+
+    cout<<ans.size()<<"\n";
+
+    for(const auto& si:ans)
+        cout<<si<<", ";
+    return 0;
+}
