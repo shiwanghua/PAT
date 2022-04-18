@@ -1,0 +1,71 @@
+
+// 力扣原题856
+// https://leetcode-cn.com/problems/score-of-parentheses/solution/gua-hao-de-fen-shu-by-leetcode/
+
+#include <iostream>
+#include <string>
+#include <stack>
+using namespace std;
+
+int main() {
+    stack<char> s;
+    stack<int> t;
+    string str;
+    cin>>str;
+    if(str.length()==0) {
+        std::cout << -1 << std::endl;
+        return 0;
+    }
+    long temp;
+    bool valid=1;
+    for(int i=0;i<str.length();){
+        if(str[i]=='('){
+            s.push('(');
+            i++;
+        }
+        else if(str[i]==')'){
+            if(s.top()!='('){
+                valid=0;
+                break;
+            }else{
+                if(i&&str[i-1]=='('){
+                    if(s.empty()){
+                        valid=1;
+                        break;
+                    }
+                    s.pop();
+                    temp=1;
+                    while(i<str.length()&&str[i]==')'){
+                        temp=temp*2;
+                        i++;
+                        if(s.empty()){
+                            valid=0;
+                            break;
+                        }
+                        s.pop();
+                    }
+                    if(!valid) break;
+                    if(t.empty()) t.push(temp);
+                    else {
+                        temp+=t.top();
+                        t.pop();
+                        t.push(temp);
+                    }
+                }else{
+                    temp=t.top();
+                    t.pop();
+                    t.push(temp*2);
+                    i++;
+                }
+                
+               
+            }
+        }else{
+            valid=0;
+            break;
+        }
+    }
+    if(!valid) std::cout<<-1<<std::endl;
+    else std::cout << t.top() << std::endl;
+    return 0;
+}

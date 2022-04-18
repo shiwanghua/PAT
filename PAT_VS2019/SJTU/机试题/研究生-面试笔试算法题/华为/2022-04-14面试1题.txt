@@ -1,0 +1,29 @@
+https://leetcode-cn.com/problems/largest-perimeter-triangle/submissions/
+
+//没做出来
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+inline bool isValid(const int& a, const int& b, const int& c) { // a<b<c
+	return a + b > c;
+}
+
+unsigned long maxLength( vector<unsigned long> edge) {
+	sort(edge.begin(), edge.end());
+
+	int n = edge.size();
+
+	for (int i = n-3; i>=0; i--) {
+		for (int j = n - 2; j > i; j--) {
+			for (int k = n - 1; k > j; k--) { // 二分
+				if (isValid(edge[i], edge[j], edge[k])) {
+					return edge[i] + edge[j] + edge[k];
+				}
+			}
+		}
+	}
+	return -1LL;
+}
