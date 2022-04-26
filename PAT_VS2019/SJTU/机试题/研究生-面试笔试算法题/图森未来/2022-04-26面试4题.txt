@@ -1,0 +1,187 @@
+// 迟到5分钟，弄线程池去了，于是面试官出了个并行题，说可以写伪代码
+
+// 1. 找两个连通岛屿的最短距离
+
+1 1 1 1 1 
+1 0 0 0 1
+1 0 0 0 1
+1 0 1 0 1
+1 0 0 0 1
+1 1 1 1 1
+
+ret: 1
+O(N)
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+#define _for(i,b,c) for(int i=b;i<c;i++)
+typedef pair<int,int> node;
+int d[4][2]={{-1,0},{1,0},{0,-1},{0,1}};
+
+int bfs(const vector<vector<int>>& e){
+    int n=e.size(),m=e[0].size();
+    vector<vector<bool>> vis(n,vector<bool>(m,false));
+    
+    int x=-1,y=-1; // 找第一个1的位置
+    _for(i,0,n){
+        _for(j,0,m){
+            if(e[i][j]){
+                x=i,y=j;
+                break;
+            }
+        }
+        if(x!=-1)break;
+    }
+    queue<node> q; //尝试找第一个连通岛
+    queue<node> firstIsland;
+    q.push({x,y});
+    while(!q.empty()){ // 如果有增加就继续循环
+        _for(i,0,q.size()){
+            auto point=q.front();
+            q.pop();
+            vis[point.first][point.second]=true;
+            firstIsland.push(point);
+            _for(j,0,4){
+                int nx=point.first+d[j][0],ny=point.second+d[j][1];
+                // 周围有未访问过的孤岛
+                if(nx>=0&&nx<n&&ny>=0&&ny<m&&!vis[nx][ny]&&e[nx][ny]){ 
+                    q.push({nx,ny});
+                }
+            }
+        }
+    }
+    
+    // 从第一个连通岛开始往外扩充bfs遍历，直到找到第一个为1的位置
+    int dis=0;
+    while(!firstIsland.empty()){
+        auto point=firstIsland.front();
+        firstIsland.pop();
+        bool find=false;
+        _for(j,0,4){
+            int nx=point.first+d[j][0],ny=point.second+d[j][1];
+            // 找到第二个岛
+            if(e[nx][ny]){
+                find=true;
+                break;
+            }
+            if(nx>=0&&nx<n&&ny>=0&&ny<m&&!vis[nx][ny]){ 
+                vis[nx][ny]=true;
+                q.push({nx,ny});
+            }
+        }
+        dis++;
+        if(find)break;
+    }
+    return dis;
+}
+int main() {
+    int n,m;cin>>n>>m;
+    vector<vector<int>> e(n,vector<int>(m,0));
+    _for(i,0,n)
+        _for(j,0,m)
+            cin>>e[i][j];
+    cout<<bfs(e);
+}
+
+2. 
+10个线程：0, 1, ... 9
+
+循环按序输出各自的id：0, 1, 2, .. 9, 0, 1, 2, .. 9, 0, 1, 2, .. 9, 0, 1, 2, .. 9
+#include <iostream>
+using namespace std;
+pthread_cond_t  m[10]; // 10个条件变量
+pthread_mutex_t s[10]; // 10个锁
+void taskFunction(){
+    int threadId = getThreadId();
+    //挂到threadId信号量上
+    pthread_cond_wait(threadId);
+    while(1){
+        cout<<threadId<<", ";
+        // 唤醒threadId+1号信号量
+        pthread_cond_signal(m[(threadId+1)%10]);
+        // 挂到threadId信号量上
+        pthread_cond_wait(s[threadId],m[threadId]);
+    }
+}
+
+int main() {
+    //int a;
+    //cin >> a;
+    cout << "Hello World!" << endl;
+    Thread thread[10];
+    for(int i=0;i<10;i++){
+        thread[i](taskFunction); // run10个线程
+    }
+    // 唤醒0号信号量
+    pthread_cond_signal(m[0]);
+}
+
+3、判断序列是否符合入栈出栈顺序
+
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+int main() {
+    int n;cin>>n;
+    vector<int> a(n),b(n);
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    for(int i=0;i<n;i++)
+        cin>>b[i];
+    
+    stack<int> s;
+    int j=0;
+    for(int i=0;i<n;i++){
+        s.push(a[i]);
+        while(!s.empty()&&s.top()==b[j]){
+            s.pop();
+            j++;
+        }
+    }
+    if(s.empty()) cout<<"true\n";
+    else cout<<"false\n";
+    return 0;
+}
+
+
+4、快排找第k大的数（函数传参写错了）
+#include <iostream>
+#include <stack>
+#include <vector>
+using namespace std;
+int findKthElement(vector<int>&a,int i,int j,int k){ // i ~ n-1
+    if(i>=j) return a[i];
+    int l=i+1,r=j;
+    while(l<r){
+        while(l<r&&a[l]<a[i]) l++;
+        while(l<r&&a[r]>a[i]) r--;
+        if(a[l]>a[r])
+            swap(a[l],a[r]);
+        l++,r--;
+    }
+    l--;
+    cout<<l<<" "<<r<<"\n";
+//     for(int q=0;q<5;q++)
+//         cout<<a[q];
+//     cout<<"\n";
+    
+    if(a[i]>a[l])
+        swap(a[i],a[l]);
+    if(k==l-i+1)return a[l];
+    else if(k<l-i+1) return findKthElement(a,i,l-1,k-(j-l+1));
+    else return findKthElement(a,l+1,j,j-l); 
+//    else if (k < l - i + 1) return findKthElement(a, i, l - 1, k);
+ //    else return findKthElement(a, l + 1, j, k-(l-i+1) ); 
+}
+int main() {
+    int n,k;cin>>n>>k;
+    vector<int> a(n,0);
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    cout<<findKthElement(a, 0, n-1, n-k+1);
+    return 0;
+}
