@@ -1,0 +1,143 @@
+// 30个选择60分
+// 2个编程40分
+
+// P1 100%
+// A值
+//时间限制： 1000MS
+//内存限制： 65536KB
+//题目描述：
+//Alice正在学习统计学。统计学中有三个常用的用于描述数据特征的值：最小值，最大值和平均值。Alice觉得这三个值的求法过于简单了，于是她结合这三个值的特性发明了一个新的用于描述数据特征的值：A值。对于一个由至少两个整数组成的可重集合S，Alice将从S中取出S中的最大数x和最小数y然后将这两个数的平均值（若非整数则向下取整）放回S中。Alice将持续这个过程直到S仅包含一个数，此时剩下来的这个数即为原集合的A值。现在给出一个集合，请你求出这个集合的A值。
+//
+//
+//
+//输入描述
+//第一行有一个正整数n(1 <= n <= 100000)，代表集合中数的个数。
+//
+//第二行有n个整数，代表集合中的n个数。这些数大小在1到1000000000之间。
+//
+//输出描述
+//输出一个整数，代表给出的集合的A值。
+//
+//
+//样例输入
+//4
+//1 3 5 6
+//样例输出
+//3
+// 
+//#include <iostream>
+//#include <stack>
+//#include <vector>
+//#include <algorithm>
+//#include <set>
+//using namespace std;
+//
+//#define _for(i,a,b) for(int i=a;i<b;i++)
+//
+//int main() {
+//    int n; cin >> n;
+//    vector<long> a(n);
+//    _for(i, 0, n)cin >> a[i];
+//    multiset<long> as;
+//
+//    _for(i, 0, n) {
+//        as.insert(a[i]);
+//    }
+//
+//    while (as.size() > 1) {
+//        int maxv = *prev(as.end());
+//        int minv = *begin(as);
+//        as.erase(as.begin());
+//        as.erase(prev(as.end()));
+//        as.insert((minv + maxv) / 2);
+//    }
+//    cout << *(as.begin());
+//    system("pause");
+//    return 0;
+//}
+
+// P2 36%
+//小明过春节
+//时间限制： 1000MS
+//内存限制： 65536KB
+//题目描述：
+//爆竹声中一岁除，春风送暖入屠苏。
+//
+//又是一个新年，小明准备在房门前贴上一副对联。我们知道，对联分为上下联， 且上联与下联的字数相同。一般来说，对联需要讲究平仄规则。规则的定义如下：
+//
+//·上联的这个字的平仄与下联对应位置的这个字的平仄要互不相同；
+//
+//·上联的最后一个字必须为仄声。因此相对应地，下联的最后一个字必须为平声。
+//
+//在现代汉语中，每个字有四个读音：平声(a¯)，上声(a´)，去声(aˇ)，入声(a`)，又分别称为一声、二声、三声、四声。一般而言，将平声与上声视为平声，将去声与入声视为仄声。简单地说，一声与二声为平声，三声与四声为仄声。
+//
+//    小明随手写下了 T 副对联并把读音标注上。他想知道对于每幅对联，是否满足平仄规则。
+//
+//
+//
+//    输入描述
+//    第一行一个正整数 T ，表示有多少对联；
+//
+//    对于每一副对联，输入共三行。第一行输入一个正整数 n，表示该对联的字数； 第二行输入 n 个字符串 s1, s2, ..., sn，表示上联。每个字符串仅由小写英文字母和末尾必为 1, 2, 3, 4 四个数字中的一个组成，表示该字的读音（末尾的数字分别对应一声、二声、三声、四声）。第三行的格式与第二行相同，表示下联。
+//
+//    1 ≤ n ≤ 20, 1 ≤ T ≤ 100，每个字符串长度不超过 7 且不小于 2。读音不一定满足现代汉语拼音。
+//
+//    输出描述
+//    对于每一副对联，如果满足平仄规则，输出 YES；否则输出 NO
+//    样例输入
+//    4
+//    7
+//    qian1 men2 wan3 hu3 tong2 tong2 ri4
+//    zong3 ba3 xin1 tao2 huan4 jiu4 fu2
+//    7
+//    ping2 ping2 ze4 ze4 ping2 ping2 ze4
+//    ze4 ze4 ping2 ping2 ze4 ze4 ping2
+//    7
+//    gou3 li4 guo2 jia1 sheng1 si3 yi3
+//    qi3 yin1 huo4 fu2 bi4 qu1 zhi1
+//    3
+//    nun1 heh1 heh1
+//    a4 a4 a4
+//    样例输出
+//    YES
+//    YES
+//    NO
+//    NO
+//
+//    提示
+//    样例解释
+//
+//    第三副对联，上、下联第一个字都为仄声，不满足第一条规则； 第四副对联，上联最后一个字为平声，不满足第二条规则。
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+#define _for(i,a,b) for(int i=a;i<b;i++)
+
+inline bool sat(int a, int b) {
+    return a != b;
+}
+int main() {
+    int n, t; cin >> t;
+    vector<string> a(20), b(20);
+    while (t--) {
+        cin >> n;
+        _for(i, 0, n)cin >> a[i];
+        _for(i, 0, n)cin >> b[i];
+        bool is = true;
+        _for(i, 0, n) {
+            if (a[i].back() == b[i].back()) {
+                is = false;
+                break;
+            }
+            if (i == n - 1) {
+                if (a[i].back() == '1'|| a[i].back() == '2' || b[i].back()=='3'|| b[i].back() == '4')
+                    is = false;
+            }
+        }
+        if (is)cout << "YES\n";
+        else cout << "NO\n";
+    }
+    return 0;
+}

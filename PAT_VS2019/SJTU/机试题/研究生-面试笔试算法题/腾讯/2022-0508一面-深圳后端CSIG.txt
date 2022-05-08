@@ -1,0 +1,129 @@
+// 面了80分钟
+// 我投的是CSIG“技术研究其他方向”,面的是腾讯云的后台开发
+
+// P1
+// https://leetcode-cn.com/problems/largest-number/
+// 给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数
+// 做了好久，写出来不对又重写，最后写了个选择排序，每轮找最大的
+// 面试官还特意为我的bug设计测试样例 345 345345341
+// 我只往下走了一步，即比较第二个345,面试官特意设计了需要比较两步的
+// 期间还提示我用字符串
+// 最后还教我一种简单的方法，ab和ba直接连起来，再比较就行了
+// 感觉以前做过
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+//345 3453451
+using namespace std;
+int main() {
+    int n;
+    string t;
+    vector<string> a;
+    while(cin>>t){
+        a.push_back(t);
+    }
+    n=a.size();
+    for(int q=0;q<n-1;q++){
+        int maxQ=q;
+        for(int w=q+1;w<n;w++){
+            if(a[w].length()<a[maxQ].length()){
+                if(a[maxQ].substr(0,a[w].length())==a[w]){
+                    if(a[maxQ].substr(a[w].length())<a[w])
+                        maxQ=w;
+                }
+            }else if(a[w].length()>a[maxQ].length()){
+                    if(a[w].substr(0,a[maxQ].length())==a[maxQ]){
+                        if(a[w].substr(a[maxQ].length())>a[maxQ])
+                            maxQ=w;
+                }
+            }
+            if(a[w]>a[maxQ]){
+                maxQ=w;
+            }
+        }
+        swap(a[q],a[maxQ]);
+    }
+    // 
+    for(int i=0;i<n;i++)
+        cout<<a[i];
+    return 0;
+}
+//sort(a.begin(),a.end(),[](int a, int b){
+    //     if(a==0)return false;
+    //     else if(b==0) return true;
+
+    //     vector<int> da,db;
+    //     while(a){
+    //         da.push_back(a%10);
+    //         a/=10;
+    //     }
+    //     while(b){
+    //         db.push_back(b%10);
+    //         b/=10;
+    //     }
+    //     int ai=da.size()-1,bi=db.size()-1;
+    //     while(ai>=0&&bi>=0){
+    //         if(da[ai]>db[bi]) return true;
+    //         else if(da[ai]<db[bi]) return false;
+    //         ai--,bi--;
+    //     }
+    //     if(ai<0) return true;
+    //     else return false;
+    // });
+
+
+// P2
+// https://leetcode-cn.com/problems/maximum-subarray/solution/zui-da-zi-xu-he-by-leetcode-solution/
+// 求最大连续子数组和
+// 面试官指出来没有考虑全是负数的情况
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    int n,t;
+    vector<int> a;
+    while(cin>>t){
+        a.push_back(t);
+    }
+    n=a.size();
+    int maxSum=0,tmp=0;
+    for(int i=0;i<n;i++){
+        tmp+=a[i];
+        if(tmp<0)tmp=0;
+        maxSum=max(maxSum,tmp);
+    }
+    //maxSum=max_element();
+    cout<<maxSum;
+    return 0;
+}
+
+进程和线程的区别
+
+进程的内存空间分哪几块
+
+进程的内存空间低地址端首先存的是什么
+
+怎么进程通信
+
+系统调用和函数调用的区别
+
+malloc是否是系统调用
+
+每次malloc都会有系统调用吗？
+
+C11的新特性
+
+http1.0和2.0的区别
+
+http和https的区别，加密过程
+
+描述打开一个网页会发生什么过程
+
+TCP和UDP的区别
+
+四次挥手
+
+为什么握手只需要3次
+
+传输一个1000KB的报文，TCP\UDP是否可以先收500KB再收500KB？
