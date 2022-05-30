@@ -1,0 +1,85 @@
+求64位二进制整数里1的个数，即实现`__builtin_popcount`函数
+本来觉得忘了的，比划比划写着写着就写出来了
+
+```
+// ## 请在下方进行输入 ( 支持Markdown、插入公式及 LaTex 数学公式，点击上方按钮“环境说明”查看详情 )
+// You must define a `main()` function entry.
+#include <iostream>
+#include <string>
+using namespace std;
+
+int countOnes_v1(unsigned long u){
+    int c=0;
+    while(u){
+        c++;
+        u=u&(u-1);
+    }
+    return c;
+}
+
+int countOnes_v2(unsigned long u){
+
+    unsigned long a1 = u&0x5555555555555555;
+    unsigned long a2 = u&0xAAAAAAAAAAAAAAAA;
+    u=(a2>>1)+a1; // 每2位上为1表示有一个1，为10表示有2个1
+    
+    a1 = u&0x3333333333333333;
+    a2 = u&0xCCCCCCCCCCCCCCCC;
+    u = (a2>>2)+a1; // 每4位有效
+    
+    a1 = u&0x0F0F0F0F0F0F0F0F;
+    a2 = u&0xF0F0F0F0F0F0F0F0;
+    u = (a2>>4)+a1; // 每8位有效
+    
+    a1 = u&0x00FF00FF00FF00FF;
+    a2 = u&0xFF00FF00FF00FF00;
+    u = (a2>>8)+a1; // 每16位有效
+    
+    a1 = u&0x0000FFFF0000FFFF;
+    a2 = u&0xFFFF0000FFFF0000;
+    u = (a2>>16)+a1; // 每32位有效
+    
+    a1 = u&0x00000000FFFFFFFF;
+    a2 = u&0xFFFFFFFF00000000;
+    u = (a2>>32)+a1; // 每64位有效
+    
+    return u;
+}
+
+int main()
+{
+    cout << countOnes_v1(0xFFFFFFFFFFFFFFFF)<<"\n";// 4+3+2+1=10
+    cout << countOnes_v2(0xFFFFFFFFFFFFFFFF)<<"\n\n";
+    
+    cout << countOnes_v1(0x0000000000000000)<<"\n";// 4+3+2+1=10
+    cout << countOnes_v2(0x0000000000000000)<<"\n\n";
+    
+    cout << countOnes_v1(0x1010101010101010)<<"\n";// 4+3+2+1=10
+    cout << countOnes_v2(0x1010101010101010)<<"\n\n";
+    
+    cout << countOnes_v1(0x0101010101010101)<<"\n";// 4+3+2+1=10
+    cout << countOnes_v2(0x0101010101010101)<<"\n\n";
+    
+    cout << countOnes_v1(0x0A0A0A0A0A0A0A0A)<<"\n";// 4+3+2+1=10
+    cout << countOnes_v2(0x0A0A0A0A0A0A0A0A)<<"\n\n";
+    return 0;
+}
+```
+
+面试官好像在干别的事，抛个问题出来然后就没管了，等我说完继续抛个问题...
+写完后也有一段沉默，我也有自知之明，得拖满45分钟，互不干扰，就继续再改改
+后来看差不多45了就提醒一下写完了，后问了从哪些角度测试，加了一些样例。
+
+更优雅的写法：
+```
+__builtin_popcount(num) // 二进制中1的个数
+int count(int num) {
+    num = (num & 0x55555555) + ((num >> 1) & 0x55555555); // 相邻两位上的1的和存在这两位上
+    num = (num & 0x33333333) + ((num >> 2) & 0x33333333); 
+    num = (num & 0x0F0F0F0F) + ((num >> 4) & 0x0F0F0F0F);
+    num = (num & 0x00FF00FF) + ((num >> 8) & 0x00FF00FF);
+    num = (num & 0x0000FFFF) + ((num >> 16) & 0x0000FFFF);
+    return num;
+}
+```
+https://www.notion.so/swhua/C-3-0-cf3709876b3a4d6fa6765feabb8a8d2d#22bab2091a4542fd87bf0931ca0abb3b

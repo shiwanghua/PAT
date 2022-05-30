@@ -1,0 +1,72 @@
+string\vector的内存布局
+
+http下层基于什么协议
+
+C++里靠什么抛出段错误
+
+1. 实现shared_ptr
+三大构造函数，析构函数，operator=
+template<T>
+class SharedPtr<T>{
+private:
+T* ptr;
+Lock lck;
+int cntRef;
+public:
+SharedPtr(){
+ptr=new T;
+cntRef=1;
+}
+SharedPtr(const T* sptr){
+ptr=malloc(sizeof(sptr));
+memcpy(ptr,sptr,sizeof(sptr));
+cntRef=1;
+}
+SharedPtr(SharedPtr<T>& sptr){
+//cntRef=1;
+//ptr=sptr;
+//sptr.incrementOne();
+
+}
+~SharedPtr(){
+lock(lck);
+if(cntRef==1){
+delete ptr;
+}
+else cntRef--;
+unlock(lck);
+}
+
+operater=(SharedPtr& sptr){
+
+}
+
+int getCntRef(){return cntRef;}
+
+int incrementOne(){
+lock(lck);
+cntRef++;
+unlock(lck);
+}
+};
+
+
+
+2. 实现重载赋值运算符函数
+
+vector<vector<int>>
+
+template<typename T>
+class vector {
+public:
+
+vector<T>& operator=(const vector<T>& rhs) {
+//data=malloc(rhs.size*sizeof(T));
+//memcpy(data,rhs,sizeof(data));
+for(
+return *this;
+}
+
+T* data;
+size_t size;
+};

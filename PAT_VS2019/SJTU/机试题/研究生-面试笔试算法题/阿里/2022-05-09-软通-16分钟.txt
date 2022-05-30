@@ -1,0 +1,37 @@
+/*
+给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+子数组 是数组中的一个连续部分。
+*/
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int main(){
+  int n;cin>>n;
+  vector<int> a(n);
+  for(int i=0;i<n;i++)
+    cin>>a[i];
+  
+  int maxSum=0;
+  int tmpSum=a[0];
+  int maxValue=a[0];
+  // vector<int> dp(n,0);
+  // dp[0]=a[0];
+  for(int i=1;i<n;i++){
+    //dp[i]=max(dp[i-1],dp[i-1]+a[i]);
+    tmpSum+=a[i];
+    if(tmpSum<0) tmpSum=0;
+    if(maxSum<tmpSum)maxSum=tmpSum;
+    maxValue=max(maxValue,a[i]);
+  }
+  if(maxValue<0) maxSum=maxValue;
+  cout<<maxSum;
+  return 0;
+}
+
+/*
+给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。
+如 A -> B -> C -> D  交换之后变成 B->A->D->C
+*/
+
