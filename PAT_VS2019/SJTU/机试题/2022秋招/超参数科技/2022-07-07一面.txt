@@ -1,0 +1,126 @@
+问了一些很常见的cpp面经
+最后问到页面替换机制，
+我不想答LRU，怕会要我实现，
+但最后没得说了只能说这个了，结果果然又是要我实现。
+还是和前两次一样只实现了个很简单的O（N）位移，
+结果问我有没有更优的办法，优先级队列支持O1取但还是要O（N）更新
+没办法被逼出hash双向链表
+4点43分，要我实现一下，我说5点要开周会，他说还有点时间看能不能实现
+结果还是十一二分钟匆匆忙忙写好了，这一次是showmebug网站编辑器有填充了
+面试完记起来这周开始周会改到6点开了。。。。。。
+
+```
+// LRUCache
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class LRU{
+    private:
+        vector<unsigned long> bit;
+        unordered_map<int,int> pageNo; 
+        int n; // page
+        const int initState=1<<63;
+    public:
+        LRU(int){
+            bit.resize(n,0LL);
+            
+        }
+        
+        int insert(int no){ // 插入一个新no号页面到缓存
+            
+            // 找一个未使用或优先级最低的页面
+            int minPageNo=0;
+            unsigned long pri=bit[0];
+            for(int i=1;i<n;i++){
+                if(pri>bit[i])
+                    pri=bit[i];
+                    minPageNo=i;
+                }
+            pageNo.erase(minPageNo); // 删除旧页面的位置
+            pageNo[no]=minPageNo; // 第 minPageNo 号虚拟页面实际存储 no 号物理页面
+            bit[minPageNo]=initState;
+            
+            return minPageNo;
+        }
+    
+        int get(int no){ // 访问 no 号物理页面
+            if（pageNo.count(no)){ // 缓存中有这个页面
+                for(auto& s:bit){
+                    s=s>>1;
+                }
+                int cacheNo=pageNo[no];
+                bit[cacheNo]|=initState; // 刚读，赋高优先级
+                return cacheNo; // 返回no 页面在缓存中的页号
+            }
+            else{ // 缓存中没这个页号
+                return insert(no);
+            }
+        }
+};
+
+struct node{
+    int cacheNo;
+    node* next;
+    node* prev;
+};
+
+class LRU{
+    private:
+        node* head,*tail;
+        int n;
+        unordered_map<int,node*> hash;
+    public:
+        LRU(int){
+            n=0;
+            head =new node;
+            head->next=head;
+            head->prev=head;
+            prev=head;
+        }
+        
+//         int insert(int no){ // 插入一个新no号页面到缓存
+//             if
+//         }
+    
+        int get(int no){ // 访问 no 号物理页面
+            if(hash.count(no)){
+                node* p=hash[no];
+                int cacheNo=p->cacheNo;
+                // move p to tail
+                tail->next=p;
+                p->next->prev=p->prev;
+                p->prev->next=p->next;
+                p->next=nullptr;
+                p->prev=tail;
+                tail=p;
+                return cacheNo;
+            }
+            // miss
+            node* t=head->next;
+            int cacheNo=t->cacheNo;
+            
+            head=head->next;
+            delete t; // 删除优先级最低的页面
+            
+            // 插入一个新页面到结尾
+            node* newNode;
+            newNode->cacheNo=cacheNo;
+            newNode->next=nullptr;
+            newNode->prev=tail;
+            tail->next=newNode;
+            tail=newNode;
+            hash[no]=newNode;
+            hash.erase(cacheNo);
+            return cacheNo;
+        }
+};
+
+int main()
+{
+  cout << "Hello, World!" << endl;
+  return 0;
+}
+
+```
