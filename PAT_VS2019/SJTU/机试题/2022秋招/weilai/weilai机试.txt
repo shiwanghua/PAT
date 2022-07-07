@@ -1,4 +1,6 @@
-1.
+2022-0707
+
+1. 找错
   
 #include<iostream>
 using namespace std;
@@ -23,7 +25,7 @@ int main(){
 return 0;
 }
 
-2. 
+2. 给了接口，实现
   
 class String
 {
@@ -34,7 +36,7 @@ public:
         m_data = '\0'
         return;
       }
-      len = strlen(str)
+      //复杂了，要用 len = strlen(str)
       int len=0;
       const char* p=str;
       while(p){
@@ -45,7 +47,7 @@ public:
 
       m_data=malloc(len*sizeof(char));
       const char* q=m_data;
-      strcpy()
+      // 复杂了，要用 strcpy()
       p=str;
       while(p){
         *q++=*p++; 
@@ -53,7 +55,7 @@ public:
       *q='\0';
     }
   
-    String(const String &other){ // 拷贝构造函数（深拷贝 ）
+    String(const String &other){ // 拷贝构造函数（深拷贝 ）做错了，写成了浅拷贝
        free(m_data);
      	 m_data=other.m_data;
     }
@@ -62,7 +64,7 @@ public:
      	free(m_data); 
     }
   
-  	String & operator =(const String &other){ // 赋值函数（浅拷贝）
+  	String & operator =(const String &other){ // 赋值函数（浅拷贝），做错了，要析构原来的空间
      	 String(other.m_data);
       
     }
@@ -77,7 +79,7 @@ string str2 = "aaaa"
   
   str2 = str1;
 
-3. 
+3. // 实现单例模式
   
 class String(
   private:
@@ -116,7 +118,7 @@ class String(
   
   String::get
   
-  4.
+  4. 做错了，<=，最后要判断
   
  题目描述：
 主要元素
