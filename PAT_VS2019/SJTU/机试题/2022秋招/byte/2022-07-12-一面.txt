@@ -1,0 +1,12 @@
+
+https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
+
+写了个 unordered_set，后在面试官提示下改成set，
+
+问了二者有什么区别、storm、flink有啥区别
+
+还问了如果输入只有0和1的做法
+
+后来发现一直求反了求的是顺序对，估计面试官发现了懒得指出来
+
+面试官比较care文本转向量的算法。
