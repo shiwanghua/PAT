@@ -1,0 +1,128 @@
+
+1h 15个单选，3个多选，3个编程
+作者：廿陆畵生
+链接：https://www.nowcoder.com/discuss/997914
+来源：牛客网
+
+1. 虚函数表是数组还是指针
+2. auto 能不能作为返回类型、函数参数，auto 定义的变量一定要初始化
+3. int 的基本运算符能不能重载
+4. 考了模板的传入参数能不能为数据类型
+5. 是否优先加载const类型的用户自定义类型函数参数（没看懂）
+6.   . $ @ 不能重载吗
+7. 识别地址表示
+8. delete new malloc free。malloc不会返回异常
+9. 智能指针 unique 不能拷贝，weak 不会改变计数
+10. 微信在接受和发送消息时进程会阻塞吗？互斥？就绪
+11. 第一题是用单链表实现栈，问入栈的语句
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};*/
+
+// 1. 检测是否为平衡树
+class Balance {
+//     map<TreeNode*,int> h;
+    bool is;
+    int getHeight(TreeNode* root){
+        if(!is) return 0;
+        int lh=0,rh=0;
+        if(root->left){
+            lh=getHeight(root->left);
+//             h[root->left]=lh;
+        }
+        if(root->right){
+            rh=getHeight(root->right);
+//             h[root->right]=rh;
+        }
+//         h[root]=max(lh,rh)+1;
+        if(abs(lh-rh)>1){
+            is=false;
+        }
+        return max(lh,rh)+1;
+    }
+public:
+    bool isBalance(TreeNode* root) {
+        // write code here
+        if(!root) return true;
+        is=true;
+        getHeight(root);
+        return is;
+    }
+};
+
+// 求最大能装的单位数  83.3%
+// 给出 n 类箱子，给出每类箱子的个数、每类箱子一个能装多少单位
+// 一共能装 truckSize 个箱子
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param boxArray int整型vector<vector<>> 箱子
+     * @param boxTypesSize int整型 箱子类型数量
+     * @param truckSize int整型 卡车容纳箱子数
+     * @return int整型
+     */
+    int maximumUnits(vector<vector<int> >& ba, int bts, int ts) {
+        // write code here
+        sort(ba.begin(),ba.end(),[](auto a,auto b){return a[1]>b[1];});
+        int i=0;
+        int ans=0;
+        while(ts>0&&i<ba.size()){
+            if(ts>ba[i][0]){
+                ans+=ba[i][0]*ba[i][1];
+                ts-=ba[i][0];
+                i++;
+            }else{
+                ans+=ts*ba[i][1];
+                ts=0;
+            }
+        }
+        return ans;
+    }
+};
+
+// 83.3%
+// 检测某个点是否在某个区域内
+// 如果在区域内或者在边上，返回到区域顶点的最大距离
+// 如果在区域外或者在顶点上，返回到区域顶点的最小距离
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param point double浮点型vector 鸟儿落地的坐标
+     * @param array double浮点型vector<vector<>> 桩的坐标
+     * @return double浮点型
+     */
+    
+    
+    double distance(vector<double>& p, vector<vector<double> >& a) {
+        // write code here
+        double x=p[0], y=p[1];
+        int n = a.size();
+        for(const auto& i:a){
+            if(i[0]==x&&i[1]==y)
+                return 0.0;
+        }
+        double maxDis=0, minDis=0x0fffffff;
+        for(const auto& i:a){
+            double dis=sqrt((i[0]-x)*(i[0]-x)+(i[1]-y)*(i[1]-y));
+            maxDis = max(dis, maxDis);
+            minDis = min(dis, minDis);
+        }
+        bool in = true;
+        sort(a.begin(),a.end());
+        if(x<a[0][0]||x>a[n-1][0])
+            in = false;
+        return in ? maxDis : minDis;
+    }
+};
