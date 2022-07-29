@@ -1,0 +1,173 @@
+都是做过的题还做不出来就很悲伤。。。
+
+![image|690x380](upload://bJphjUf6Dymx3lszGUxBVjL6rFi.png)
+
+100分钟，20选择，3编程
+
+1. adceadaa 编码后最短需要 14 个比特？
+2. TCP 第4次挥手包含 FIN；PSH FIN；ACK FIN；ACK
+3. 32位单精度浮点数的十进制有效数字有 9 位？
+4. 树的度为4，度为1，2，3，4的节点个数为0，3，3，2，叶子结点有16个？
+5. 一个线程运行 n++;n++; 另一个线程运行 n+=2；n初始为0，可能的结果为234
+6. “//^.^//\n” 的长度为？
+7. 5黑球3蓝球，取3个，至少两个蓝色的概率为9/28
+8. printf("1/2 = %f", (float)1/2); 的结果为 0.000000？
+9. 基类指针指向派生类对象，调用两个函数，基类里一个函数声明为了virtual，另一个函数没声明，那么前者会调用派生类的重载函数，后者会调用基类的函数
+10. 约瑟夫环，从1开始报数，每2人删除1人，一共33人，最后剩下第3人
+11. abcdef出现的次数分别为16、5、12、17、10、25，编码这段文本最少需要多少比特，210、212、277、244，没有230
+12. unordered_map、priority_queue 通过 hash 和 heap 实现
+13. 
+```
+#define SUM(x,y) x+y 
+int a=3,b=2;
+a+=a*SUM(a,b)*b
+```
+a=16
+14. 200个数用冒泡排序要200ms，问多少个数用冒泡排序要800ms？
+15. 8 个 int 里找最大和第二大的数，需要多少次比较（适用任何情况），9次（4+2+1+1+1）
+ 
+1. 最大子序列和、以及子序列的第一个和最后一个元素 **85%**
+输入：-2，11，-4，13，-5，-2
+输出：20 11 13
+
+https://blog.csdn.net/qq_38030194/article/details/80299297
+
+```
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+    int k;
+    while(cin>>k){
+        if(k==0) break;
+        vector<int> q(k);
+        for(int i=0;i<k;i++)
+            cin>>q[i];
+        int f=0,sum=0,mf=0,ml=0,maxSum=q[0];
+        for(int i=0;i<k;i++){
+            sum+=q[i];
+            if(maxSum<sum){
+                maxSum=sum;
+                ml=i;
+                mf=f;
+            }else if(sum<0){
+                f=i+1;
+                sum=0;
+            }
+        }
+        if(maxSum<0){
+            cout<<0<<" "<<q[0]<<" "<<q[k-1]<<"\n";
+        }
+        else cout<<maxSum<<" "<<q[mf]<<" "<<q[ml]<<"\n";
+    }
+}
+```
+
+2. 求【1，n】内字典序第k小的数 **50%**
+
+https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/
+
+![image|690x193](upload://ymQs6flAAfMcraxiHJQMiZgUNNG.png)
+
+
+5月8号面腾讯时的题目是调整数组顺序组成一个最大的数，最后用string加起来排序就行了，和这里有点相似
+
+https://shuiyuan.sjtu.edu.cn/t/topic/63618
+
+```
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param n int整型 
+     * @param k int整型 
+     * @return int整型
+     */
+//     string s;
+//     void f(int k){
+//         int nn=n,b=1,d=0;
+//         while(nn){nn/=10;d++;b=b*10;}
+//         int r = n-n/b*b
+//         if()
+//     }
+    int findKth(int n, int k) {
+        // write code here
+        vector<int> a(n);
+        for(int i=1;i<=n;i++){
+            a[i-1]=i;
+        }
+        sort(a.begin(),a.end(),[](int a,int b){
+            string sa=to_string(a);
+            string sb=to_string(b);
+            return sa<sb;});
+        return a[k-1];
+    }
+};
+```
+
+3. 5月29号的周赛题目，当时看了好久题解 **66.67%**
+
+https://leetcode.cn/problems/steps-to-make-array-non-decreasing/
+
+![image|690x437](upload://v8vxMxTjzW5ETV6vcWHqNBBPBi0.png)
+
+```
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param nums int整型vector 
+     * @return int整型
+     */
+    
+    int totalSteps(vector<int>& nums) {
+        // write code here
+        int n=nums.size();
+        if(n==0) return 0;
+        else if(n==1) return 0;
+        else if(n==2){
+            return nums[0]>nums[1];
+        }
+        int b=0;
+        stack<int> s;
+        s.push(0);
+        for(int i=1;i<n;i++){
+            while(i<n&&nums[s.top()]>nums[i]){
+                i++;
+            }
+//             if(i==n) break;
+            s.push(i);
+            if(i!=n)
+                cout<<nums[i]<<", ";
+        }
+        cout<<": "<<s.size()<<"\n";
+        if(s.size()==n){
+            return 0;
+        }
+        int maxS=0;
+        vector<int> ss;
+        while(!s.empty()){
+            ss.push_back(s.top());
+            s.pop();
+        }
+        reverse(ss.begin(),ss.end());
+        
+        for(int i=0;i<ss.size()-1;i++){
+//             if(i<ss.size()-1){
+                cout<<ss[i]<<", "<<ss[i+1]<<"\n";
+                vector<int> cp(nums.begin()+ss[i],nums.begin()+ss[i+1]);
+                maxS=max(maxS,totalSteps(cp));
+//             }else{
+//                 cout<<ss[i]<<", "<<n<<"\n";
+//                 vector<int> cp(nums.begin()+ss[i],nums.begin()+n);
+//                 maxS=max(maxS,totalSteps(cp));
+//             }
+        }
+        return maxS;
+    }
+};
+```
