@@ -4,11 +4,13 @@
 
 什么是栈溢出，什么情况会发生栈溢出
 
-什么是可调用对象
+什么是可调用对象、什么是内存破坏 https://blog.csdn.net/weixin_41055260/article/details/120838089
 
 function<>，怎么和bind...
 
-介绍智能指针，weak ptr 的应用场景，是没有改变计数器，是怎么判断指向的内存有没有被释放掉的，能不能作为 map 的 key
+介绍智能指针，什么时候用weak_ptr，有什么好处，如何判断weak_ptr 指向的对象是否存在，能不能作为 map 的 key
+use_count 判断强引用计数是否为0?
+https://blog.csdn.net/weixin_44980842/article/details/121828485
 
 detach和join的作用，反问我
 
