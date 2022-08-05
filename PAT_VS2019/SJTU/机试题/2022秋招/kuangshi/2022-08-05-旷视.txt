@@ -1,0 +1,79 @@
+1. 求幂pow
+#coding=utf-8
+import sys 
+# x = input()
+# n = input()
+
+e = 1e9+7
+def pow(x, n):
+    res = 1
+    p = x
+    while(n>0):
+        if(n%2==1):
+            res = res*p%e
+        p=p*p
+        n=n//2
+    return res
+
+for i in range(11):
+    print(pow(2, i))
+
+# print(pow(x,n))
+
+2. 并查集给节点编号，属于同一个图的点编号成一样的，从0开始编号
+#coding=utf-8
+import sys 
+#str = input()
+#print(str)
+
+n = 7
+edges = [(0,2),(0,4),(2,5),(3,6)]
+father = [0,1,2,3,4,5,6]
+rank = [1]*n
+# for i in range(n):
+#     father[i]=i
+def getFather(x):
+    if(x!=father[x]):
+        father[x]=getFather(father[x])
+    return father[x]
+for e in edges:
+
+    xf = getFather(e[0])
+    yf = getFather(e[1])
+
+    if(xf!=yf):
+        if(rank[xf]>rank[yf]):
+            father[yf]=xf
+            rank[xf]+=rank[yf]
+        else:
+            father[xf]=yf
+            rank[yf]+=rank[xf]
+
+d = dict()
+s = set()
+groupNo = 0
+
+ans = []
+for i in range(n):
+    if father[i] in s:
+        father[i]=d[father[i]]
+    else:
+        s.add(father[i])
+        d[father[i]]=groupNo
+        father[i]=groupNo
+        groupNo+=1
+    ans.append(father[i])
+    print(father[i])
+
+3. 
+键盘按键布局：K: List[int] -> [1, 2, 3, 2, 1]
+想打的单词 word: List[int] -> [1, 2, 3]
+求最小打字时间 typing time
+1. Initial position: ANY  初始可以在任意位置
+2. type -> time cost free 按键的时间忽略不计
+3. index i -> index j: |i - j| time cost 从 I 移动到 j 按下键所需的时间
+minimum typing time
+ret: int -> 2
+
+刚刚面试旷视算法，面试官一上来说看看我简历，他估计只会python，没啥问我的，就说先做题再看简历，说要我先用python写下实在不行再用cpp。第一题求power，第二题并查集，第三题做了一会直接说不会了。然后又看了下简历，问kafka是在哪里用到了没找到，然后干脆直接问我还有没有什么问题了。2点45会议室到点了搬出来外面有人讨论声音比较大。
+中望狂打了六个电话，问我说面试官觉得不是很匹配希望去实习再转正考虑不
