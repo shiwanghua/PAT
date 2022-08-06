@@ -90,6 +90,8 @@ public:
 };
 
 // 83.3%
+// https://leetcode.cn/problems/maximum-units-on-a-truck/submissions/
+// 放力扣上可以过。。
 // 检测某个点是否在某个区域内
 // 如果在区域内或者在边上，返回到区域顶点的最大距离
 // 如果在区域外或者在顶点上，返回到区域顶点的最小距离
