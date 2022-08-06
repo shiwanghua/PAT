@@ -1,0 +1,286 @@
+1. 不算主线程，一共新建了多少个进程？
+```
+fork();
+fork()&&fork()||fork();
+fork();
+```
+19个
+子进程返回0，父进程返回子进程的pid
+
+2. tcpdump
+tcpdump -i etho -nn 'tcp and host 10.32.32.1:80'
+tcpdump -h etho -nn 'tcp and host 10.32.32.1:80'
+tcpdump -i etho -nn 'tcp and port 80 and host 10.32.32.1:80'
+tcpdump -h etho -nn 'tcp and port 80  and host 10.32.32.1:80'
+​
+3. 两个进程共享一个临界资源，mutex=-1 表示？（一用一等）
+
+4. pinctrl 子系统不可以
+根据GPIO设置GPIO复用
+获取设备树GPIO信息
+根据GPIO信息设置电气特性
+根据GPIO信息来初始化并提供API
+
+5. TCP拥塞控制不包括：慢开始，慢重传，慢启动阈值ssthresh减半，拥塞避免加法增加（可能“加法”指“窗口”？）
+
+6. 用 #pragma pack(4) 和 #pragma pack(8) 对齐得到的结构体大小分别是
+struct One{double a; char b; int c;}
+struct Two{char c; double b;int c;}
+16 20, 16 20;
+16 24, 16 24;
+16 16, 16 24;
+16 16, 24 24.
+
+7. 实时RTOS内核与应用程序接口称为：
+文件系统、IO接口、API、图形用户接口
+
+以下不定选
+
+8. 解决hash冲突的方法有
+链地址法、直接地址法、线性探测再散列法、除留余数法
+
+9. 网络层协议有：
+ICMP、IP、ARP、RARP
+
+10. 二分搜索可用于单链表、数组，只能在已经排序数据上进行，最坏复杂度为O（nlogn）
+
+11. 实时OS的技术指标有：调度算法、确定性、上下文切换时间、代码体积
+
+```
+一、每次可取 m 个，刚开始一共有 n 个，设某轮还剩下 k 个
+​k>=m,  取 m 个
+​0.7m<=k<m, 取 0.7m 个
+​0.3m<=k<0.7m，取 0.3m 个
+少于0.3m时把剩下的全部取完
+
+​问取几次可以取完，最后一次取了多少个
+​​
+1<=n<=1e9
+​1<=m<=1e6
+​mn都是正整数
+​m 是 10 的倍数​
+​
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+// 30% 不需要每次-m，除以m就好了...
+int main(){
+    //freopen("1.in","r",stdin);
+    int n, m, k;
+    cin >> k;
+    for(int i = 0; i < k; i++){
+        int c=0,l=0;
+        cin>>n>>m;
+        double m7=(double)m*0.7, m3=(double)m*0.3;
+        while(n>0){
+            if(n>=m){
+                n-=m;
+                l=m;
+            }else if(n>=m7){
+                n-=m7;
+                l=m7;
+            }
+            else if(n>=m3){
+                l=m3;
+                n-=l;
+            }
+            else {
+                l=n;
+                n=0;
+            }
+            c++;
+        }
+        cout << c<<" "<<l<< "\n";
+    }
+    return 0;
+}
+
+
+二、一个有序的链表，删除所有重复节点（比如值为2的节点出现3次，3个节点全删了）
+​写了 3 次，最后干脆重新建链表
+
+https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/
+
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead) {
+        if(!pHead) return pHead;
+        ListNode* r=pHead, *p;
+        
+        // solution1 63.64% 段错误
+//         map<int,int> s;
+//         while(r){
+//             s[r->val]++;
+//             r=r->next;
+//         }
+//         r=pHead;
+//         cout<<s.size()<<"\n";
+//         while(r->next){
+//             while(r->next&&s[r->next->val]>1){
+//                 p=r->next;
+//                 r->next=p->next;
+//                 cout<<p->val<<"\n";
+// //                 delete p;
+//             }
+// //             if(!r) break;
+//             r=r->next;
+//         }
+//         if(s[pHead->val]>1)
+//         {
+//             p=pHead;
+//             pHead=pHead->next;
+// //             delete p;
+//         }
+//         return pHead;
+        
+        // Solution2 63.64% 段错误
+//         r=new ListNode(0);
+//         r->next=pHead;
+//         p=r;
+//         int len=0;
+//         while(r->next&&len<1001){
+//             while(len<1001&&r->next->next&&r->next->val==r->next->next->val){
+//                 int v=r->next->val;
+//                 while(len<1001&&r->next&&r->next->val==v){
+//                     r->next=r->next->next;
+//                     len++;
+//                 }
+//             }
+//             r=r->next;
+//         }
+//         return p->next;
+        
+        // Solution3  100%
+        map<int,int> s;
+        while(r){
+            s[r->val]++;
+            r=r->next;
+        }
+        ListNode* h=new ListNode(0);
+        p=h;
+        r=pHead;
+//         int len=0;
+        while(r){ //&&len<1002
+//             len++;
+            if(s[r->val]==1)
+            {
+                p->next=new ListNode(r->val);
+                p=p->next;
+            }
+            r=r->next;
+        }
+        return h->next;
+    }
+};
+
+解决：
+// solution1 63.64% 段错误
+        map<int,int> s;
+        while(r){
+            s[r->val]++;
+            r=r->next;
+        }
+        r=pHead;
+        //cout<<s.size()<<"\n";
+        while(r){
+            while(r&&r->next&&s[r->next->val]>1){
+                p=r->next;
+                r->next=p->next;
+                //cout<<p->val<<"\n";
+                delete p;
+            }
+            if(!r) break;
+            r=r->next;
+        }
+        if(s[pHead->val]>1)
+        {
+            p=pHead;
+            pHead=pHead->next;
+            delete p;
+        }
+        return pHead;
+        
+ // Solution2 63.64% 段错误
+ // r=new ListNode(0);
+ // r->next=pHead;
+ // p=r;
+ // int len=0;
+ // while(r&&len<1001){
+ //     while(len<1001&&r->next&&r->next->next&&r->next->val==r->next->next->val){
+ //         int v=r->next->val;
+ //         while(len<1001&&r->next&&r->next->val==v){
+ //             r->next=r->next->next;
+ //             len++;
+ //         }
+ //     }
+ //     if(r)
+ //         r=r->next;
+ // }
+ // return p->next;
+
+
+​三、判断二叉树是否有树根节点到叶子节点值之和为 sum 的路径
+​估计超时了，但两种解法过的用例不同，按理第二种少比较了一些
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ *	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ * };
+ */
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param root TreeNode类 
+     * @param sum int整型 
+     * @return bool布尔型
+     */
+    // 95.65% 估计超时
+    bool tryp(TreeNode* r, int s){
+        if(r->val==s&&r->left==nullptr&&r->right==nullptr) 
+            return true;
+        s=s-r->val;
+        //cout<<r->val<<", "<<s<<"\n";
+        if(r->left&&tryp(r->left,s) || r->right&&tryp(r->right,s))
+            return true;
+        return false;
+    }
+    
+    bool hasPathSum(TreeNode* root, int sum) {
+        // write code here
+        if(!root) return false;
+        return root->left&&tryp(root->left,sum-root->val) || root->right&&tryp(root->right,sum-root->val);
+    }
+    
+    // 91.3% 估计超时
+//     bool tryp(TreeNode* r, int s){
+//         if(r==nullptr)
+//             return s==0;
+//         s=s-r->val;
+// //         cout<<r->val<<", "<<s<<"\n";
+//         if(tryp(r->left,s) || tryp(r->right,s))
+//             return true;
+//         return false;
+//     }
+    
+//     bool hasPathSum(TreeNode* root, int sum) {
+//         // write code here
+//         if(!root) return false;
+//         return tryp(root->left,sum-root->val) || tryp(root->right,sum-root->val);
+//     }
+};
+```
