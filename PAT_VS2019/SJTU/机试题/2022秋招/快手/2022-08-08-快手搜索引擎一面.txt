@@ -1,0 +1,123 @@
+
+
+面了八十几分钟，前半小时问了论文实习和面经，
+然后出个题写 LRU， 没写多久，
+要我写个测试用例，于是就出现了很多错误，
+面试平台只报段错误，只能一行行找错，
+后面一直在debug，找到好几处，
+面试官后来和我一起找了好久，说他也没找到在哪，
+但预感是在哪一段，说我数据结构没设计好，tail和head都应该单独指一个，
+还说总觉得怪怪的（怎么才一个函数），但也指不出少了哪里，
+后来他找到了一个次生bug，
+最后总体是跑通了，
+但我debug时打印出来的一条日志还是会导致错误
+面试官说别打了别找了，就保持这样好了
+
+#include <iostream>
+#include <unordered_map>
+#include <random>
+
+using namespace std;
+
+struct node{
+    node* prev, *next;
+    int pageNo;
+    int pageContent;
+};
+
+class LRU{
+public:
+    node * head,*tail;
+    unordered_map<int, node*> hash;
+    int capacity;
+    int size;
+public:
+    LRU(int c):capacity(c){
+        head=new node;
+        tail=head;
+        head->next=nullptr;
+        size=0;
+    }
+
+    ~LRU(){
+        node* p;
+        while(head){
+            p=head;
+            head=head->next;
+            delete p;
+        }
+    }
+
+    node* visit(int pageNo){
+        if(hash.count(pageNo)){
+            // move to head
+            node* res = hash[pageNo];
+            if(res==tail){
+                tail=tail->prev;
+            }
+            res->prev->next = res->next;
+            res->next->prev = res->prev;
+            res->next=head->next;
+            res->prev=head;
+            head->next=res;
+            return res;
+        }
+        else{ // page miss
+            if(capacity==size){
+                // move the last out
+                // cout<<size<<", "<<tail->pageNo<<"\n";
+                int lastPageNo = tail->pageNo;
+                node* last = tail;
+                tail=tail->prev;
+                tail->next=nullptr;
+                hash.erase(lastPageNo);
+                // delete last;
+                size--;
+            }
+            // insert to head
+            node* page = new node;
+            // read page from main memory to init the content of node
+            page->pageContent = rand();
+            page->pageNo=pageNo;
+
+            page->next=head->next;
+            if(page->next)
+                page->next->prev=page; // *
+            page->prev=head;
+            head->next=page;
+
+            if(size==0){
+                tail=page;
+            }
+            size++;
+            hash[pageNo]=page;
+            return page;
+        }
+    }
+};
+
+
+int main() {
+    LRU lru(3);
+    node* p;
+    p=lru.visit(100);
+    cout<<"pageNo"<<100<<" content: "<<p->pageContent<<"\n";
+    p=lru.visit(123);
+    cout<<"pageNo"<<123<<" content: "<<p->pageContent<<"\n";
+    p=lru.visit(4321);
+    cout<<"pageNo"<<4321<<" content: "<<p->pageContent<<"\n";
+    p=lru.visit(222);
+    cout<<"pageNo"<<222<<" content: "<<p->pageContent<<"\n";
+
+    p=lru.visit(4321);
+    cout<<"pageNo"<<4321<<" content: "<<p->pageContent<<"\n";
+    // cout<<lru.tail->pageNo<<"\n";
+    // cout<<lru.tail->prev->pageNo<<"\n";
+    p=lru.visit(100);
+    cout<<"pageNo"<<100<<" content: "<<p->pageContent<<"\n";
+    p=lru.visit(123);
+    cout<<"pageNo"<<123<<" content: "<<p->pageContent<<"\n";
+
+    // cout<<lru.tail->pageNo<<", "<<lru.tail->prev->pageNo<<"\n";
+    return 0;
+}
