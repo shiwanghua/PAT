@@ -22,6 +22,8 @@ int smallestChair(vector<vector<int> > times, int targetStudent)
     return earlyNum - exitNum; // 比 targetStudent 早到的人数 - 在 targetStudent 到达之前离开的人数
 }
 
+// https://leetcode.cn/problems/the-number-of-the-smallest-unoccupied-chair/ 
+
 int main()
 {
     vector<vector<int> > times;
