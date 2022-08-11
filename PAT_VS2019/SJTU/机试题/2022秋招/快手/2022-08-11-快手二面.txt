@@ -1,0 +1,61 @@
+malloc申请的内存在虚存还是实存上
+
+本来出的第一题是智能指针问我会不会，我说不会，就第二题问我LRU，我说一面做过了，然后又想了会才出了第三题
+
+把二分查找树转换为双向链表，不能用容器，原地转换。
+
+```
+#include <iostream>
+using namespace std;
+
+struct node{
+    int val;
+    node* left, *right;
+    node(int v,node* l,node* r){
+        val=v;
+        left=l;
+        right=r;
+    }
+};
+
+node* convertBST(node* root){
+    if(!root) 
+        return nullptr;
+    
+    if(root->right){
+        node* right_head = convertBST(root->right);
+        // std::cout<<right_head->val<<"\n";
+        root->right = right_head;
+        right_head->left=root;
+        // std::cout<<"right: "<<root->val<<", "<<right_head->val<<"\n";
+    }
+
+    node* p=root->left;
+    if(p){
+        node* left_head = convertBST(root->left); // 1 nn
+        // std::cout<<"lefthead: "<<left_head->val<<"\n";
+        while(p->right){
+            p=p->right;
+        }
+        p->right=root;
+        root->left = p;
+        return left_head;
+    }else{
+        return root;
+    }
+}
+
+int main() {
+    node* n1=new node(1,nullptr,nullptr);
+    node* n2=new node(3,nullptr,nullptr);
+    node* root=new node(2,n1,n2);
+    node* n3 = new node(0,nullptr,nullptr);
+    n1->left=n3;
+    node* head = convertBST(root);
+    while(head){
+        std::cout<<head->val<<", ";
+        head=head->right; // bug1
+    }
+    return 0;
+}
+```
