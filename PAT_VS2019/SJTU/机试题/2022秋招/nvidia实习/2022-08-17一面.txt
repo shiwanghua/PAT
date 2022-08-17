@@ -1,0 +1,64 @@
+https://www.nowcoder.com/discuss/1018086
+
+逐个插入区间，合并区间，最后返回无重复的一个或多个区间
+
+```
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+#define pii pair<int,int>
+
+class MergeIntervals{
+private:
+    vector<pii> intervals;
+    vector<pii>::iterator mergeNext(vector<pii>::iterator p){
+        while(next(p)!=intervals.end()&&p->second>=next(p)->first){
+            p->second=next(p).second;
+            intervals.erase(p+1);
+        }
+        return p;
+    }
+
+public:
+    void test(pii v){
+        auto lb = lower_bound(internals.begin(),intervals.end(),v); // >= v.first
+        
+        // merge last
+        auto preInterval = prev(lb);
+        if(preInterval && preInterval.second>=v.second){
+            return;
+        }
+
+        // insert new pair to next
+        lb.insert(v); // lb v ...
+        auto p = lb;
+        p = mergeNext(p); // merge lb and its next: lb.second >= v.first
+
+        if(p==intervals.end()||next(p)==intervals.end()) // no next or p is the last
+            return;
+
+        p=p+1;
+        mergeNext(p); // merge v and its next: lb.second < v.first
+        return;
+    }
+
+    vector<pii> callHistory(){
+        return intervals;
+    }
+};
+
+
+int main()
+{
+    
+
+    return 0;
+}
+```
+
+感觉数据结构用错了，vector插入太慢了，以前(好像是去年下半年)做过一个leetcode每日一题也是这个
+找不到了
+
+当时记录4种语言语法就花了许久功夫，上面是java的（应该只有第一部分）
