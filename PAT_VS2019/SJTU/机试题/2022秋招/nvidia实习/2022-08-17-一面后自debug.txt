@@ -1,0 +1,100 @@
+// 一大堆错误，除了大致的大致的思路没错，其他全是错的，前面后面全错了！！！
+// 面试官完全没发现，还给予了一定的肯定。
+// 写了个测试用例，自己调出来了，可能还有错
+
+// 其实还是O(n*n)的，完全可以先把n个区间全存起来最后再排序去重...
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define pii pair<int, int>
+
+class MergeIntervals
+{
+private:
+    vector<pii> intervals;
+    vector<pii>::iterator mergeNext(vector<pii>::iterator p)
+    {
+        while (next(p) != intervals.end() && p->second >= next(p)->first)
+        {
+            p->second = max(p->second, next(p)->second);
+            intervals.erase(p + 1);
+        }
+        return p;
+    }
+
+public:
+    void test(pii v)
+    {
+        if (intervals.size() == 0)
+        {
+            intervals.push_back(v);
+            return;
+        }
+
+        auto lb = lower_bound(intervals.begin(), intervals.end(), v); // >= v.first
+
+        // merge last
+        if (lb != intervals.begin())
+        {
+            auto preInterval = prev(lb);
+            if (preInterval->second >= v.second)
+                return;
+            else if(preInterval->second>=v.first){
+                preInterval->second = max(preInterval->second, v.second);
+                mergeNext(preInterval);
+                return;
+            }
+        }
+
+        // insert new pair to next
+        vector<pii>::iterator w;
+        if (lb == intervals.end())
+        {
+            w = intervals.insert(lb, v);
+            // cout << w->first << ", " << w->second << "\n";
+            return;
+        }
+        else{
+            w = intervals.insert(lb, v); // w(v) lb ...
+            // cout << w->first << ", " << w->second << "\n";
+        }
+
+        auto p = w;
+        p = mergeNext(p); // merge w and its next: w.second >= lb.first
+
+        // if (p == intervals.end() || next(p) == intervals.end()) // no next or p is the last
+        //     return;
+
+        // p = p + 1;
+        // mergeNext(p); // merge w and its next: w.second < lb.first
+        return;
+    }
+
+    vector<pii> callHistory()
+    {
+        return intervals;
+    }
+};
+
+int main()
+{
+    MergeIntervals m;
+    pii p = make_pair<int, int>(1, 10);
+    m.test(pair<int, int>(1, 10));
+    m.test(make_pair(10, 15));
+    m.test(make_pair(17, 20));
+    m.test(make_pair(13, 30));
+    m.test(make_pair(40, 50));
+    m.test(make_pair(27, 40));
+
+    vector<pii> h = m.callHistory();
+    for (auto i : h)
+    {
+        cout << i.first << ", " << i.second << "\n";
+    }
+    return 0;
+}
