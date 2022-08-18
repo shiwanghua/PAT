@@ -1,0 +1,141 @@
+https://www.nowcoder.com/discuss/1020128
+
+比较容易，有些就没写了。
+
+单选 5*3'
+
+1. 哪阶段可发现被调用函数未定义？ b
+a。编译 b。执行 c。预处理 d。链接
+
+2. 创建者模式：单例
+行为性模式：策略、观察者
+结构性模式：适配器模式
+
+3. 1、2、3、4、5 判断哪些不能通过编译，做错了，自己跑。
+
+```
+namespace ns{
+    namespace a{int x;}
+    namespace b{
+        int i;
+        struct x{};
+        void f(int){
+            fprintf(stdout,"%s,%d\n",__FUNCTION__,__LINE__);
+        };
+        void f(double){
+            fprintf(stdout,"%s,%d\n",__FUNCTION__,__LINE__);
+        }
+    }
+    int test(){
+        int i;
+        using b::i;  // 1
+        void f(char);
+        using b::f;  // 2
+        f(3.5);      // 3
+
+        using a::x;
+        using b::x;
+        x=99;        // 4
+        struct x x1; // 5
+    }
+}
+```
+
+4. ping 属于 ICMP。
+
+5. 哪个可以是虚函数：（b）
+a。拷贝构造。b。析构函数 c。自定义的构造函数 d。静态成员函数
+
+6. 找错误的（a？）
+a。客户端流程：socket->sendto/recvfrom->close
+b。客户端流程：socket->connect->send/recv->close
+c。服务端流程：socket->bind->listen->select->accept->recv/send->close
+d。服务端流程：socket->bind->listen->accept->recv/send->close
+
+
+多选5*5'
+
+1. 构造函数：ad
+a。可以有默认参数
+b。可以是内联函数
+c。不可以重载
+d。在定义类的对象时自动执行
+
+2. 不支持迭代器的有ab
+stack、queue、vector、map
+
+3. 线程优先级（bd？）
+a。不可改变
+b。创建线程后任何时候都可以重新设置
+c。在创建线程时设置
+d。范围为1～10
+
+4. `void p(int a,char b='b',int c=1){}` 哪些是对的？。。。。
+```
+    p(1,2);
+    p('a');
+    p(1,'a');
+    p(1,'a',2);
+```
+
+·······
+问答 2*5'
+解释纯虚函数的概念和特性
+
+在基类的虚函数声明后面加 “=0” 即可声明为纯虚函数，在基类的实现中不需要也不能实现纯虚函数，在派生类中必须实现了所有父类的纯虚函数后才能实例化，否则派生类还是个虚类。
+
+可以用于声明有某种功能的接口，定义了输入输出。
+
+·······
+
+20' 实现纯虚类 animal，有两个派生类，分别实现其 run、eat 方法。
+
+？
+
+```
+class animal{
+
+public:
+
+    void run() = 0;
+
+     void eat() = 0;
+
+};
+
+class cat : public animal{
+
+public:
+
+    void run() override {
+
+        std::cout<<"The cat is running.\n";
+
+    }
+
+    void eat() overide{
+
+        std::cout<<"The cat is eatting.\n";
+
+    }
+
+};
+
+class dog : public animal{
+
+public:
+
+    void run() override{
+
+        std::cout<<"The dog is running.\n";
+
+    }
+
+    void eat() override{
+
+        std::cout<<"The dog is eatting.\n";
+
+    }
+
+};
+```
