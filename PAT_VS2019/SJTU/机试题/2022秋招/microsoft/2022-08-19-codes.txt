@@ -1,0 +1,81 @@
+
+#include <algorithm>
+int solution(vector<int> &X, vector<int> &Y, int W) {
+    int n=X.size();
+    sort(X.begin(),X.end());
+
+    int ans=0, e=-1, i=0;
+    while(i<n){
+        e=X[i]+W;
+        while(i<n&&X[i]<=e)
+            i++;
+        ans++;
+    }
+    return ans;
+}
+
+#include <algorithm>
+#include <vector>
+// you can write to stdout for debugging purposes, e.g.
+// cout << "this is a debug message" << endl;
+
+string solution(string &S)
+{
+    string a = "";
+    int n = S.length();
+    vector<int> c(10, 0);
+    // std::memset(c,0,sizeof(int)*10);
+    for (const auto &i : S)
+        c[i - '0']++;
+
+    int i = 9, m = -1;
+    while (i >= 0)
+    {
+        if (i > 0 || a.length() > 0)
+            a.append(string(c[i] / 2, '0' + i));
+        if (m == -1 && c[i] & 1 == 1)
+            m = i;
+        i--;
+    }
+    string pre_mid = m == -1 ? a : a + string(1, '0' + m);
+    if (pre_mid == "")
+        return "0";
+    reverse(a.begin(), a.end());
+    return pre_mid + a;
+}
+
+
+#include <queue>
+#include <set>
+#include <vector>
+//#include <iostream>
+
+int solution(vector<int> &A, vector<int> &B)
+{
+    int n = A.size(), f = 0;
+    vector<set<int> > e(n + 1);
+    vector<int> c(n + 1, 1);
+    for (int i = 0; i < n; i++)
+    {
+        e[A[i]].insert(B[i]);
+        e[B[i]].insert(A[i]);
+    }
+
+    queue<int> q;
+    for (int i = 1; i <= n; i++)
+        if (e[i].size() == 1)
+            q.push(i);
+
+    while (!q.empty())
+    {
+        int no = q.front();
+        q.pop();
+        int nextNo = *(e[no].begin());
+        f = f + (c[no] + 4) / 5;
+        c[nextNo] += c[no];
+        e[nextNo].erase(no);
+        if (e[nextNo].size() == 1 && nextNo != 0)
+            q.push(nextNo);
+    }
+    return f;
+}
