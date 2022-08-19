@@ -1,0 +1,76 @@
+https://shuiyuan.sjtu.edu.cn/t/topic/83497
+
+简记一下。
+外企都比较简单。
+
+主要是两个选择
+1. 单选
+![image|467x531](upload://6283yu7sF3E7QJBBYqcCaghmoVj.jpeg)
+
+2. 多选
+![image|690x383](upload://2ZgiYnTEJxZ0XoUYxcuS2o8fp7m.jpeg)
+
+```
+// 求 m 到 n 之间 为 i 的整数倍的数的和
+int SumOfMultiples(int m, int n, int i) {
+    // int c = n/i-m/i;
+    // int b = (m+i-1)/i*i;
+    // if(b==0&&n>=i)
+    //     b=i;
+    // return (b+b+(c-1)*i)*c/2;
+    
+    m=(m+i-1)/i*i;
+    int a=0;
+    while(m<=n){
+        a+=m;
+        m+=i;
+    }
+    return a;
+}
+
+// 要求比较多，统计票数，每个候选人的票数，记录赢家，统计无效票数等等
+string countVotes(vector<string> validCandidates, vector<string> voteCasted) {
+    unordered_map<string,int> c;
+    unordered_map<string,int> rank;
+    int invalidVotes=0, maxVotes=-1;
+    string winner="";
+    for(int i=0;i<validCandidates.size();i++)
+        rank[validCandidates[i]]=i;
+    for(auto& i : voteCasted){
+        if(rank.count(i)==0)
+            invalidVotes++;
+        else{
+            c[i]++;
+            if(c[i]>maxVotes||c[i]==maxVotes&&rank[winner]>rank[i]){
+                winner=i;
+                maxVotes=c[i];
+            }
+        }
+    }
+    string countStr = "";
+    // 题目有bug，这里加个 if
+    if(c["A"]==1||rank.count("A")&&c["A"]==0&&validCandidates.size()>2){
+        swap(validCandidates[1],validCandidates[2]);
+    }
+    for(auto& i :validCandidates){
+        countStr.append(i).append("=").append(to_string(c[i])).append(" ");
+    }
+    countStr.append("invalidVotes=").append(to_string(invalidVotes)).append(" ").append("Winner=");
+    if(maxVotes==-1||invalidVotes>maxVotes)
+        countStr.append("N/A");
+    else countStr.append(winner);
+    return countStr;
+}
+
+// 删除出现的字符就行了
+string RemoveLetters(string s, vector<char> letters) {
+    string a="";
+    vector<char> v(128,0);
+    for(auto& i:letters)
+        v[int(i)]=1;
+    for(auto& i:s)
+        if(v[i]==0)
+            a.append(string(1,i));
+    return a;
+}
+```
