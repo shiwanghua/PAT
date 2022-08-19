@@ -1,0 +1,86 @@
+https://www.nowcoder.com/discuss/1020946
+
+不知道啥时候投的了，也不知道在哪里投的，更不知道投了啥岗，就周二收到面试，就约了。
+
+一上来自我介绍完就来了个题，做完后再问了些问题，
+
+右边面试官说解释下简历里华为路由器包分类项目。
+
+左边那个面试官全问的网络安全，问了解趋势科技吗，有拿到其他offer吗，我说听说趋势用人要求很严格，就来面试了...
+他总结了下，说他们做安全的，问有什么了解，关注过什么安全方面的会议或事情，我说腾讯前一阵出了个事故
+
+问输入www.google.com解释会发生什么过程然后才能看到页面的，
+
+DNS是用udp还是tcp连接，我说udp，tcp成本太高，延时敏感，问我数据丢失咋办，我说通过上层协议加密解决，他说不能保证数据是对的，我说那就多访问几次，或者还是用tcp，后来搜到是有一部分udp有一部分tcp。。
+
+第四个问题解释两种协议的区别，大概安全方面的，听都没听过，我说这方面不清楚，他没听清，我又说不清楚。。。
+
+最后问了两个问题：学些什么可以帮我快速的入手将来的工作、对我面试过程有什么建议
+
+两个面试官，第一个问题说很多面试者都会问，其实他们不知道会分到哪个部门，所以不知道你们以后要干嘛，什么语言都有，第二个问题，左边比较老的面试官对右边面试官举手表示别说话，跟我说这些不能跟我说，只能跟hr汇报，没了。。
+
+说下最开始的题，给一个字符串，找出里面最长的出现多次的连续子字符串
+
+做完后问要不要测试，于是做测试，debug，14行少了个等于号
+之后右边面试官换了个输入再测了下然后就ok了。
+
+https://leetcode.cn/problems/longest-duplicate-substring/
+
+
+```
+#include <string>
+#include <iostream>
+#include <unordered_set>
+
+using namespace std;
+
+// 打印最长的重复字符串
+
+// abcdabcde abcd
+
+string repeat(string t, int len)
+{
+    unordered_set<string> s;
+    for (int i = 0; i <= t.length() - len; i++)
+    {
+        string a = t.substr(i, len);
+        // std::cout << "a: " << a << "\n";
+        if (s.count(a))
+            return a;
+        s.insert(a);
+    }
+    return "";
+}
+
+void printTheLongestRepeatString(string s)
+{
+    int n = s.length();
+    int left = 1, right = n - 1;
+    string ans = "";
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        string trystr = repeat(s, mid);
+        // printf("%s mid=%d\n", trystr.c_str(), mid);
+        if (trystr.length() != 0)
+        {
+            left = mid + 1;
+            ans = trystr;
+        }
+        else
+        {
+            right = mid - 1;
+        }
+    }
+    std::cout << ans;
+}
+
+int main()
+{
+    string s = "abadeabcdaba";
+    printTheLongestRepeatString(s);
+    return 0;
+}
+```
+
+写了个复杂度比较高的，问我复杂度多少，我一步步分析还没分析完我说得算一下，就被打断了，有更好的教教我。
