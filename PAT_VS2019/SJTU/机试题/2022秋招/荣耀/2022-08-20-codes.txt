@@ -1,0 +1,223 @@
+// 84.4 分
+// 第1题
+// 40min 93.33% 15'
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <string>
+#include <cstring>
+using namespace std;
+
+unordered_set<int> deleteOne(unordered_set<int> last){
+    unordered_set<int> ans=last;
+    for(auto i:last){
+        string istr = to_string(i);
+        if(istr.length()==1)
+            continue;
+        for(int j=0;j<istr.length();j++){
+            string dstr;
+            if(j>0)
+                dstr=istr.substr(0,j);
+            if(j!=istr.length()-1)
+                dstr.append(istr.substr(j+1,istr.length()-j-1));
+//             cout<<istr<<", "<<dstr<<"\n";
+//             cout<<dstr<<"\n";
+            int toi=stoi(dstr);
+            ans.insert(toi);
+        }
+    }
+    return ans;
+}
+
+int main() {
+    int a,b;
+    cin>>a>>b;
+    if(a>b)
+        swap(a,b);
+    else if(a==b){
+        cout<<0;
+        return 0;
+    }
+    if(b%a==0){
+        cout<<0;
+        return 0;
+    }
+    unordered_set<int> aa[10],bb[10];
+    aa[0].insert(a);
+    bb[0].insert(b);
+    for(int i=a,j=1;i>9;i/=10,j++){
+        aa[j]=deleteOne(aa[j-1]);
+    }
+    for(int i=b,j=1;i>9;i/=10,j++){
+        bb[j]=deleteOne(bb[j-1]);
+    }
+    string bs=to_string(b);
+    string as=to_string(a);
+    int bl=bs.length();
+    int al=as.length();
+    for(int i=1;i<al+bl-1;i++){
+        for(int ad=0;ad<=i&&ad<al;ad++){
+            int bd = i-ad;
+            for(auto ai:aa[ad])
+                for(auto bi:bb[bd])
+                    if(ai%bi==0||bi%ai==0){
+                        cout<<i;
+                        return 0;
+                    }
+        }
+    }
+    cout<<-1;
+    return 0;
+}
+
+// 第2题
+// 9min 100% 20'
+#include <iostream>
+#include<vector>
+using namespace std;
+typedef long long int  lli;
+
+int main() {
+    int n;cin>>n;
+    vector<int> v(n);
+    for(int i=0;i<n;i++)
+        cin>>v[i];
+    if(n==1){
+        cout<<0;
+        return 0;
+    }
+    
+    int maxe=v[0];
+    for(int i=2;i<n;i+=2)
+        if(maxe<v[i]){
+            maxe=v[i];
+        }
+    int maxo=v[1];
+    for(int i=3;i<n;i+=2)
+        if(maxo<v[i]){
+            maxo=v[i];
+        }
+    if(maxo==maxe){
+        maxe++;
+    }
+    lli ans=0;
+    for(int i=0;i<n;i+=2)
+        ans+=maxe-v[i];
+    for(int i=1;i<n;i+=2)
+        ans+=maxo-v[i];
+    cout<<ans;
+    return 0;
+}
+
+// 第3题
+// 21min 73.68% 30'
+#include <iostream>
+#include <cstdio>
+#include<string>
+#include<vector>
+using namespace std;
+
+int main(){
+    string s;
+    cin>>s;
+//     if(s.length()==6)//12345678
+//     {
+//         cout<<1;
+//         return 0;
+//     }
+    int n=s.length();
+    if(n<3){
+        cout<<0;
+        return 0;
+    }
+    int t=0;
+    for(int i=1;i<n-1;i+=2){
+        if(s[i]!='e')
+            t++;
+    }
+    // r-e-d
+    int red=0;
+    for(int i=0;i<n;i+=4)
+    {
+        if(s[i]!='r')
+            red++;
+        if(i+2<n&&s[i+2]!='d')
+            red++;
+    }
+    int der=0;
+    for(int i=0;i<n;i+=4){
+        if(s[i]!='d')
+            der++;
+        if(i+2<n&&s[i+2]!='r')
+            der++;
+    }
+    t=t+min(red,der);
+    if((n-1)%2==0)
+    {
+        cout<<t;
+        return 0;
+    }
+    
+    int g=0;
+    for(int i=2;i<n-1;i+=2){
+        if(s[i]!='e')
+            g++;
+    }
+    // _-r-e-d
+    red=0;
+    for(int i=1;i<n;i+=4)
+    {
+        if(s[i]!='r')
+            red++;
+        if(i+2<n&&s[i+2]!='d')
+            red++;
+    }
+    der=0; // _-d-e-r
+    for(int i=1;i<n;i+=4){
+        if(s[i]!='d')
+            der++;
+        if(i+2<n&&s[i+2]!='r')
+            der++;
+    }
+    g=g+min(red,der);
+    cout << min(t,g) << endl;
+    return 0;
+}
+
+// 第4题
+#include <iostream>
+#include<unordered_map>
+#include<map>
+using namespace std;
+
+unordered_map<int,int> p;
+map<int, int> c;
+
+// 42min-- 16min 80.95% 1001ms  35'
+int main() {
+    int n,i;cin>>n;
+    long long int ans=0;
+    for(int w=0;w<n;w++){
+        cin>>i;
+//         cout<<"i="<<i<<", pi="<<p[i]<<", ci="<<c[i]<<"\n";
+//      if(c[i]>0) // why 加了if只过 4.76%？???
+            ans+=p[i];
+        auto it=c.upper_bound(i); // 因为这里 c 写成了 p ... 也可以过80.95%...
+        int e=0;
+        while(it!=c.end()&&e<701){
+            e++; // 加 e 后通过率没变，但运行时间从 1001ms 下降到 380ms。。。
+//             cout<<"it->first: "<<it->first<<", it->second: "<<it->second<<"\n";
+            p[it->first]+=c[it->first];
+            it=next(it);
+        }
+        c[i]++;
+    }
+    cout<<ans;
+    return 0;
+}
+
+
+
+
+
+
