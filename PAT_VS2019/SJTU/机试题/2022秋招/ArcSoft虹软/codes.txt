@@ -1,0 +1,171 @@
+https://www.nowcoder.com/discuss/1022996
+
+1\. 把二进制反转后输出十进制，输入可达1000位十进制
+    用C++过了**0%**，用python直接**100%**
+这题用C++怎么做？
+
+2\. 这题解也太巧妙了，数字转字符串做了好久好久才95.5%
+
+[https://blog.csdn.net/MIC10086/article/details/111220887](https://blog.csdn.net/MIC10086/article/details/111220887)
+
+3. 
+[https://leetcode.cn/problems/unique-binary-search-trees/](https://leetcode.cn/problems/unique-binary-search-trees/)
+
+4\. 出了个困难题，没考虑 n=0，差点就 0% 了
+
+[https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/)
+
+
+```
+#  7min 100% 20'
+s=input()
+
+i=int(s)
+# print(i)
+a=0
+while i>0:
+    a=(a*2)+(i&1)
+    i=i>>1
+#     print(i,a)
+print(a)
+
+// 1'48 20'
+
+#include
+
+using namespace std;
+
+int main(){
+    unsigned long long s,a=0;
+    cin>>s;
+    while(s){
+        a=(a<<1)+(s&1);
+        s=s>>1;
+    }
+    cout<<a;
+    return 0;
+}
+
+// 46min 70% 20'
+// last 95%
+
+#include
+#include
+#include
+#include
+using namespace std;
+
+int main(){
+    int o,b;cin>>o>>b;
+    string s;
+    cin>>s;
+    int l=s.length();
+    if(o==1){
+        int n;cin>>n;
+        int t=0;
+        string a;
+        while(n){
+            int q=1;
+            while(q<n){
+                q=q*l;
+            }
+            q=q/l; // q<=n
+            // 70% version
+//             if(n%q==0&&q!=1){
+//                 a=a+string(1,s[n/q-2]);
+//                 n=n-(n/q-1)*q;
+//             }
+//             else{
+//                 a=a+string(1,s[n/q-1]);
+//                 n=n-n/q*q;
+//             }
+            // 95% version
+            int w=q,remain=0;
+            while(w){
+                w=w/l;
+                remain+=w;
+            }
+//             cout<<n<<", q="<<q<<", "<<remain<<", "<<n-n/q*q<<"\n";
+            if(n-n/q*q<remain)
+            {
+                if(n/q==1){
+                    a.append(string(1,s.back()));
+                    n=n-n/q*q;
+                }
+                else{
+                    a.append(string(1,s[n/q-2]));
+                    n=n-(n/q-1)*q;
+                }
+            }else{
+                a=a+string(1,s[n/q-1]);
+                n=n-n/q*q;
+            }
+//             cout<<"n="<<n<<"\n";
+        }
+        cout<<a;
+    }else{
+        map m;
+        for(int i=0;i<s.length();i++)
+            m[s[i]]=i+1;
+        string a;
+        cin>>a;
+        int q=0;//m[a[a.length()-1]-'a'];
+        int b=1;
+        for(int i=a.length()-1;i>=0;i--){
+//             cout<<m[a[i]]<<", b="<<b<<"\n";
+            q=q+m[a[i]]*b;
+            b=b*l;
+        }
+        cout<<q;
+    }
+    return 0;
+}
+
+// 4min 100% 20'
+class Solution {
+public:
+    /**
+     * 
+     * @param n int整型 
+     * @return int整型
+     */
+    int numTrees(int n) {
+        if(n<=1)
+            return 1;
+        else if(n==2)
+            return 2;
+        int a=0;
+        for(int i=0;i<n;i++){
+            a+=numTrees(i)*numTrees(n-i-1);
+        }
+        return a;
+    }
+};
+
+// 过了两个测试用例却 0%，报段错误
+// 找了好久打算放弃、写日志提交时发现没考虑 n=0 的情况。。
+// 于是 100%
+class Solution {
+public:
+
+    int maxProfit(vector& prices) {
+        int n=prices.size();
+        if(n==0) return 0;
+        vector>> p(2,vector>(2,vector(n,0)));
+//         int p[2][2][n];
+        p[0][1][0]=-prices[0];
+        p[1][1][0]=-prices[0];
+        int m=0;
+        for(int i=1;i<n;i++){
+            p[0][0][i]=p[0][0][i-1];
+            p[0][1][i]=max(p[0][0][i-1]-prices[i],p[0][1][i-1]);
+            p[1][0][i]=max(p[0][1][i-1]+prices[i],p[1][0][i-1]);
+            p[1][1][i]=max(p[1][0][i-1]-prices[i],p[1][1][i-1]);
+//             cout<<p[0][0][i]<<", "<<p[0][1][i]<<", "<<p[1][0][i]<<", "<<p[1][1][i]<<m<<"\n";
+            m=max(m,max(p[1][0][i],p[1][1][i-1]+prices[i]));
+        }
+        return m;
+    }
+};
+
+```
