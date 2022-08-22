@@ -1,0 +1,144 @@
+https://www.nowcoder.com/discuss/1024281
+
+1. 哪一句错了
+
+    a+=(a++);
+    cout<<a<<endl;
+    a+=(++a);
+    cout<<a<<endl;
+    (++a)+=a;
+    cout<<a<<endl;
+    (a++)+=a;
+    cout<<a<<endl;
+
+2. 买地铁票，投2元，按2元的按钮，输出一张票，投5元，还会输出3元
+用哪种方法测试？
+
+a。等价类划分
+b。边界值分析
+c。错误推测
+d。因果图
+
+3. 64位os，
+char* p[10]; char(*a)[10];
+sizeof(p)=80
+sizeof(a)=8
+
+这个a是什么意思？
+        //char* p[10]; char(*a)[10];
+        cout<<a<<"\n";
+        p[8]=new char;
+        cout<<*(p[8])<<"\n";
+
+4. 斐波那契数列 f(1025)%5 = ?
+3
+
+5. 4000个节点的二叉树，最小高度为？
+
+6. 自动化测试类型效率从高到低为：
+单元测试，接口测试，界面测试
+
+7. 软件生命周期过程中需要做哪四种测试
+
+8. 自动化测试的适用场景？高质量自动化测试脚本的特性？
+
+    1.不需要深入的工作或计划
+    2.可以加快开始自动化
+    3.对实际执行操作可以审计跟踪
+    4.用户不必是编程人员
+
+9. 两个瓶子5L、6L，水不限，使瓶子装满3L的水。
+
+10. 输出
+```
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+
+bool f(long n){
+    int s=(int)sqrt(n);
+    for(int i=2;i<=s;i++){
+        if(n%i==0)
+            return false;
+    }
+    return true;
+}
+
+int main(){
+    int l=0;
+    for(long m=11;m<30;m+=2){
+        if(f(m)){
+            if(l++%10==0){
+                cout<<endl;
+            }
+            cout<<setw(5)<<m;
+        }
+    }
+    return 0;
+}
+```
+
+
+字符串去重按序输出
+
+```
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+
+int main(){
+    string s;
+    std::cin>>s;
+    map<char,bool> e;
+    for(auto i:s)
+        e[i]=true;
+    for(auto [i,j] : e)
+        std::cout<<i;
+    return 0;
+}
+```
+
+计算两个矩形的IOU
+
+```
+#include<iostream>
+using namespace std;
+
+bool in(long x1, long y1, long x2,long y2, int x, int y){
+    if(x1<=x&&x<=x2&&y1>=y&&y>=y2)
+        return true;
+    return false;
+}
+
+int main(){
+    long x11,y11,x12,y12,x21,y21,x22,y22;
+    cin>>x11>>y11>>x12>>y12>>x21>>y21>>x22>>y22;
+    long iou=0,join=0;
+    long a1=(x12-x11)*(y11-y12);
+    long a2=(x22-x21)*(y21-y22);
+    if(a1==0||a2==0){
+        cout<<"error\n";
+        return 1;
+    }
+    if(x11<=x21&&y11>=y21&&x12>=x22&&y12<=y22){
+        join = a2;
+    }
+    else if(x11>=x21&&y11<=y21&&x12<=x22&&y12>=y22){ 
+        join = a1;
+    }
+    else if(in(x11,y11,x12,y12,x21,y21)){
+        join = (x12-x21)*(y21-y12);
+    }else if(in(x11,y11,x12,y12,x22,y21)){ 
+        join = (x22-x11)*(y21-y12);
+    }else if(in(x11,y11,x12,y12,x21,y22)){ 
+        join = (x12-x21)*(y11-y22);
+    }else if(in(x11,y11,x12,y12,x22,y22)){ 
+        join = (x22-x11)*(y11-y22);
+    }
+    iou=join/(a1+a2-join);
+    cout<<iou;
+    return 0;
+}
+```
