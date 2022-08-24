@@ -1,0 +1,165 @@
+**二面**
+
+项目介绍了挺久，我又成功让一个新手入坑我的读研方向。。
+问了个 `MyString`
+写完后在面试官提示下纠正了些bug，比如返回MyString& 就提示了好几次，然后memcpy改成了memove等
+本来用 realloc 实现的，还跟面试官battle了
+最后还是改过来了，因为面试官指出当 a 扩容修改地址时会拷贝a的数据到新地址，但实际没必要，直接用 b 的数据覆盖就好了。
+
+这个记得7月初面蔚来时一个小姐姐问过
+https://shuiyuan.sjtu.edu.cn/t/topic/76872
+
+```
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+class MyString
+{
+public:
+    MyString()
+    {
+        m_data = nullptr;
+        len = 0;
+    }
+
+    MyString(const MyString &myString)
+    {
+        len = myString.getLength();
+        if (len == 0)
+        {
+            return;
+        }
+        m_data = malloc(len);
+        if (!m_data)
+        {
+            std::cerr << "malloc fails\n";
+        }
+        memove(m_data, myString.m_data);
+        return;
+    }
+
+    MyString &operator=(MyString &myString)
+    {
+        if (m_data == myString.m_data)
+        {
+            return *this;
+        }
+
+        len = myString.getLength();
+        if (m_data)
+        {
+            free(m_data);
+        }
+        m_data = malloc(len);
+        if (!m_data)
+        {
+            std::cerr << "malloc fails\n";
+        }
+        memove(m_data, myString.m_data);
+        return *this;
+    }
+
+    int getLength()
+    {
+        return len;
+    }
+
+    ~MyString()
+    {
+        if (m_data)
+        {
+            free(m_data);
+        }
+    }
+
+private:
+    char *m_data;
+    int len;
+};
+
+int main()
+{
+
+    return 0;
+}
+```
+
+三面一上来就是猝不及防的英语自我介绍
+介绍项目遇到什么困难怎么解决的经历
+问了static、虚、调用两个类实例里的非静态成员int是通过默认传入的this来区别的。
+问了两个题，本来用的memcpy，在面试官提示下改成了char*
+第二题用队列实现栈，咋也没想出来，觉得不需要O(N)，最后先把On的说了，然后说维护动态数组存队列每个队列一个元素。。。
+
+```
+bool memory_move(void *source, void *destination, int len)
+{
+    if (len < 0)
+    {
+        return false;
+    }
+    else if (len == 0)
+    {
+        return true;
+    }
+    if (source == nullptr)
+    {
+        return false;
+    }
+    if (source == destination)
+    {
+        return true;
+    }
+    // (s,s+l)<=(d,d+l)
+    // d+l<=s
+    // d<s<d+l<s+l
+
+    // s<d<s+l<=d+l
+    if (source < destination && destination < source + len)
+    {
+        int i = 0;
+        char *begin_source = (char*)source + len - 1;
+        char *begin_destination = (char*)destination + len - 1;
+        while (i < len)
+        {
+            // memcpy(begin_destination, begin_source, 1);
+            *begin_destination = *begin_source;
+            begin_destination--;
+            begin_source--;
+            i++;
+        }
+    }
+    else
+    {
+        char *begin_source = (char*)source;
+        char *begin_destination = (char*)destination;
+        。。。
+    }
+    return true;
+}
+
+
+class q{
+public:
+    enqueue(int);
+    int dequeue();
+    int len();
+};
+
+class s{
+    q qu[2];
+public:
+    push(int d){
+        qu[0].enqueue(d);
+        // q1 tail 6 4 3 2 1 front 
+        // q2 
+    }
+    pop(){
+        q2.dequeue();
+    }
+    int len(){
+        return qu[0].len()+qu[1].len();
+    }
+}
+```
