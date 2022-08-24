@@ -1,0 +1,174 @@
+// 1. 100% 20'
+#include <iostream>
+#include <vector>
+using namespace std;
+int main(){
+    int n,t;
+    cin>>n;
+    vector<bool> map(n);
+    vector<int> c(n);
+    for(int i=0;i<n;i++){
+        cin>>t;
+        map[i]=t==1;
+    }
+    for(int i=0;i<n;i++)
+        cin>>c[i];
+    int l=0,d=0,ans=0;
+    for(int i=0;i<n;i++){
+        if(map[i]){
+            l=d=l+c[i];
+            ans=max(ans,d);
+        }else{
+            l=d=max(0,l-c[i]);
+            ans=max(ans,d);
+        }
+    }
+    cout<<ans;
+    return 0;
+}
+
+
+
+// 2. 暴力 89.5% 25’ 95ms
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+using namespace std;
+
+int adds(vector<unsigned long long int>& teams, const vector<vector<int>>& child, int e, long long int f){
+    int c=1;
+    for(int i=0;i<child[e].size();i++){
+        c += adds(teams,child,child[e][i],f);
+    }
+    teams[e]+=f*c;
+    return c;
+}
+
+int main(){
+    int n,l,o,a,b,d,e;
+    unsigned long long int f;
+    cin>>n>>l>>o;
+    vector<unsigned long long int> teams(n+1,0);
+    vector<int> fa(n+1,0);
+    vector<vector<int>> child(n+1);
+    for(int i=1;i<=n;i++)
+        fa[i]=i;
+    for(int i=0;i<l;i++){
+        cin>>a>>b;
+//         int getfa=getfather(fa, a);
+//         fa[b]=getfa;
+        fa[b]=a;
+        child[a].push_back(b);
+    }
+    for(int i=0;i<o;i++){
+        cin>>d>>e;
+        if(d<3)cin>>f;
+        if(d==1){
+            while(fa[e]!=e){
+                teams[e]+=f;
+                e=fa[e];
+            }
+            teams[e]+=f;
+        }else if(d==2){
+            int c = adds(teams,child,e,f);
+            f=f*c;
+            e=fa[e];
+            while(fa[e]!=e){
+                teams[e]+=f;
+                e=fa[e];
+            }
+            teams[e]+=f;
+        }else{
+            cout<<teams[e]<<"\n";
+        }
+    }
+    return 0;
+}
+
+
+// 3. 最后四分钟 27.36% 25‘
+#include<iostream>
+#include<vector>
+using namespace std;
+int main(){
+    int n;cin>>n;
+    vector<int> v(n);
+    for(int i=0;i<n;i++)
+        cin>>v[i];
+    long long sum=0;
+    for(auto i : v)
+        sum+=i;
+    int mind=sum;
+    for(int i=1;i<1<<n;i++){
+        int j=i;
+        int k=0;
+        int h=0;
+        while(j){
+            if(j&1){
+                h+=v[k];
+            }
+            k++;
+            j=j>>1;
+        }
+        if(mind>abs(sum-h-h))
+            mind=abs(sum-h-h);
+    }
+    cout<<mind;
+    return 0;
+}
+
+
+// 4. 暴力 通过了两个测试用例 0% 30‘
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+#include<unordered_set>
+#include<map>
+
+using namespace std;
+
+int main(){
+    int n,m,g,t,a,b;cin>>n>>m;
+    vector<vector<int>> tb(m);
+    unordered_set<int> team[n+1];
+    for(int i=1;i<=n;i++)
+        team[i].insert(i);
+    for(int i=0;i<m;i++){
+        cin>>g;
+        tb[i].resize(g);
+        for(int j=0;j<g;j++)
+            cin>>tb[i][j];
+    }
+    cin>>t;
+    vector<vector<int>>q(t,vector<int>(2));
+    map<int,map<int,int>> qp;
+    for(int i=0;i<t;i++){
+        cin>>q[i][0]>>q[i][1];
+        if(q[i][0]>q[i][1])
+            swap(q[i][0], q[i][1]);
+        qp[q[i][0]][q[i][1]]=i;
+    }
+    vector<int> ans(t);
+    for(int i=0;i<m;i++){
+        for(int j=1;j<tb[i].size();j++){
+            team[tb[i][0]].insert(team[tb[i][j]].begin(),team[tb[i][j]].end());
+        }
+        for(int j=1;j<tb[i].size();j++){
+            team[tb[i][j]]=team[tb[i][0]];
+        }
+        for(auto [w,e]:qp){
+            for(auto [r,y]:e){
+                if(team[tb[i][0]].count(w)&&team[tb[i][0]].count(r)){
+//                     cout<<"y="<<y<<endl;
+                    qp[w].erase(r);
+                    ans[y]=i+1;
+                }
+            }
+//             if(qp[w].size()==0)
+//                 qp.erase(w);
+        }
+    }
+    for(auto& i:ans)
+        cout<<i<<"\n";
+    return 0;
+}
