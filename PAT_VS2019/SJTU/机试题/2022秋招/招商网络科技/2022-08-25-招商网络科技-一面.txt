@@ -1,0 +1,82 @@
+两个面试官
+
+构造函数可不可以是虚函数
+
+sizeof 和 strlen 有啥区别
+
+cpp常见面经，怎么处理内存泄漏，怎么管理内存，内存分配，智能指针
+
+问了个单例模式写过没有（只在面试中写过），本来说项目里没用过，他准备换个问题，我补了一句可以用两次加锁实现，他就说那看来还是知道的，就要我实现一个。
+
+```
+// 解释linux系统抖动，不知道，就直接问了写linux命令
+top
+free -h 
+mv
+mkdir
+cp 
+du -h  
+htop  
+df -h 
+sed  
+su 
+alias  
+reboot
+who
+which
+grep -v 
+>>
+echo 
+
+bool SingleClass::is=false;
+
+class SingleClass{
+private:
+    static bool is;
+    static SingleClass* singleObject;
+    SingleClass(){}
+    mutex m1,m2;
+public:
+    SingleClass* getSingleObject(){
+        if(lock m1 succeed) 
+        {
+            while(fail to lock m2)
+            {
+                if(is==false)
+                {
+                    SingleClass::singleObject = new SingleClass();
+                    is = true;
+                }
+                unlock(m2);
+            }
+            unlock(m1);
+        }
+        return singleObject;
+    }
+    
+    bool isAllocated()
+    {
+        return is;
+    }
+    
+    ~SingleClass()
+    {
+        delete singleObject;
+    }
+};
+```
+
+尝试加锁不知道啥api，`bool get = m1.try_lock();` ?
+
+问项目和论文，怎么评估，怎么想到的，一个人做的还是导师给的
+
+和其他人合作过没有，合作要考虑什么方面，有没有主推过一个项目
+
+和导师有分歧过没
+导师权利很大，会不会影响什么
+
+网络编程会吗，怎么看待网络，
+
+现在实习考虑转正不
+
+愿不愿意转其他语言
