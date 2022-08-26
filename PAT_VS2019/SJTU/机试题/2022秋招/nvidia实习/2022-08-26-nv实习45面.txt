@@ -1,0 +1,73 @@
+三连面受不了，头疼。
+4面还行，5面比较惨
+
+```
+// 4面
+// 纯虚函数有什么用
+
+// #define size_of(x) &(x + 1) - &x
+
+// uint32_t convert(uint32_t x)
+// {
+//     uint32_t y = ((x & 0xff) << 24) + ((x >> 8) & 0xff) << 16 + ((x >> 16)&0xff) << 8 + (x >> 24);
+//     return y;
+// }
+
+// 0 - 31 4KB 20->2 ^ 20 12 10 * 10 2 ^ 10 2 ^ 10 2 ^ 12
+
+//     char *a[1000000];
+// ulimit - s
+
+//     1000 coins 10 bags 贫血
+
+//     1 2 4 8 16 32 64 128 256 512 -
+//     23
+
+//     100 loop 1 2 3.x..100 x + 约瑟夫环
+//     dp(99) % 100
+
+//     13579 -
+//     11
+// 最后英语回答遇到的最大的挑战，实习为什么想转到nv实习
+
+// 5面 比较难
+// 按行访问与按列访问有什么区别，如果比较小都在同一页面，地址+1和+n加法时间一样的
+#include <iostream>
+
+// 把r第 l 到第 h 位设成data
+int setRig(int h, int l, int r, int data) // 1^0=0 0^1=1 1^1=0
+{
+    unsigned long mask = ((1LL << h) - 1) ^ ((1 << (l-1)) - 1); // h6 l3 111111^000011 = 111100
+    // printf("mask= %x\n",(int)mask);// 100110
+    // printf("d<<l-1: %x\n",(data << (l - 1))&(int)mask);
+    return (int32_t)(((data << (l - 1)) & mask) | (r & ~mask));
+}
+
+int main()
+{
+    int r = 7; // 0111 -> 1011 (11)
+    std::cout << setRig(4, 2, 7, 5)<<std::endl;
+
+    r = 0xB7; //  10110111 -> 10011011 131+24 
+    printf("case2: %x\n",setRig(6, 3, r, 6));
+
+    r=0xff000000; // 10101  // af000000
+    printf("case3: %x\n",setRig(32,28,r,0x15));
+    return 0;
+}
+
+Test 程序通过 socket 测试运行时间很长的DUT程序
+dump后如何回放  
+DUT -> image1,image2,...,image5
+log= [W, R, W...]
+
+{
+    1. load images=[...]
+    2. extract return_data[] io_times[] from log and images
+    3. r ... r
+    4. ./Test return_data
+}
+
+Test --  p -- DUT 
+
+```
