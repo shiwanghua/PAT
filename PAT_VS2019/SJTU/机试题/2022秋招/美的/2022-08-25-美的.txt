@@ -1,0 +1,289 @@
+https://shuiyuan.sjtu.edu.cn/t/topic/84444
+
+https://www.nowcoder.com/discuss/1028564
+
+### 一般是过了所有测试样例却还是不能通过100%，我是测试用例报错却直接过了100%隐藏用例......
+
+先直接上图
+
+测试没过：
+![image|690x430, 75%](upload://7HjsjA3NA3ToHnQfbRB4m8CeSEv.png)
+
+提交100%：
+![image|690x368, 75%](upload://wEvo6BFfw4rVjeCNUfeRbULH7Ln.jpeg) 
+
+这是最后剩15分钟发现的，直接懵了，还有必要继续debug吗？
+
+继续在本地gdb debug，发现是第17行 ➕ 写成了 ➖，改正后：
+![image|690x719, 75%](upload://erOFbzq3nBZzt96l5qKzLsh211Y.png)
+ 
+力扣上遇到过类似的 hard 每日一题，但不知道怎么做了，这里直接暴力：
+```
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param gemstones int整型vector 宝石分值数组
+     * @return int整型
+     */
+    int n;
+    pair<int,int> h(vector<int>& g, int i, bool p){
+        if(i+1==n){
+            return make_pair( 0, 0 );
+        }
+        if(p==false) { //  最大化
+            if(n-i==2){
+                return make_pair(2,g[i]+g[i+1]); // bug: 不是 i-1, 是 i+1
+            }
+            int csum=g[i];
+            int maxd=-1000000000,maxj=2;
+            int cp=0;
+            for(int j=i+1;j<n;j++){
+                cp=g[j];
+                csum+=g[j];
+                g[j]=csum;
+                pair<int,int> q=h(g,j,!p);
+                if(maxd<csum+q.second){
+                    maxd=csum+q.second;
+                    maxj=j;
+                }
+                g[j]=cp;
+            }
+            return make_pair(maxj-i+1,maxd);
+        }else{
+            if(n-i==2){
+                return make_pair(2,-g[i]-g[i+1]);
+            }
+            int csum=g[i];
+            int mind=0x3ffffff,minj=2;
+            int cp=0;
+            for(int j=i+1;j<n;j++){
+                cp=g[j];
+                csum+=g[j];
+                g[j]=csum;
+                pair<int,int> q=h(g,j,!p);
+                if(mind>-csum+q.second){
+                    mind=-csum+q.second;
+                    minj=j;
+                }
+                g[j]=cp;
+            }
+            return make_pair(minj-i+1,mind);
+        }
+    }
+    int gemstonesGame(vector<int>& g) {
+        n=g.size();
+        if(n<2) return 0;
+        return h(g,0,0).second;
+    }
+};
+```
+
+倒数第二题也是编程，10分，做的不顺利，想多了，写了好多后来重写的。
+
+
+题目大意：【分苹果】给一个数组表示每个人的分数，给每个人发苹果，最少一个，分数比相邻的人高的人得到的苹果数必须大于相邻的人得到的苹果数，问最少需要发几个苹果。
+
+输入：【1，2，2】
+输出：4
+
+```
+#include<vector>
+#include<iostream>
+using namespace std;
+
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 最少要分发多少颗苹果？
+     * @param scores int整型vector 得分
+     * @return int整型
+     */
+    int apple(vector<int>& scores) {
+        int n=0;
+        int s=scores.size();
+        if(s==0)return 0;
+//         vector<int> m(s,-1);
+//         int mins=scores[0];
+//         for(int i=0;i<s;i++)
+//         {
+//             if(mins>scores[i])
+//                 mins=scores[i];
+//         }
+//         queue<int> q;
+//         for(int i=0;i<s;i++){
+//             if(mins==scores[i])
+//             {
+//                 q.push(i);
+//                 m[i]=1;
+//                 n++;
+//             }
+//         }
+//         while(!q.empty()){
+//             int i=q.front();
+//             q.pop();
+//             if(i>0&&scores[i-1]==-1){
+                
+//             }
+//         }
+        n=1;
+        vector<int> f(s,0);
+        f[0]=1;
+        for(int i=1;i<s;i++)
+        {
+            if(scores[i]==scores[i-1])
+            {
+                f[i]=1;
+                n+=1;
+            }
+            else if(scores[i]>scores[i-1])
+            {
+                f[i]=f[i-1]+1;
+                n+=f[i];
+            }else
+            {
+                f[i]=1;
+                n++;
+                if(f[i-1]==1)
+                {
+                    n++;
+                }
+            }
+        }
+        for(auto i :f)
+            cout<<i<<", ";
+        return n;
+    }
+};
+```
+
+感觉并不简单，一开始尝试取出所有最低分的位置入队列，这些人发1个苹果，然后bfs扩展。
+
+写到while里发现可以用贪心，只与相邻的人有关，很容易就可以只发一个：
+
+给 i 发 1 个（初始），
+如果 i+1 的分数大于 i 的分数，则 i+1 的苹果数是 i 的苹果数 +1
+如果等于，则 i+1 的苹果数是 1
+如果小于，则 i+1 的苹果数是 1，如果这时 i 的苹果数也是 1，则要给 i 补发一个！让分更高的 i 比分低的 i+1 多一个 apple。
+
+### 30分不定选6题（其中有两个题是一样的）
+1. 156个有序数，二分搜索，可能的查找次数有（abc）
+4 8 1 10 
+
+2. 
+A. MySQL 删除一个表a：delete table a (❌，delete from a)
+B. MyISAM  只支持表级锁，InnoDB 支持**行级**和**表级**锁 （对）
+C. 组合索引可以减少文件索引大小，但使用时速度比不上多个单列索引（❌，速度更快）
+D. MySQL 触发器只支持**行级**触发，不支持**句级**触发（对）
+
+3. 
+A. function 对象实例不可被拷贝和移动 ❌
+B. function 对象实例不允许进行 `==` 和 `!=` 比较 （对）
+C. bind 可以绑定普通函数、函数对象、成员函数（对，函数指针、函数引用、数据成员函数都可）
+补充：
+```
+#include <functional>
+#include <memory>
+#include<iostream>
+using namespace std;
+using namespace std::placeholders;
+void StaticBindFunc(int a, int b)
+{
+        std::cout << "静态函数被调用,a =" << a << ",b=" << b << std::endl;
+}
+int main()
+{
+        // 1 使用占位符先占位，然后执行时再传参
+        auto staticFunc1 =  std::bind(&StaticBindFunc, std::placeholders::_1, std::placeholders::_2);
+        staticFunc1(1,2); // 12
+
+        // 2 使用一个占位符先占位，然后执行时传一个参
+        auto staticFunc2 = std::bind(&StaticBindFunc, std::placeholders::_1, 4);
+        staticFunc2(3); // 34
+        auto staticFunc3 = std::bind(&StaticBindFunc, 5, std::placeholders::_1);
+        staticFunc3(6); //  56 不是 65！
+
+        // 3 使用占位符先占位，但是参数位置调换
+        auto staticFunc4 = std::bind(&StaticBindFunc, std::placeholders::_2, std::placeholders::_1);
+        staticFunc4(7,8); // 87
+
+        getchar();
+        return 0;
+}
+```
+
+4. （出了两次） 
+A. 基类对象可以赋值给派生类对象 （**错**）
+B. 无论何种继承，派生类无法访问鸡肋private成员（https://blog.csdn.net/ujnyyj/article/details/121705389 ）
+C. 私有继承时无法访问基类保护成员（**错**）
+
+### 30分单选15题
+（其中有两个题都完全一样地出现了两次，还有一个题出现了一次和两个半次(出现在其他题目题干里) ）
+
+1. 不能重载的是：第一题就做错了
+
+++、sizeof、<= delete
+
+2. 不能重载的是：D (这题却选对了)
+<= ++ new ::
+
+3. 12个有序数，二分查找平均查找（3.1）次
+
+4. `class B:public A, p->A::func() `调用的是（A）中的 func （p应该指向的是 B 对象实例）
+https://shuiyuan.sjtu.edu.cn/t/topic/82166
+考过但还是做错了
+
+
+5. 出了两次，全错了
+48
+```
+#include<iostream>
+void f(char s[10]){
+    printf("%lu",sizeof(s));
+}
+int main(){
+    char s[]="qwe";
+    printf("%lu",sizeof(s));
+    f(s);
+    return 0;
+}
+```
+
+6. 33
+```
+#include<iostream>
+int main(){
+    int a=3,b=3,c=1;
+    printf("%d %d",(++a,b++),c+2);
+    return 0;
+}
+```
+
+7. abcde 顺序入栈，d最先出栈，可能的出栈顺序有 4 种
+
+8. 123056789
+
+```
+#include<iostream>
+int main(){
+    int a[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+    auto p =*(a+1);
+    *p=0;
+    for(auto i=0;i<3;i++)
+    for(auto j=0;j<3;j++)
+    printf("%d",a[i][j]);
+    return 0;
+}
+```
+
+9. 不稳定的排序有（ab）
+快速排序  堆排序  归并排序 基数排序
+
+10. 指针变量 p 与“零值”比较正确且规范的 if 写法是 C
+A. if(p==0) B. if(!p) C. if(p==NULL)  
+
+11. `#define D(x) x+x, i = 5* D(5)` (又遇到了这题，应该写成两行吧)，i=30
