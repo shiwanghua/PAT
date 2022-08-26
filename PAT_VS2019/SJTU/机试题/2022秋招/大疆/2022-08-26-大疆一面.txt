@@ -1,0 +1,48 @@
+三连面受不了，头疼
+
+```
+
+// 大疆 识别是否可以组成二分图
+// 做错了，做成判断是否是两个森林了
+
+bool bfs(vector<vector<int>>& edges, int node, vector<int>& v, int mark){
+    queue<int> q;
+    q.push(node);
+    v[node]=mark;
+    while(!q.empty()){
+				int no = q.front();
+        q.pop();
+        for(auto e:edges){
+        	if(v[e]==0){
+          	q.push(e);
+            v[e]=mark;
+          }else if(v[e]!=mark){
+          	return false;
+          }
+        }
+    }
+    return true;
+}
+
+bool bi(vector<vector<int>> edges){
+		int n=edges.size(); // number of nodes
+   	if(n<2) return false;
+		vector<int> visit(0,1);
+    bool res = bfs(edges,0,visit,1);
+    int secondNo = -1;
+    for(int i=0;i<n;i++){
+    	if(visit[i]==0){
+      	secondNo = i;
+      }
+    }
+    if(secondNo==-1)
+    	return false;
+    res = bfs(edges,seconNo,visit,2);
+    if(!res) return false;
+    for(int i=0;i<n;i++){
+    	if(visit[i]==0)
+      	return false;
+    }	
+    return true;
+}
+```
