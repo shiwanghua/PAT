@@ -1,0 +1,108 @@
+没救了
+1. 一上来自我介绍时麦克风出问题了，完了才发现
+2. 全过程许多时候沉默是金
+3. 最后问快手有没有用什么自研的新算法，说用的开源的，然后现在都是用深度学习了，只有一些比较老的系统还在用，也就是说，三四年了，该淘汰了。
+
+1、c++代码到可执行文件的过程
+
+2、c++内存布局
+
+3、堆和栈区别
+
+如果频繁使用一个数据，是放在堆还是栈上好一些？
+
+4、c++的多态实现
+
+类的成员函数func，base->func，
+
+code：
+
+实现一维数组的max_pooling函数；
+
+std::vector<int> max_pool(const std::vector<int>& a, const int k) {
+  std::vector<int> res;
+  return res;
+}
+
+unordered_set
+
+面试官提示1:
+有没有什么优化
+说了单调栈，要我写一下，后面说没法实现，行不通。
+
+提示2:
+unordered_set 取不了最大值
+
+set实现的复杂度
+
+提示3: 
+[1,2,3,4,5,,6,7], k=3
+[1,2,3],4 , [4]
+
+最终用双端队列才搞出来：
+```
+#include <iostream>
+#include <set>
+#include <algorithm>
+#include <stack>
+using namespace std;
+
+std::vector<int> max_pool(const std::vector<int>&a, const int k){
+    std::vector<int> res;
+    int n=a.size();
+    if(n==0){
+        res.resize(0);
+        return res;
+    }
+    if(k>=n){
+        res.resize(1);
+        res[0]=*max_element(a.begin(),a.end());
+    }else{
+        set<int> window(a.begin(),a.begin()+k-1);
+        for(int i=k;i<n;i++){
+            window.insert(a[i]);
+            res.push_back(window.rbegin());
+            window.erase(a[i-k]);
+        }
+    }
+    return res;
+}
+
+std::vector<int> max_pool(const std::vector<int>&a, const int k){
+    std::vector<int> res;
+    int n=a.size();
+    if(n==0){
+        res.resize(0);
+        return res;
+    }
+    if(k>=n){
+        res.resize(1);
+        res[0]=*max_element(a.begin(),a.end());
+    }else{
+        deque<int> stk;
+        for(int i=0;i<n;i++){
+            if(i<k-1){
+                while(!stk.empty()&&a[stk.back()]<=a[i]){
+                    stk.pop_back();
+                }
+                stk.push_back(i);
+            }else{
+                while(!stk.empty()&&a[stk.back()]<=a[i]){
+                    stk.pop_back();
+                }
+                stk.push_back(i);
+                while(i-stk.front()>=k)
+                    stk.pop_front();
+                res[i]=a[stk.front()];
+            }
+        }
+    }
+    return res;
+}
+
+int main() {
+    cout << "Hello World!" << endl;
+}
+```
+
+这回没有要我跑用例，最后还问了下二维的，说了下思路。
