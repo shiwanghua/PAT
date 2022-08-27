@@ -1,0 +1,273 @@
+https://www.nowcoder.com/discuss/1029858
+
+###软件应用岗
+1h，前期抄选择题花了太多时间，后面写代码时间紧张而且不好debug
+最后发现了错误但没时间改了，其实暴力算就行，因为不卡数据范围
+考完后做了两种方法
+
+### 10 单选 20分
+
+1.    !!!
+```
+ int a=5;
+  float b;
+  cout<<sizeof(++a+b);
+  cout<<a;
+```
+
+2. set the LSB to 1 (A?D) 单选
+
+```
+union dt{
+    struct{
+        unsigned int b0:1;
+        unsigned int b1:1;
+        unsigned int b2:1;
+        unsigned int b3:1;
+    }x;
+    unsigned int v;
+};
+int main()
+{
+    dt d={};
+    d.v=0x20230000;
+    // set the LSB to 1
+    // d.b0=1; // A. 我这里会报错，要么写 d.x.b0，要么去掉x，可以直接d.b0
+    // d.v|=0x0000001; // B. 539164673
+    // d.v^=0x0000001; // C. 
+    d.v&=0x0000001; // D.
+    cout<<d.v<<"\n";
+}
+```
+
+3. result:
+
+```
+    extern int a;
+    a=2023;
+    printf("%d",a);
+```
+
+4. fork后的父进程和子进程会共享什么 (题目记错了？子进程获得父进程的AD？C？)
+A. stack
+B. process ID
+C. shared memory segment
+D. heap
+
+### 五多选 50分。
+1. C++内存管理，包括哪些区：
+stack、heap、text segment、initialized data segment、uninitialized data segment
+
+https://www.geeksforgeeks.org/memory-layout-of-c-program/
+外国的面经是这样的。。。十分没了
+
+2. 
+```
+    int a[2]={1,2};
+    int b[2]={1};
+    int c[]={1};
+    int d[]={};
+```
+哪几个对...
+
+3. 离谱
+
+```
+#include<iostream>
+using namespace std;
+#pragma pack(1)
+class a{
+public:
+    virtual int f()=0;
+    int f2();
+    static int f3();
+    static int m0[4];
+private:
+    int m1;
+    char m2;
+};
+
+class b:public a{
+    int f(){return 0;}
+};
+
+int main()
+{
+    b data[4];
+    // if data = 0x1000 // data 前面没有&，不是我漏了
+    // &data+1 = // 多选
+    // A. 0x1018
+    // B. 0x1024
+    // C. 0x1034
+    // D. 0x1054
+    cout<<data<<"\n";
+    cout<<&data<<"\n";
+    cout<<&data+1<<"\n";
+    return 0;
+}
+```
+输出：
+```
+0x16fc5f444
+0x16fc5f444
+0x16fc5f478
+```
+
+### 两个编程 15*2
+```
+// 反转32位2进制的数
+// #include <iostream>
+// #include <string>
+// using namespace std;
+
+// // 请按你的实际需求修改参数和返回值类型
+// unsigned int BitInvert(unsigned int src) {
+//     // 在这⾥写代码
+//     unsigned long dst = 0;
+//     for(int i=0;i<32;i++){
+//         dst=dst|(src&1);
+//         src=src>>1;
+//         dst=dst<<1;
+//     }
+//     return (unsigned int)(dst>>1);
+// }
+
+// 返回所有非递增的长度大于等于2的可以不连续的无重复的子数组 0‘
+// 前期做完通不过，测试不会输出打印的字符串！导致难以发现错误
+// 只能在网页写代码，不能跳出来
+// 测试时有很多干扰代码（两个测试文件加自己写的代码文件）
+// 最后几分钟发现了错误，但没空改了
+#include <iostream>
+#include <string>
+#include <vector>
+#include <climits>
+#include <set>
+using namespace std;
+
+// vector<vector<int>> g(vector<int>& a, int i,int last){
+//     if(i==a.size())return {};
+//     vector<vector<int>> res,tmp;
+//     tmp = g(a,i+1);
+//     for(auto q:t){
+//         if(q.size()>=2) 
+//             res.push_back(q);
+//     }
+//     vector<int> t;
+//     t.push_back(a[i]);
+//     for(int q=i+1;q<a.size();q++){
+//         if(t.back()<)
+//     }
+//     return res;
+// }
+
+// void g(const vector<int>&a, int i, vector<int>& t,vector<vector<int>>& res, bool add){
+//     if(i==a.size())return;
+//     g(a,i+1,t,res,1);
+//     if(t.size()>=2&&add==0){
+//         res.push_back(t);
+//     }
+//     if(t.empty()||a[i]>=t.back()){
+//         t.push_back(a[i]);
+//         g(a,i+1,t,res,0);
+//         t.pop_back();
+//     }
+// }
+
+// // 请按你的实际需求修改参数和返回值类型
+// vector<vector<int>> findSubsequences(vector<int>& nums)
+// {
+//     vector<vector<int>> res(0);
+//     vector<int> t(0);
+//     g(nums,0,t,res,0);
+//     return res;
+// }
+
+// 考完后再做出来的：
+
+void g(const vector<int>&a, int i, vector<int>& t,set<vector<int>>& res){
+    if(i==a.size()){
+        if(t.size()>=2){
+            res.insert(t);
+        }
+        return;
+    }
+    g(a,i+1,t,res);
+
+    if(t.empty()||a[i]>=t.back()){
+        t.push_back(a[i]);
+        g(a,i+1,t,res);
+        t.pop_back();
+    }
+}
+
+// 请按你的实际需求修改参数和返回值类型
+vector<vector<int>> findSubsequences_1(vector<int>& nums)
+{
+    set<vector<int>> res;
+    vector<int> t(0);
+    g(nums,0,t,res);
+    vector<vector<int> > ans;
+    for(auto i:res)
+        ans.push_back(i);
+    return ans;
+}
+
+// 请按你的实际需求修改参数和返回值类型
+vector<vector<int> > findSubsequences_2(vector<int>& nums)
+{
+    int n=nums.size();
+    
+    set<vector<int> > s;
+    for(int i=1;i<(1<<n);i++){
+        int c1=__builtin_popcount(i);
+        if(c1<2)continue;
+        vector<int> v;
+        int ii=i;
+        while(ii){
+            int idex = __builtin_ctz(ii);
+            if(v.size()==0||v.back()<=nums[idex]){
+                v.push_back(nums[idex]);
+                ii=ii&(ii-1);
+            }else break;
+        }
+        if(v.size()==c1)
+            s.insert(v);
+    }
+    vector<vector<int> > ans;
+    for(auto i:s)
+        ans.push_back(i);
+    return ans;
+}
+
+int main(){
+    vector<int> a(4);
+    a[0]=4;a[1]=6;a[2]=7;a[3]=7;
+    //4, 6, 
+    // 4, 6, 7, 
+    // 4, 6, 7, 7, 
+    // 4, 7, 
+    // 4, 7, 7, 
+    // 6, 7, 
+    // 6, 7, 7, 
+    // 7, 7, 
+    auto v = findSubsequences_1(a);
+    cout<<"case1:\n";
+    for(auto i:v){
+        for(auto j:i)
+        cout<<j<<", ";
+        cout<<"\n";
+    }
+    cout<<"\n\ncase2:\n";
+    a.resize(5,4);
+    a[1]=4,a[2]=3,a[3]=2,a[4]=1;
+    // [[4,4]]
+    v = findSubsequences_1(a);
+    for(auto i:v){
+        for(auto j:i)
+        cout<<j<<", ";
+        cout<<"\n";
+    }
+    return 0;
+}
+
+```
