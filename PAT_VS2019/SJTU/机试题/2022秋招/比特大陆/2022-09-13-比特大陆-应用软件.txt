@@ -1,0 +1,146 @@
+https://www.nowcoder.com/discuss/1048984
+
+26分钟，15个不定项，3题编程
+
+用户线程调度由在用户空间实现的线程库实现 （对）
+
+```
+const char* n="ABC";
+    n[2]='k';
+    *n='k';
+    *(n+2)='k';
+    n="abc";
+```
+只有第四个对
+
+在函数体内，静态变量只初始化一次，并且在函数被调用过程中维持其值不变。（对）
+在模块内，静态函数只可被本模块内其他函数调用，即在当前文件中、在声明它的模块的本地范围内使用（对）
+在模块内函数体外，静态变量可以被本模块所有函数使用，不能被其他模块的函数使用，是一个本地的全局变量。（对）
+
+364个节点的完全三叉树有几层 （不是满，5层）
+
+```
+// 3min 100% 10'
+// 16进制转10进制
+// class Solution {
+// public:
+//     long long convert(string value) {
+//         long long a = 0, t = 1;
+//         for(int i=value.length()-1;i>=0;i--){
+//             char c = tolower(value[i]);
+//             int d=0;
+//             if(isdigit(c)){
+//                 d=c-'0';
+//             }else{
+//                 d=10+c-'a';
+//             }
+//             a=a+d*t;
+//             t=t*16;
+//         }
+//         return a;
+//     }
+// };
+
+// 3min 100% 10'
+// class Solution {
+// public:
+//     // 给一个链表，删除链表倒数第n个节点，返回头节点，n保证有效，只扫描链表一次实现
+//     vector<int> process(vector<int>& arr, int n) {
+//         vector<int> a;
+//         for(int i=0;i<arr.size();i++){
+//             if(i!=arr.size()-n)
+//                 a.push_back(arr[i]);
+//         }
+//         return a;
+//     }
+// };
+
+
+
+// 设计一个可产生死锁的程序，写出详细代码注释 20' 7min
+// #include<thread>
+// mutex m[2];
+
+// void f1(int&mark){
+//     if(mark==0){
+//         // try to lock m[0]
+//         safe_lock(m[0]);
+//         mark=1;
+//     }
+//     while(mark!=2){}
+//     // try to lock m[1]
+// }
+
+// void f2(int&mark){
+//     while(mark!=1){}
+//     // try to lock m[1]
+//     safe_lock(m[1]);
+//     mark=2;
+//     // try to lock m[0]
+// }
+
+// int main(){
+//     thread* t1, t2;
+//     int mark=0;
+//     // t1 运行 f1()
+//     t1=new thread(f1,mark);
+//     // t2 运行 f2()
+//     t2=new thread(f2,mark);
+//     return 0;
+// }
+
+
+// 更正：
+#include <thread>
+#include <mutex>
+using namespace std;
+
+mutex m[2];
+
+void f1(int &mark)
+{
+    std::unique_lock<std::mutex> munique1(m[0], std::defer_lock); // 延迟加锁
+    std::unique_lock<std::mutex> munique2(m[1], std::defer_lock);
+    if (mark == 0)
+    {
+        // try to lock m[0]
+        // lock_guard<mutex> lg1(m[0]); // 不能使用 lock_guard, 因为退出if后就释放了！
+        munique1.lock(); // 不是 try_lock，阻塞
+        mark = 1;
+    }
+    
+    while (mark != 2)
+    {
+    }
+    // try to lock m[1]
+    // lock_guard<mutex> lg2(m[1]);
+    munique2.lock();
+    printf("f1 finishes\n");
+}
+
+void f2(int &mark)
+{
+    std::unique_lock<std::mutex> munique1(m[0], std::defer_lock);
+    std::unique_lock<std::mutex> munique2(m[1], std::defer_lock);
+    while (mark != 1)
+    {
+    }
+    // try to lock m[1]
+    // lock_guard<mutex> lg1(m[1]);
+    munique2.lock();
+    mark = 2;
+    // try to lock m[0]
+    // lock_guard<mutex> lg2(m[0]);
+    munique1.lock();
+    printf("f2 finishes\n");
+}
+
+int main()
+{
+    int mark = 0;
+    thread t1(f1,ref(mark)), t2(f2,ref(mark));
+    t1.join();
+    t2.join();
+    return 0;
+}
+```
