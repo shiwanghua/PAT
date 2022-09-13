@@ -1,0 +1,50 @@
+mmt二面 34分钟，
+磁盘里的文件传到网络，要拷贝几次？
+20分钟开始出题，29min写完，面试官看了几分钟。
+找山峰数组里的数
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int search(vector<int>& a, int target){
+    int n=a.size();
+    int maxi = 0, li=0,ri=n-1, mid;
+    while(li<ri){
+        mid=(li+ri)>>1;
+        if(mid<n-1&&a[mid]<a[mid+1]){
+            li=mid+1;
+        }else{
+            ri=mid;
+        }
+    }
+    // a[li] is max value
+    maxi = li;
+    li=0,ri=maxi;
+    while(li<=ri){
+        mid=(li+ri)>>1;
+        if(a[mid]==target) return mid;
+        else if(a[mid]<target){
+            li=mid+1;
+        }else ri=mid-1;
+    }
+    li=maxi+1,ri=n-1;
+    while(li<=ri){
+        mid=(li+ri)>>1;
+        if(a[mid]==target) return mid;
+        else if(a[mid]<target){
+            ri=mid-1;
+        }else li=mid+1;
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> a = {1, 4, 7, 11, 14, 19, 21, 17, 13, 5};
+    cout<<search(a,1)<<"\n";
+    cout<<search(a,4)<<"\n";
+    cout<<search(a,5)<<"\n";
+    cout<<search(a,6)<<"\n";
+    cout<<search(a,21)<<"\n";
+    cout<<search(a,18)<<"\n";
+    return 0;
+}
