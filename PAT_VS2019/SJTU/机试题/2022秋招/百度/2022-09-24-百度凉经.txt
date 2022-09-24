@@ -1,0 +1,94 @@
+2022-09-24-百度一面凉经-45min
+
+岗位：正式批-北京-机器学习/数据挖掘/自然语言处理工程师-T联合
+
+当初是看有信息检索、向量召回、搜索引擎相关的就投了，以为是一个大方向招人没区分开，后来收到了笔试
+https://www.nowcoder.com/discuss/1049866 也就做了。
+
+约面都是发了三个链接，过了才可继续面。（有个重复的）
+![图片说明](https://uploadfiles.nowcoder.com/images/20220924/793394141_1663984298027/FF1507B578EC20F16CC7A68C83036F32 "图片标题") 
+
+一面时自我介绍讲到实习时被打断说讲一下实习内容，于是继续讲完，然后说问下面经，问我对哪块比较熟，一听我不是研究ml相关的，就直接说做题（其实这里就已经挂了）。
+
+第一题是最长回文子序列（可以不连续），一开始说思路我说从两端往中间滑动找相同字符就加一，面试官最后也没听明白，但我知道这个不对了，因为不能保存前后顺序，也就是子序列的先后顺序，不然只需要统计字符频率就可以了。随后还是用了dp，出了好几个bug。（31min）
+
+第二题是删除链表的所有重复节点，只出了一个bug就是没写那个else导致p没动死循环。（39min）
+
+第三题是八皇后说思路。
+
+最后面试官主动说面评，技术方面肯定是不匹配的，代码能力扎实，也明确说了一面不通过了，希望理解，面试官都是从各个部门抽调出来的（得有机器学习背景），后续有搜索相关的再捞，也表示不知道怎么会投这个岗。
+
+不过我从收到笔试面试起就是当成体验一下来做了。
+
+```
+// 给定一个字符串，找到其中最长的回文子序列，并返回该序列的长度。
+// 子序列字符串是任意位置删除k（len(s)>=k>=0）个字符后留下的子串。
+// 数据范围：字符串长度满足 1≤n≤1000
+// 进阶：空间复杂度 O(n*n) ， 时间复杂度 O(n^2)
+// class Solution {
+// public:
+//     // dp[i][j]= s[i]==s[j]?dp[i+1][j-1]+2:max(dp[i+1][j],dp[i][j-1]) when i<j else 1
+//     int longestPalindromeSubSeq(string s) {
+//         int l=s.length();
+// //         cout<<"len= "<<l<<"\n";
+//         vector<vector<int>> d(l,vector<int>(l,1));
+//         int maxl=1;
+//         for(int len=2;len<=l;len++){
+// //             cout<<"len= "<<len<<"\n";
+//             for(int i=0,j;i<=l-len;i++){
+//                 j=i+len-1;
+//                 if(s[i]==s[j]){
+//                     d[i][j]=i+1<j?d[i+1][j-1]+2:2;
+//                 }else{
+//                     d[i][j]=max(d[i+1][j],d[i][j-1]);
+//                 }
+// //                 cout<<i<<", "<<j<<", "<<d[i][j]<<"\n";
+//                 maxl=max(maxl,d[i][j]);
+//             }
+//         }
+//         return maxl;
+//     }
+// };
+
+
+
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) :
+        val(x), next(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* pHead) {
+        if(!pHead)return nullptr;
+        ListNode* h=new ListNode(0);
+        h->next=pHead;
+        ListNode* p=h;
+        while(p){
+            if(!p->next) break;
+            if(!p->next->next) break;
+            if(p->next->val==p->next->next->val){
+                int v = p->next->val;
+                // 1233334
+                // 124
+                while(p->next&&p->next->val==v){
+                    ListNode* t=p->next;
+                    p->next=p->next->next;
+                    delete t;
+                }
+            }else{
+                p=p->next;
+            }
+        }
+        return h->next;
+    }
+};
+```
+
+![图片说明](https://uploadfiles.nowcoder.com/images/20220924/793394141_1663984446566/0B023DAD0B67FCF033B24083BA35B75C "图片标题") 
+
+![图片说明](https://uploadfiles.nowcoder.com/images/20220924/793394141_1663984458682/1DCB603DAA680CB54ADD448C9C798F07 "图片标题") 
