@@ -1,0 +1,511 @@
+小米+思科笔试
+https://www.nowcoder.com/discuss/1058701
+
+# 已完结...2022-09-26
+
+## 小米 18:30-20:00
+
+## 思科 19:00-20:30
+
+小米20个选择（11\*3'+9\*3'）20分钟，两个编程 36 分钟完成,
+思科 30个选择实在太长（20\*2'+10\*3'）花了51分钟，
+最后一个编程还有31分钟，占30分，代码比较长，还有最后一个小错误没找出来（四行代码，两三分钟吧），导致只过了10%，-27。
+
+# 小米 （85左右）
+单错 1、6、
+多漏 1、2、3、
+多错 
+
+## 单选 11*3' 10min
+1. which wrong 管道
+         A. 命名管道是存在内存里的特殊文件，可以用文件操作函数来读写
+         B. 命名管道弥补了匿名管道在无关进程之间无法通信的局限性
+         C. 命名管道也是半双工通信
+         D. 匿名管道是半双工通信，同一时刻只能在一个方向上传递数据
+2. HTTP 协议 which true
+         A. HTTP协议是以ASCII码传输，建立在TCPIP协议上的应用层规范
+         B. 默认端口8080
+         C. 是有状态的
+         D. 只能通过post向服务器上传资源
+
+3. which true
+         A. protected继承，基private成员变量在派生类的访问权限为protected
+         B. private继承，基protected成员变量在派生类的访问权限为private
+         C. protected继承，基public成员变量在派生类的访问权限为public
+         D. public继承，基protected成员变量在派生类的访问权限为public
+
+![图片说明](https://uploadfiles.nowcoder.com/images/20220926/793394141_1664201162255/28C595B2EBA4C7A90ECF551612A4E049 "图片标题") 
+
+4. 输出什么
+```
+#include<stdio.h>
+struct t{
+    char a;
+    char b;
+    int c;
+    char d;
+};
+int main(){
+    int a[3][5]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    int n=a[1][sizeof(t)/4];
+    printf("%d\n",n);
+    return 0;
+}
+```
+
+5. 154.27.0.0 不做子网划分，支持多少台主机？
+
+6. which is not 软工三要素
+         A. 工具
+         B. 记录
+         C. 方法
+         D. 过程
+
+7. 编译系统中语法分析程序输出什么
+         A. 表达式
+         B. 句子
+         C. 四元式
+         D. 语法分析树
+
+---
+#### 参考：
+1A(硬盘里) 2A 3B 4：9 
+5：65534
+6B；7D
+
+## 多选 9*3' 10min
+1. 哪个可以创建一个可运行的类
+         A. public class X extends Thread{public void run(){...}}
+         B. public class X extends Thread{public int run(){...}}
+         C. public class X implements Runnable{public void run(){...}}
+         D. public class X implements Runnable{protected void run(){...}}
+
+2.
+
+```
+public class t{
+    public static void main(String args[]) throw Exception{
+        for(int i=0;i<2;i++){
+            System.out.print(i+'b'+1);
+        }
+    }
+}
+```
+         A. 时间复杂度是O（N）
+         B. 时间复杂度是O（1）
+         C. 输出0b11b1
+         D. 输出99100
+
+3. which wrong
+         A. 高级语言编译程序语法分析方法中递归分析属于自底向上的分析方法
+         B. 与编译器相比解释器产生的程序运行更快
+         C. 编译程序被设计为前端加后端模式，有利于功能移植和扩展
+         D. 未定义符号错误一般发生在预编译阶段
+
+4. which true
+         A. 静态函数不能访问普通成员变量
+         B. 普通成员函数不能访问静态成员变量
+         C. 类的构造函数里不能初始化静态成员变量
+         D. 静态成员在类的所有对象中都是共享的
+
+5. 单元测试，which true
+         A. 白盒测试即功能测试，允许测试人员用程序内部逻辑结构及有关信息，设计或选择用例，对程序所有逻辑路径进行测试
+         B. 黑盒测试又称结构测试，不考虑程序内部特性，只依据程序的需求规格说明书做检测
+         C. 动态测试通过动态分析、程序测试来检查和确认程序是否有问题
+         D. 静态测试可以通过人工分析来确认程序正确性
+
+6. 哪些命令可以创建文件
+         A. >
+         B. echo
+         C. printf
+         D. touch
+
+---
+
+参考：
+1AC; 2 BD；3 ABD；4ACD 5CD；6AD
+
+## 编程 15'+25'
+
+```
+// 8min 100% 15'
+
+// 输入多个区间，每行对应一个区间 starti和endi
+// 输出所有区间的总长度（覆盖的只算一次）
+
+// 输入
+// 1 3
+// 2 6
+// 8 10
+// 15 18
+// 输出10
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// int main(){
+//   vector<vector<int>> in;
+//   int a,b;
+//   while(cin>>a>>b){
+//     in.push_back({a,b});
+//   }
+//   if(in.size()==0){
+//     cout<<0;
+//     return 0;
+//   }
+//   sort(in.begin(),in.end());
+//   long long ans=0,last=in[0][0];
+//   for(int i=0;i<in.size();i++){
+//     int to = in[i][1],j=i;
+//     while(j<in.size()&&to>=in[j][0]){
+//       to=max(to,in[j][1]);
+//       j++;
+//     }
+//     ans+=(to-in[i][0]);
+//     i=j-1;
+//   }
+//   cout<<ans;
+//   return 0;
+// }
+
+
+// 通过增加、删除、替换字符，将字符串s编辑成字符串t。最少需要操作几次。
+// 输入 s 和 t
+
+// 输出 操作次数
+
+// 样例输入
+// "horse"
+// "ros"
+// 样例输出
+// 3
+
+// 字符串s和t的长度<=500
+// 均由小写英文字母组成
+
+// 8min 100% 25'
+// #include  <iostream> 
+// #include  <vector> 
+// using namespace std;
+ 
+// int minDistance(string w1, string w2) {
+// //code
+//   int l1=w1.length(),l2=w2.length();
+//   vector<vector<int>> d(l1+1,vector<int>(l2+1,0));
+//   for(int i=0;i<=l2;i++){
+//     d[0][i]=i;
+//   }
+//   for(int i=0;i<=l1;i++)
+//     d[i][0]=i;
+//   for(int i=1;i<=l1;i++){
+//     for(int j=1;j<=l2;j++){
+//       if(w1[i-1]==w2[j-1]){
+//         d[i][j]=d[i-1][j-1];
+//       }else{
+//         d[i][j]=min(d[i-1][j-1]+1,min(d[i][j-1]+1,d[i-1][j]+1));
+//       }
+//       //cout<<d[i][j]<<"\n";
+//     }
+//   }
+//   return d[l1][l2];
+// }
+    
+// int main()
+// {
+//     string str1, str2; 
+//     while(cin>> str1 >> str2){
+//         int res = minDistance(str1,str2);
+//         cout << res << endl;
+//     }
+//     return 0;
+// }
+```
+
+# 思科 54左右
+
+* 单错 2、3、13
+* 多少：3、4、6、7、9
+* 多错：5
+
+## 单选 20*2' 36min
+1. 高响应比优先调度算法，相同等待时间下，运行时间越少的任务的响应比越？
+         A. 高
+         B. 低
+
+2.  kill +9 pid 可以杀死pid号进程
+         A. 对
+         B. 错
+         C. 
+         D. 
+
+3.  ThreadLocal 
+         A. 用delete（）删除对象，避免内存泄漏
+         B. ThreadLocal变量在每个线程中创建副本，每个线程可以访问自己内部的副本变量
+         C. 一个ThreadLocal对象如果用完后没完全移除可能导致内存泄漏
+         D. ThreadLocal 是线程变量，属于当前线程，该变量对其他线程而言是隔离的
+
+4.  32，16，8，20，40 为小根堆的中序遍历，将其转为大根堆需要交换几次
+
+5.  哪个对
+         A. 左值用于实现移动语义
+         B. 移动语义是以移动而非深拷贝方式初始化含有指针成员的类对象
+
+6.  高为10的堆里（根节点的高是0）最少多少个节点，最多多少个
+
+7.  分页的内存利用率比分段高？
+
+8. 输出什么，还是会报错？
+
+```
+#include<iostream>
+using namespace std;
+
+int main(){
+    int a[2][4]={3,6,9,12,15,18,21,24};
+    cout<<*(a[1]+2)<<", "<<*(*(a+1)+2)<<", "<<2[1[a]]<<"\n";
+    return 0;
+}
+```
+
+9. 倒序输出test文件的内容
+```
+sort -k1 -r test
+awk '{for i=NR;i>0;i--) print}' test
+awk '{Line[NR]=$0}END {for(i=NR;i>0;i--) print Line[i]}' test
+awk '{Line[NR]=$1}END {for(i=NR;i>0;i--) print Line[i]}' test
+```
+
+10. 
+
+```
+public class HelloWorld {
+    public static void main(String []args) {
+       Forest f=new Forest();
+		try{
+			FileOutputStream fos=new FileOutputStream("forest.out");
+            ObjectOutputStream oos=new ObjectOutputStream(fos);
+            oos.writeObject(f);
+            oos.close();
+		}catch (IOException e){
+            e.print...();
+        }
+    }
+	class Forest implements Serializable{
+		private Tree tree=new Tree();
+	}
+	class Tree{}
+}
+// A. Forest 实例和Tree实例都被成功写入.out文件
+// B. Tree没写入
+// C. 编译通过，运行异常
+
+```
+
+11. 索引分配（不记得了）
+A. 索引分配保持了链接结构的优点，又解决了其缺点：按块分配可以消除外部碎片，按大小可改变的分区分配可以提高局部性。满足了文件动态增长，插入删除的要求。（只要有空闲块）能充分利用外存空间。
+B. 索引分配较多的寻道次数和寻道空间，索引表本身带来了系统开销
+C. 索引分配支持顺序访问文件和直接访问文件
+D. 
+
+12. 一个簇为一个单元，大小为2KB，一共5GB空间，位图法管理分区，存放位图需要多少个簇？
+
+13. 
+A. TCP 收到失序报文时会丢弃该报文并发送冗余ACK指明期望收到的下一个报文段
+B. 三次握手可能有SYN攻击
+C. 四次挥手可保证A发的最后一个ACK确认报文到达B
+
+14. 完全二叉树第5层有6个叶子，最少有多少个叶子节点
+
+15. 主机网络地址为 240.210.43.56，掩码为255.255.248.0，子网地址为
+
+---
+
+1A 2A 
+3C
+ThreadLocal 是线程共享的 不属于当前线程，应该调用remove
+4：3次
+5. B
+6：1024，2047
+7：对
+8：3个21
+9C
+10.
+12. 2500/8
+13. C
+14：11
+15：240.210.40.0
+
+---
+
+## 多选 10*3' 15min
+
+* 少：3、4、6、7、9
+* 错：5
+
+1. which true
+         A. 流量控制是端到端的(传输层)
+         B. 拥塞控制是全局性的
+         C. 拥塞窗口是固定的
+         D. 发送方的发送窗口取拥塞窗口和接收窗口中较大的一个
+
+2.  python3
+         A. is 和 == 表达的含义一样
+         B. print()表示一个函数
+         C. None 和空字符表示的意思一样
+         D. type()返回对象的数据类型
+
+3.  哪个对  python3
+         A. a,b=2,3
+         B. a if a>b else b
+         C. (1,)
+         D. a=(1,);a[0]=1
+         E. [i for i in range(4)]
+
+4.  选对的
+         A. delete 可删除表中数据不能直接删表
+         B. 主键可以为空
+         C. 一个多对多的关系的表，可以通过一个中间表分为2个一对多关系的表
+
+5.  选对的
+         A. NameNode 可以创建和删除数据块
+         B. NameNode 可以管理用于对数据文件的访问
+         C. NameNode 可以管理数据块和集群中存储节点的映射关系
+         D. NameNode 维护与文件系统相关元数据，如文件层次结构和每个文件块的位置
+
+6.  选对的
+         A. linux 将上半部中断和下半部中断分别对应硬中断和软中断
+         B. 硬中断的特点是延迟执行，软中断的特点是快速执行
+         C. /proc/softirqs 可查看软中断运行情况，/proc/interrupts 查看硬中断的运行情况
+         D. 软中断包括收发、定时、调度RCU锁，用异步方式工作
+
+7.  which need 跨域处理
+         A. 从http://www.a.com/a.js 访问 http://www.a.com/b.js
+         B. 从http://www.a.com/a.js 访问 http://www.b.com/b.js
+         C. 从http://www.a.com/a.js 访问 http://www.a.com:8080/b.js
+         D. 从http://www.a.com/a.js 访问 ?
+
+8.  which are HTTP 强缓存中涉及的字段
+         A. Pragma
+         B. Cache-Control
+         C. Etag
+         D. Expires
+
+9. 选对的
+         A. HTTP 1.1 默认短连接，可以通过Connection:keep-alive指定长连接
+         B. 短连接占服务器内存较少
+         C. 长连接适用于客户端和服务端频繁通信场景
+
+---
+1. AB 不固定、较小的一个
+2. BD 
+3. ABCE
+4. AC
+5. BCD（A是DataNode） https://blog.csdn.net/manbufenglin/article/details/109168795
+6. ABCD
+7. BC
+8. BD (Etag是协商缓存、弱缓存)    https://blog.csdn.net/qq_43263320/article/details/114623987?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114623987-blog-125808369.t5_download_0_7w&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114623987-blog-125808369.t5_download_0_7w&utm_relevant_index=1
+
+9. BC?（A是1.0版本）
+
+---
+
+## 编程 30'
+
+```
+// 思科 30' 31min 10% -27
+// 没时间debug了
+// n 人分成两组，每人能力为Ai
+// 两个教练轮流选人，第一个教练先选
+// 每次选时从剩下的人里选能力最大的，其左右两边的m个人也必须一起选走（不够m人就全部选完一侧的）
+// 输入 n  m n个能力值
+// 7 1 
+// 3 6 1 7 2 5 4 
+// 输出 BBAAABA
+
+// 输入 10  2
+// 4 8 9 10 7 6 5 3 2 1
+// 输出 BAAAAABBBA
+
+// 1<=ai<=n<=100000
+// 0<=m<n
+
+#include<iostream>
+#include<map>
+#include<vector>
+#include<algorithm>
+using namespace std;
+struct node{
+    node* next,*last;
+    int v,no;
+    node(int a,int o):v(a),no(o){
+        next=nullptr;
+        last=nullptr;
+    }
+};
+int main(){
+    int n,m;
+    map<int,node*> c;
+    cin>>n>>m;
+    int a;
+    node* head=new node(0,-1);
+    for(int i=0;i<n;i++){
+        cin>>a;
+        node* q=new node(a,i);
+        c[a]=q;
+        q->next=head->next;
+        if(q->next)
+            q->next->last=q;
+        head->next=q;
+        q->last=head;
+    }
+    string s;//=string('0',n);
+    for(int i=0;i<n;i++)
+        s.append("0");
+//     cout<<s<<"\n";
+    char ch='A';
+    while(c.size()>0){
+        auto v = *c.rbegin();
+        s[v.second->no]=ch;
+        // cout<<s<<"\n";
+        auto cv=v.second->next;
+        int cnt=0;
+        while(cnt<m&&cv){
+            cnt++;
+            s[cv->no]=ch;
+            // cout<<s<<"\n";
+            cv->last->next=cv->next;
+            if(cv->next)
+                cv->next->last=cv->last;
+            int vv=cv->v;
+            cv=cv->next;
+            c.erase(vv);
+        }
+        cnt=0;
+        cv=v.second->last;
+        while(cnt<m&&cv){
+            cnt++;
+            s[cv->no]=ch;
+            // cout<<s<<"\n";
+            cv->next->last=cv->last;
+            if(cv->last)
+                cv->last->next=cv->next;
+            int vv=cv->v;
+            cv=cv->last;
+            c.erase(vv);
+        }
+        // 注：由于抄题没时间了，做时少了以下四行，没能发现这个错误（虽然改了很多错误），只对了10%，考完后更正的。。。
+        auto q= v.second;
+        if(q->next)
+            q->next->last=q->last;
+        q->last->next=q->next;
+        c.erase(v.first);
+        ch=ch=='A'?'B':'A';
+    }
+//     reverse(s.begin(),s.end());
+    cout<<s;
+    return 0;
+}
+```
+
