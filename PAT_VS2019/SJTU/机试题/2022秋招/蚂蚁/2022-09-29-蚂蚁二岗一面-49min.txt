@@ -1,0 +1,1 @@
+虚函数可以内联吗```class a{public:  inline virtual void f(){    std::cout<<"a"<<std::endl;  }  ~a(){  }};class b:public a{public:  inline virtual void f() override{    std::cout<<"b"<<std::endl;  }  ~b(){  }};int main(){  a* ap=new b;  ap->f();  delete ap;  ap=nullptr;  return 0;}```叫我多看看数据库的内容。
