@@ -1,0 +1,77 @@
+全英面试，但一上来就做题，四题完了后就反问然后结束，好在面试官也说得不太熟
+
+1. 求int里1的个数是否为奇数
+2. 改错，求二叉树最大值（看成了二叉搜索树，写完后提示后再改的）
+3. 让修改账户balance值函数变成线程安全的（直接加了两个锁，伪代码）
+4. 实现一个模板最小堆
+
+都是给了一些代码然后填充实现的
+
+```
+// Complete the incomplete functions below as part of a Min Heap
+#include<vector>
+
+template <class T>
+class PriorityQueue
+{
+private:
+    std::vector<T> a;
+    
+public:
+  PriorityQueue(){
+      
+  }
+  
+  ~PriorityQueue(){
+      
+  }
+ 
+  const T& top() const{
+      if(a.size()>0)
+        return a[0];
+    //   else throw std::exception{
+          
+    //   }
+  }
+//    0
+//  1    2
+// 3 4. 5 6
+  void push(const T &value){
+      a.push_back(value);
+      int i=a.size()-1;
+      int fatheri;
+      while(i>0){
+          fatheri=(i-1)>>1;
+          if(a[fatheri]>a[i]){
+              swap(a[fatheri],a[i]);
+              i=fatheri;
+          }else break; 
+      }
+  }
+  
+  void pop(){
+      a[0]=a[a.size()-1];
+      a.pop_back();
+      int i=0;
+      while(i<a.size()){
+          int li=(i<<1)+1;
+          int ri=(i<<1)+2;
+          int nexti;
+          if(ri<a.size()){
+              if(a[li]<a[ri]){
+                  nexti=li;
+              }else nexti=ri;
+          }else if(li<a.size()){
+              nexti=li;
+          }
+          else break;
+          if(a[nexti]>=a[i])
+            break;
+          else {
+              swap(a[i],a[nexti]);
+              i=nexti;
+          }
+      }
+  }
+}
+```
