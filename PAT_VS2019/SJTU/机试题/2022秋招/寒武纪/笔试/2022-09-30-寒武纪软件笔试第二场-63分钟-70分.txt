@@ -1,0 +1,213 @@
+1. 中间面了个hr面，12分钟。
+
+2. 第二题扣10分（40%），第三题扣20分（80%），第四题一看以为完了不能及格了，dfs都打出来了，发现是任选一个，不是从两端选，连暴力都做不出来，后突然就想到从相对性角度考虑了，一遍过。。。生存与毁灭，就在一念之间。
+
+3. 后三题每个用例都是由多个用例构成的，难以偷分。。
+
+4. 每题题意都已大致写明在下面。
+
+```
+// 第一题
+// 7.5min 100% 25'
+// 识别出山峰点的个数，即比周围8个位置都大的点的个数
+// 1<=n<=100
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+    int n;cin>>n;
+    vector<string> a(n);
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    int d[8][2]={{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+    int ans=0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            bool h=1;
+            for(int k=0;k<8;k++){
+                int x=i+d[k][0],y=j+d[k][1];
+                if(0<=x&&x<n&&0<=y&&y<n){
+                    if(a[i][j]<=a[x][y]){
+                        h=0;break;
+                    }
+                }
+            }
+            if(h)ans++;
+        }
+    }
+    cout<<ans;
+    return 0;
+}
+
+
+// 第二题
+// 26min 60% 25'  -10'
+// 题目：d[0]=1, d数组的奇数位的值是前一位的值的两倍，偶数位的值比前一位的值多1
+// 求d的第n位（60>=n>=0,1<=t<=10)
+// 开始以为是数字太大了存不下，后改成python还是60%，改成字符串相加还是60%
+// 后打印出来发现最大也就32位就可以存下，因为有一半是在做加法，最多翻倍了30次
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+string add(string s1,string s2){
+    string ans;
+    int c=0;
+    for(int i=s1.length()-1,j=s2.length()-1;i>=0||j>=0;){
+        if(i>=0&&j>=0){
+            int a=s1[i]-'0' + s2[j]-'0'+c;
+            ans.append(string(1,'0'+(a%10)));
+            c=a/10;
+            i--,j--;
+        }else if(i>=0){
+            int a=s1[i]-'0'+c;
+            ans.append(string(1,'0'+(a%10)));
+            c=a/10;
+            i--;
+        }else{
+            int a=s2[j]-'0'+c;
+            ans.append(string(1,'0'+(a%10)));
+            c=a/10;
+            j--;
+        }
+    }
+    if(c>0)
+        ans.append(string(1,'0'+c));
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+int main(){
+    int t;cin>>t;
+    // 60%
+//     vector<unsigned long long> h;
+//     h.push_back(1);
+//     while(t--){
+//         int n;cin>>n;
+// //         cout<<h.size()<<", n="<<n<<"\n";
+//         if(n<h.size()) cout<<h[n]<<"\n";
+//         else{
+//             while(n>=h.size()){
+// //                 cout<<"back= "<<h.back()<<"\n";
+//                 h.push_back((h.size()%2==1)?h.back()*2LL:h.back()+1);
+// //                 cout<<"pushback= "<<h.back()<<"\n";
+//             }
+//             cout<<h[n]<<"\n";
+//         }
+//     }
+    
+    vector<string> h(61);
+    h[0]="1";
+    for(int i=1;i<=60;i++){
+        if(i%2==1){
+            h[i]=add(h[i-1],h[i-1]);
+        }else{
+            h[i]=add(h[i-1],"1");
+        }
+//         cout<<h[i]<<"\n";
+    }
+    while(t--){
+        int n;cin>>n;
+        if(t>0)
+            cout<<h[n]<<"\n";
+        else cout<<h[n];
+    }
+    return 0;
+}
+
+
+// 第二题 python 60%
+t=int(input())
+for i in range(t):
+    n=int(input())
+    a=1
+    for j in range(1,n+1):
+        if j&1 == 1:
+            a=a*2
+        else:
+            a=a+1
+    print(a)
+        
+
+// 第三题 22min 20% 25' -20'
+// 给出数组B，求数组A，A和B的长度一样，1<=A[i]<=B[i]
+// 使得 sum_{i=2}^N |A[i]-A[i-1]| 最大
+// 1<=t<=20, 1<=n<=100000
+// 1<=B[i]<=100
+
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        vector<int> b(n),a(n,0);
+        for(int i=0;i<n;i++)cin>>b[i];
+        int s=0,l1=0,l2=0;
+        for(int i=0;i<n;i++){
+            int j=i+1;
+            while(j<n&&b[j]>=b[j-1]) j++;
+            int s1=0,s2=0;
+            for(int k=i;k<j;k+=2)
+                s1+=b[k]-1;
+            for(int k=i+1;k<j;k+=2)
+                s2+=b[k]-1;
+            if(s1+l1<s2+l2)
+                s+=s2+l2;
+            else{
+                s+=s1+l1;
+            }
+//             s+=max(s1,s2);
+            if(j<n){
+                l1=b[j-1]-b[j];
+                l2=b[j-1]-1;
+//                 s+=b[j-1]-1;
+            }else l1=l2=0;
+            i=j;
+        }
+        s+=max(l1,l2);
+        cout<<s<<"\n";
+    }
+    return 0;
+}
+
+
+
+// 第四题 7min 20% 25' !!!
+// 整除游戏，给出一个数组a，A和B两人轮流操作，A先手
+// 每次操作是从数组里取一个数字
+// 最后A取的数字的和为Sa, B取的数字的和为Sb
+// 如果|Sa-Sb|能被3整除，则B赢，否则A赢
+// 1<=t<=100
+// 1<=ai<=2000
+// 1<=n<=2000
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        vector<int> a(n,0);
+        int e[3]={0};
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+            a[i]=a[i]%3;
+            e[a[i]]++;
+        }
+//         for(int i=0;i<3;i++)
+//             e[i]=e[i]%2;
+        if(e[1]%2!=0||e[2]%2!=0)
+            cout<<"Alice\n";
+        else cout<<"Bob\n";
+    }
+    return 0;
+}
+```
