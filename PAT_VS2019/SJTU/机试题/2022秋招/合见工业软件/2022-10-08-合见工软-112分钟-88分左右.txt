@@ -1,0 +1,398 @@
+https://www.nowcoder.com/discuss/1072323
+
+* 4号内推
+* 12:06 约笔试
+* 15:06 发笔试链接
+* 16:01 开始笔试
+* 17:53 做完笔试
+* 18:15 约明天面试
+
+### 多选 4x3'
+-2
+
+非抢占式调度有（）
+A. 时间片轮转
+B. 先来先服务
+C. 短进程作业优先
+D. 剩余时间最短者优先
+
+which true()
+
+A. 虚拟内存载入内存时允许分多次载入
+B. unix 系统中关闭swap后无法使用虚拟内存
+C. 虚拟内存是连续的
+D. 虚拟内存实际容量由CPU寻址范围决定
+
+AB；ABC ?
+
+### 15' 问答
+编程求二叉树中两节点之间的距离（不需要测试）
+
+```
+#include <iostream>
+#include <vector>
+using namespace std;
+struct node
+{
+	node *left;
+	node *right;
+};
+
+void getPath(vector<const node *> &path, const node *t, const node *root)
+{
+	path.push_back(root);
+	if (t == root)
+		return;
+	if (root->left)
+		getPath(path, t, root->left);
+	if (path.back() == t)
+		return;
+	if (root->right)
+		getPath(path, t, root->right);
+	if (path.back() == t)
+		return;
+	else
+		path.pop_back();
+}
+
+int getDistance(node *a, node *b, node *root)
+{
+	if (a == nullptr || b == nullptr || root == nullptr)
+		return -1;
+	vector<const node *> pa, pb;
+	getPath(pa, a, root);
+	if (pa.size() == 0)
+		return -1;
+	getPath(pb, b, root);
+	if (pb.size() == 0)
+		return -1;
+	int i = 0;
+	while (i < pa.size() && i < pb.size())
+	{
+		if (pa[i] != pb[i])
+		{
+			return pa.size() + pb.size() - i * 2;
+		}
+		i++;
+	}
+	return abs(pa.size() - pb.size());
+}
+```
+
+### 15' 编程
+用 C 实现basename（取最后一个 '/' 后面的字符串 ）
+
+```
+// 15' 8min 100%
+// "/usr/lib" -> "lib"
+// 不使用任何库函数
+char* my_basename(char* path, int pathLen, int* returnSize ) {
+    int i = pathLen-1;
+    while(i>=0&&path[i]!='/') i--;
+    if(i==-1) {
+        *returnSize=pathLen;
+        return path;
+    }
+    else if(i==pathLen-1){
+        *returnSize=0;
+        char* p=(char*)malloc(1);
+        *p='\0';
+        return p;
+    }
+    *returnSize=pathLen-i-1;
+    return &(path[i+1]);
+}
+```
+
+### 58' 41个单选
+3、4、8、11、14、15、16、
+
+1. 
+```pyth
+s=" I like py "
+s.strip()
+s.rstrip()
+```
+
+2.
+
+```
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class a{
+	public:
+	virtual void dis(){cout<<"a";}
+};
+
+class b:public a{
+	public:
+	void dis(){cout<<"B";}
+};
+
+class c:public b{
+	public:
+	void dis(){cout<<"C";}
+};
+
+// f的参数是什么类型
+// A. c& p  
+// B. a& p
+// C. c p
+// D. a p 
+void f( ){ 
+	p.dis();
+}
+
+int main(){
+	c c1;
+	f(c1); // 要求输出 a
+	return 0;
+}
+```
+
+3. 单例模式中无抽象层，因此单例难以进行类的扩展。（）
+
+4. 优化递归程序一般用（）
+A. 循环优化
+B. 尾递归优化
+C. 堆栈优化
+D. 停止值优化
+
+5. mysql 中 `not between 2 and 10` 指不属于 [2,10] 闭区间？
+
+6. 某个子模块为其他模块提供访问不同数据库系统的功能，访问接口有些不同，哪种设计模式可以抽象出相同的数据库访问过程（连接数据库、打开数据库、查询数据）
+A. 装饰
+B. 外观
+C. 单件
+D. 模板方法
+
+7. 30位单字长指令，地址码为10位，已定义了1000条二地址指令，还可以定义多少条单地址指令
+A. 12k
+B. 24k
+C. 6k
+D. 2k
+
+8. `int a=4;` `++(a++)` 表达式的值是？
+A. 5
+B. 6
+C. 7
+D. 都不对
+
+9. linux if [ $$2$ -a $$2$ = "test" ]，-a 的意思是
+A. 减
+B. 大于
+C. 并且
+D. 全部
+
+10. reg[7:0] mema[15:0] 表示该存储器有8个16位的寄存器 （）
+
+11. python 类里函数前的 @property 表示私有属性？
+
+12. __co 统计创建的类对象的个数
+```
+class r:
+    __co=0
+    def __init__(self,w,h):
+        r.__co+=1
+```
+
+13. data的地址是x，则data[1][5].c 的地址是
+A. x+365
+B. x+159
+C. x+368
+D. x+215
+
+```
+struct Date{ // 64位系统
+	char a;
+	int b;
+	int64_t c;
+	char d;
+};
+
+int main(){
+	Date date[2][10];
+	cout<<date<<"\n";
+	cout<<&date[1][5]<<"\n";
+	cout<<&date[1][5].c<<"\n";
+	cout<<(&date[1][5]-*date)<<"\n";
+	cout<<sizeof(Date)<<"\n";
+	return 0;
+}
+```
+
+14. which wrong:
+A. 编译时的多态性可通过函数重载实现
+B. C++语言的多态性可分为编译时多态性和运行时多态性
+C. 运行时多态性可通过模板和虚函数实现
+D. 实现运行时多态性的机制称为动态绑定
+
+15. Verilog task which wrong
+A. 可以没有或者可以有一个或多个输入、输出和双向端口
+B. 任务内可包含延时语句、敏感事件控制语句
+C. 没有返回值
+D. 任务内不能出现always语句，但可以有initial语句
+
+16. linux umask=244， 创建一个新文件，权限是？
+A. -r-xr--r--
+B. --w-r--r--
+C. -r---w--w-
+D. -r-x-wx-wx
+
+![image|690x533](upload://p22HD312j5ZwUlCP8l6NXVZ1Y3E.jpeg)
+
+
+17. 5, 5, 14, 38, 87, ()
+A. 68
+B. 167
+C. 169 
+D. 170
+
+18. 输出什么？
+
+```
+struct A{
+	void foo(){cout<<"foo";}
+	virtual void bar(){cout<<"bar";}
+	A(){bar();}
+};
+
+struct B:A{
+	void foo(){cout<<"b_foo";}
+	void bar(){cout<<"b_bar";}
+};
+
+int main(){
+	A* p=new B;
+	p->foo();
+	p->bar();
+	return 0;
+}
+```
+
+19. 输出什么
+
+```
+void f(char s[100]){
+	cout<<sizeof(s)<<endl;
+}
+
+int main(){
+	char st[]="Hello";
+	cout<<sizeof(st);
+	char* p=st;
+	cout<<sizeof(p);
+	f("test");
+	return 0;
+}
+```
+
+20. 1500 个灯亮着，编号为1-1500，切换编号为2的倍数的灯的开关，然后切换编号为5的倍数的灯的开关，最后切换编号为7的倍数的灯的开关，还有几盏灯亮着？
+A. 514
+B. 236
+C. 750
+D. 535
+
+![image|690x514](upload://2XQhGfBvQTORHdKSwpfWnGcivR8.png)
+
+
+21. 哪个对
+
+A. 栈溢出
+B. 不能编译
+C. 段错误
+D. 都不对
+
+```
+class m{
+public:
+    void f(){
+		delete this;
+	}
+};
+
+void func(){
+	m* a=new m();
+	a->f();
+}
+
+int main(){
+	func();
+	return 0;
+}
+```
+
+22. 哪几个有错误
+
+```
+int i=10;
+int j=1;
+const int* p1; // 1
+int const* p2= &i; // 2
+p2=&j; // 3
+int* const p3 = &i; // 4
+*p3=20; // 5
+*p2=30; // 6
+p3=&j; // 7
+```
+
+A. 1 3 5 6
+B. 1-7
+C. 6 7
+D. 3 5
+E. 其他
+
+
+----
+----
+1. 输出：
+> 'I like py'
+> ' I like py'
+
+2.  D; 
+3. 对
+4. B
+5. 对
+6. B
+7. B
+8. D
+9. C
+10. 对
+11. 错，只读属性
+12. 对
+13. C
+14. C 模板是静态多态
+15. D
+16. C
+17. B
+做差，找规律
+
+![image|690x279](upload://1dOQuM2tnoaYGrXozuwPYY1ncfY.jpeg)
+
+
+18. barfoob_bar
+19. 688
+20. C
+21. D
+22. C
+
+10-09-一面
+58分钟电话。。
+
+最后问砸鸡蛋想了得有几十分钟，非要我想出来不可
+
+100层楼，2个鸡蛋，问放法
+
+还说是小学奥数，不要用dp
+
+隐约记得是要14次，但凑不出来：
+
+第一步放15层，碎了尝试1-13层，一共14次
+
+第二步放15+14层，碎了尝试16-27层，一共14次
+
+第三步放29+13=42层，碎了尝试30-40层，一共14次
+
+之后54、65、75、84、92、99
