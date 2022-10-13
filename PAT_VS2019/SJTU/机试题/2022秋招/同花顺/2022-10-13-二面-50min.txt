@@ -1,0 +1,40 @@
+面试官调试了10分钟麦，
+
+说复试面试30分钟，然后实际面了差不多40分钟
+
+盯着问并行模型
+
+TCP三次握手两个队列、网络系统调用
+
+怎么支持一个百万级并发的查询任务系统，怎么去监听、io复用、接收数据、处理查询
+
+有没有了解过redis mongodb开源项目
+
+操作系统启动时的加载过程
+
+怎么看待程序员职业
+怎么看待35岁退休危机
+怎么看待加班
+
+```
+#include <iostream>
+#include <vector>
+
+int main()
+{
+	uint32_t N, uniqueElement = 0, t;
+	std::cin >> N;
+	// std::vector<uint32_t> a(N,0);
+	for (uint32_t i = 0; i < N; i++)
+	{
+		std::cin >> t;
+		uniqueElement ^= t;
+	}
+	// a^b a   b
+	// 101 100 1
+	std::cout << "The unique element is " << uniqueElement << std::endl;
+	return 0;
+}
+```
+
+面试题，数组里一个数出现了一次，其他数出现了两次，找出来; 如果有两数出现了一次，怎么找？
