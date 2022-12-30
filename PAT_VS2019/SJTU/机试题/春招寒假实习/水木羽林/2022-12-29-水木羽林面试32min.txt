@@ -1,0 +1,24 @@
+### 2022-12-29-面试-32min
+
+右值引用的场景举例
+返回值加move
+这个不算，编译器早就知道怎么做返回值优化了
+for(auto&&
+和左值引用有啥区别
+
+移动拷贝和移动构造的使用场景
+
+目标文件.o是啥格式的
+
+Optional 类的析构函数怎么理解？
+无参构造函数里怎么避免调用数据成员data的T()构造函数？
+T如果是个int*怎么析构？指针不一定指向堆上的内存。
+
+
+https://blog.csdn.net/chenlong_cxy/article/details/126747523
+
+最后有避免调用T构造函数的例子
+
+有人用chatgpt也找到了解，只是不是很完善
+
+https://shuiyuan.sjtu.edu.cn/t/topic/124501/5
