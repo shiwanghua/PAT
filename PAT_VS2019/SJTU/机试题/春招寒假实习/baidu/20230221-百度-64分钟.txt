@@ -1,0 +1,39 @@
+
+// forget 天后忘记秘密  4
+// delay 天后每天分享给一个新的人  2
+// n 天结束时有多少人知道秘密
+
+// 4 2 6
+// day:  1 2 3 4 5 6 
+// num:  1 1 2 3 3 5
+// new:  1 0 1 1 2 2
+
+// n<=10
+
+int numKnowSecret(int f,int d,int n){
+    // forget >= delay
+
+    // dp[i][j]; 第 i 天有多少人知道了秘密 j 天
+    // dnew[i] 第 i 天有多少人被告知秘密
+
+    // 1<=i<=n   1<=j<=delay
+
+    // if 1 < j < delay
+    //      dp[i][j] = dp[i-1][j-1]
+    // else if j == delay
+    //      dp[i][j] = dp[i-1][j-1]
+
+    // dnew[1]= 1
+    // 1<i<delay:
+    // dnew[i]=0;
+    // i>=delay:
+    // dnew[i] = dnew[i-delay]+...+dnew[max(1,i-forget)]
+
+    // ans: sum(dnew[n-forget:n+1])
+}
+
+int main()
+{
+    
+    return 0;
+}
